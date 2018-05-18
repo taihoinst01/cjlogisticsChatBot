@@ -1,0 +1,116 @@
+C:\Users\micha\Source\Repos\portChatBot\obj\Debug\PortChatBot.csprojResolveAssemblyReference.cache
+C:\Users\micha\Source\Repos\portChatBot\obj\Debug\PortChatBot.csproj.CoreCompileInputs.cache
+C:\Users\micha\Source\Repos\portChatBot\obj\Debug\Bot Application.dll
+C:\Users\micha\Source\Repos\portChatBot\obj\Debug\Bot Application.pdb
+C:\Users\micha\Source\Repos\portChatBot\bin\Bot Application.dll.config
+C:\Users\micha\Source\Repos\portChatBot\bin\Bot Application.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Bot Application.pdb
+C:\Users\micha\Source\Repos\portChatBot\bin\Autofac.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Castle.Core.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Chronic.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Bot.Builder.Autofac.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Bot.Builder.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Bot.Connector.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Protocols.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Rest.ClientRuntime.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Moq.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Newtonsoft.Json.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\System.Net.Http.Formatting.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\System.Web.Http.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\System.Web.Http.WebHost.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\Autofac.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Castle.Core.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Bot.Builder.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Bot.Builder.Autofac.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Bot.Connector.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Protocols.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.Rest.ClientRuntime.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Microsoft.WindowsAzure.Configuration.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Moq.pdb
+C:\Users\micha\Source\Repos\portChatBot\bin\Moq.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\Newtonsoft.Json.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\System.Net.Http.Formatting.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\System.Web.Http.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\System.Web.Http.WebHost.xml
+C:\Users\micha\Source\Repos\portChatBot\bin\ar\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\cs\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\de-dE\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\en\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\es\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\fa\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\fr\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\it\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\ja\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\nl\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\pt-BR\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\ru\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\portChatBot\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Bot Application.dll.config
+D:\taihoinst\portChatBot\portChatBot\bin\Bot Application.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Bot Application.pdb
+D:\taihoinst\portChatBot\portChatBot\bin\Autofac.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Castle.Core.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Chronic.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Bot.Builder.Autofac.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Bot.Builder.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Bot.Connector.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Logging.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Protocols.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Tokens.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Rest.ClientRuntime.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.WindowsAzure.Configuration.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Moq.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Newtonsoft.Json.dll
+D:\taihoinst\portChatBot\portChatBot\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\taihoinst\portChatBot\portChatBot\bin\System.Net.Http.Formatting.dll
+D:\taihoinst\portChatBot\portChatBot\bin\System.Web.Http.dll
+D:\taihoinst\portChatBot\portChatBot\bin\System.Web.Http.WebHost.dll
+D:\taihoinst\portChatBot\portChatBot\bin\Autofac.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Castle.Core.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Bot.Builder.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Bot.Builder.Autofac.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Bot.Connector.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Logging.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Protocols.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.IdentityModel.Tokens.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.Rest.ClientRuntime.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Microsoft.WindowsAzure.Configuration.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Moq.pdb
+D:\taihoinst\portChatBot\portChatBot\bin\Moq.xml
+D:\taihoinst\portChatBot\portChatBot\bin\Newtonsoft.Json.xml
+D:\taihoinst\portChatBot\portChatBot\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\taihoinst\portChatBot\portChatBot\bin\System.Net.Http.Formatting.xml
+D:\taihoinst\portChatBot\portChatBot\bin\System.Web.Http.xml
+D:\taihoinst\portChatBot\portChatBot\bin\System.Web.Http.WebHost.xml
+D:\taihoinst\portChatBot\portChatBot\bin\ar\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\cs\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\de-dE\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\en\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\es\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\fa\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\fr\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\it\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\ja\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\nl\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\pt-BR\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\ru\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
+D:\taihoinst\portChatBot\portChatBot\obj\Debug\PortChatBot.csprojResolveAssemblyReference.cache
+D:\taihoinst\portChatBot\portChatBot\obj\Debug\PortChatBot.csproj.CoreCompileInputs.cache
+D:\taihoinst\portChatBot\portChatBot\obj\Debug\Bot Application.dll
+D:\taihoinst\portChatBot\portChatBot\obj\Debug\Bot Application.pdb

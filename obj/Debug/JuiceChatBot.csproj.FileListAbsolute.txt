@@ -1,0 +1,58 @@
+C:\Users\micha\Source\Repos\88JuiceChatBot\obj\Debug\JuiceChatBot.csproj.CoreCompileInputs.cache
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Bot Application.dll.config
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Bot Application.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Bot Application.pdb
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Autofac.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Castle.Core.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Chronic.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Bot.Builder.Autofac.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Bot.Builder.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Bot.Connector.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Protocols.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Rest.ClientRuntime.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Moq.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Newtonsoft.Json.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.Net.Http.Formatting.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.Web.Http.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.Web.Http.WebHost.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Autofac.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Castle.Core.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Bot.Builder.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Bot.Builder.Autofac.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Bot.Connector.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Protocols.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.Rest.ClientRuntime.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Microsoft.WindowsAzure.Configuration.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Moq.pdb
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Moq.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\Newtonsoft.Json.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.Net.Http.Formatting.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.Web.Http.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\System.Web.Http.WebHost.xml
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\ar\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\cs\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\de-dE\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\en\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\es\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\fa\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\fr\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\it\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\ja\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\nl\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\pt-BR\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\ru\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\obj\Debug\JuiceChatBot.csprojResolveAssemblyReference.cache
+C:\Users\micha\Source\Repos\88JuiceChatBot\obj\Debug\Bot Application.dll
+C:\Users\micha\Source\Repos\88JuiceChatBot\obj\Debug\Bot Application.pdb

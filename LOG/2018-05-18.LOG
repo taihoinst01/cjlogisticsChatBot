@@ -1,0 +1,17 @@
+05-18-2018 02:18:20.767: db connect !! 
+05-18-2018 02:18:21.307: 'C:\Users\Taiho_KSO\source\repos\cjlogisticsChatBot\LOG\2018-05-18.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+05-18-2018 02:18:22.922: db SelectConfig start !! 
+05-18-2018 02:18:23.257: db conn SelectConfig !!
+05-18-2018 02:18:23.297: * cnfNm : 루이스제한 || cnfValue : 3000
+05-18-2018 02:18:23.307: * cnfNm : 루이스구독 || cnfValue : a265ac9483254bcbac9ef777e11d36a4
+05-18-2018 02:18:23.317: * cnfNm : 루이스스코어 || cnfValue : 0.1
+05-18-2018 02:18:23.327: * cnfNm : port_luis_02 || cnfValue : 8774e3d9-5e72-481f-9e2f-7c373439383d
+05-18-2018 02:18:23.335: db SelectConfig end!! 
+05-18-2018 02:18:23.425: * DB conn : conversationUpdate
+05-18-2018 02:18:23.452:  db SelectInitDialog !! 
+05-18-2018 02:18:23.587: * ConversationUpdate : dlgType is not CARDDLG 
+05-18-2018 02:18:23.597: * ConversationUpdate : dlgType is not CARDDLG | NOT facebook
+05-18-2018 02:18:23.719: * activity.Type : 
+05-18-2018 02:18:23.728: * activity.Recipient.Id : 3hhdgaeafkna
+05-18-2018 02:18:23.735: * activity.ServiceUrl : http://localhost:5387
+05-18-2018 02:18:23.743: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]

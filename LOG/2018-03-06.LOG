@@ -1,0 +1,612 @@
+03-06-2018 10:39:38.637: db connect !! 
+03-06-2018 10:39:38.708: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 10:39:38.730: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 10:39:38.835: db conn SelectConfig !!
+03-06-2018 10:39:38.846: db SelectConfig end!! 
+03-06-2018 10:39:38.850: * DB conn : conversationUpdate
+03-06-2018 10:39:38.860:  db SelectInitDialog !! 
+03-06-2018 10:39:39.406: db connect !! 
+03-06-2018 10:39:39.431: db connect !! 
+03-06-2018 10:39:39.436: db SelectConfig start !! 
+03-06-2018 10:39:39.441: db conn SelectConfig !!
+03-06-2018 10:39:39.451: db SelectConfig end!! 
+03-06-2018 10:39:39.457: * DB conn : conversationUpdate
+03-06-2018 10:39:39.466:  db SelectInitDialog !! 
+03-06-2018 10:39:39.784: * activity.Type : 
+03-06-2018 10:39:39.788: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 10:39:39.792: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 10:39:39.796: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 10:39:40.175: * activity.Type : 
+03-06-2018 10:39:40.179: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 10:39:40.182: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 10:39:40.186: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 10:39:54.669: db connect !! 
+03-06-2018 10:39:54.673: * activity.Type == ActivityTypes.Message 
+03-06-2018 10:39:54.701: *** orgMent : 20133001
+03-06-2018 10:39:54.719: cacheList.luisIntent : userFail
+03-06-2018 10:39:54.803: *** loginStatus : N
+03-06-2018 10:39:54.807: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 10:39:54.812: *** orgMent : 20133001
+03-06-2018 10:39:54.822: *** fullentity : userFail
+03-06-2018 10:39:54.827: fullentity : userFail
+03-06-2018 10:39:54.838: relationList[0].dlgApiDefine : D
+03-06-2018 10:39:54.842: apiFlag : COMMON | relationList.Count : 1
+03-06-2018 10:39:54.846: * MessagesController.relationList.Count : 1
+03-06-2018 10:39:54.857: dlg.dlgType : 2
+03-06-2018 10:39:54.862: * activity.ChannelId : emulator
+03-06-2018 10:39:54.865: * dlg.dlgId : 4 | dlg.cardText : 입력된 ID가 존재하지 않습니다. 확인 후 재입력 하시기 바랍니다.
+03-06-2018 10:39:54.871: * commonReply.Attachments.Count : 1
+03-06-2018 10:39:56.959: db connect !! 
+03-06-2018 10:39:56.965: * activity.Type == ActivityTypes.Message 
+03-06-2018 10:39:56.981: *** orgMent : 20133003
+03-06-2018 10:39:57.000: cacheList.luisIntent : userOk
+03-06-2018 10:39:57.011: *** loginStatus : N
+03-06-2018 10:39:57.016: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 10:39:57.020: *** orgMent : 20133003
+03-06-2018 10:39:57.032: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 10:39:57.058: *** fullentity : userOk
+03-06-2018 10:39:57.062: fullentity : userOk
+03-06-2018 10:39:57.076: relationList[0].dlgApiDefine : D
+03-06-2018 10:39:57.081: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 10:39:57.086: 0{fbLeftCardCnt} :: conversationhistory.commonBeforeQustion : 20133001
+03-06-2018 10:39:57.090: * MessagesController.relationList.Count : 4
+03-06-2018 10:39:57.100: dlg.dlgType : 2
+03-06-2018 10:39:57.106: * activity.ChannelId : emulator
+03-06-2018 10:39:57.111: * dlg.dlgId : 3 | dlg.cardText : 환영합니다. #OPTIONS
+03-06-2018 10:39:57.117: *** activity.Conversation.Id : 3bal73dd9kil | dlg.cardText : 환영합니다. #OPTIONS | fullentity : userOk
+03-06-2018 10:39:57.121: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 10:39:57.126: * commonReply.Attachments.Count : 1
+03-06-2018 10:39:57.137: dlg.dlgType : 2
+03-06-2018 10:39:57.143: * activity.ChannelId : emulator
+03-06-2018 10:39:57.147: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 10:39:57.152: * commonReply.Attachments.Count : 1
+03-06-2018 10:39:57.166: dlg.dlgType : 2
+03-06-2018 10:39:57.170: * activity.ChannelId : emulator
+03-06-2018 10:39:57.175: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 10:39:57.180: * commonReply.Attachments.Count : 1
+03-06-2018 10:39:57.194: dlg.dlgType : 4
+03-06-2018 10:39:57.200: * activity.ChannelId : emulator
+03-06-2018 10:39:57.206: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 10:39:57.213: CARD IMG START
+03-06-2018 10:39:57.218: CARD BTN1 START
+03-06-2018 10:39:57.222: CARD BTN2 START
+03-06-2018 10:39:57.227: CARD BTN3 START
+03-06-2018 10:39:57.231: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 10:39:57.236: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 10:39:57.240: * commonReply.Attachments.Count : 1
+03-06-2018 11:08:31.114: db connect !! 
+03-06-2018 11:08:31.174: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 11:08:31.194: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 11:08:31.309: db conn SelectConfig !!
+03-06-2018 11:08:31.317: db SelectConfig end!! 
+03-06-2018 11:08:31.323: * DB conn : conversationUpdate
+03-06-2018 11:08:31.332:  db SelectInitDialog !! 
+03-06-2018 11:08:32.195: * activity.Type : 
+03-06-2018 11:08:32.199: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 11:08:32.204: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 11:08:32.208: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 11:08:33.575: db connect !! 
+03-06-2018 11:08:33.581: * activity.Type == ActivityTypes.Message 
+03-06-2018 11:08:33.605: *** orgMent : 20133003
+03-06-2018 11:08:33.623: cacheList.luisIntent : userOk
+03-06-2018 11:08:33.692: *** loginStatus : N
+03-06-2018 11:08:33.698: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 11:08:33.701: *** orgMent : 20133003
+03-06-2018 11:08:33.707: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 11:08:33.734: *** fullentity : userOk
+03-06-2018 11:08:33.740: fullentity : userOk
+03-06-2018 11:08:33.757: relationList[0].dlgApiDefine : D
+03-06-2018 11:08:33.764: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 11:08:33.768: * MessagesController.relationList.Count : 4
+03-06-2018 11:08:33.793: dlg.dlgType : 2
+03-06-2018 11:08:33.799: * activity.ChannelId : emulator
+03-06-2018 11:08:33.803: * dlg.dlgId : 3 | dlg.cardText : 환영합니다. #OPTIONS
+03-06-2018 11:08:33.810: *** activity.Conversation.Id : 6ddmfb5118c3 | dlg.cardText : 환영합니다. #OPTIONS | fullentity : userOk
+03-06-2018 11:08:33.814: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 11:08:33.819: * commonReply.Attachments.Count : 1
+03-06-2018 11:08:33.843: dlg.dlgType : 2
+03-06-2018 11:08:33.846: * activity.ChannelId : emulator
+03-06-2018 11:08:33.850: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 11:08:33.855: * commonReply.Attachments.Count : 1
+03-06-2018 11:08:33.868: dlg.dlgType : 2
+03-06-2018 11:08:33.872: * activity.ChannelId : emulator
+03-06-2018 11:08:33.876: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 11:08:33.879: *** dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 11:08:33.885: * commonReply.Attachments.Count : 1
+03-06-2018 11:08:33.902: dlg.dlgType : 4
+03-06-2018 11:08:33.907: * activity.ChannelId : emulator
+03-06-2018 11:08:33.911: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 11:08:33.915: CARD IMG START
+03-06-2018 11:08:33.918: CARD BTN1 START
+03-06-2018 11:08:33.923: CARD BTN2 START
+03-06-2018 11:08:33.927: CARD BTN3 START
+03-06-2018 11:08:33.931: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 11:08:33.934: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 11:08:33.939: * commonReply.Attachments.Count : 1
+03-06-2018 01:20:29.444: db connect !! 
+03-06-2018 01:20:29.505: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 01:20:29.526: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 01:20:29.626: db conn SelectConfig !!
+03-06-2018 01:20:29.636: db SelectConfig end!! 
+03-06-2018 01:20:29.642: * DB conn : conversationUpdate
+03-06-2018 01:20:29.652:  db SelectInitDialog !! 
+03-06-2018 01:20:30.727: * activity.Type : 
+03-06-2018 01:20:30.732: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 01:20:30.737: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 01:20:30.741: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 01:20:44.272: db connect !! 
+03-06-2018 01:20:44.276: * activity.Type == ActivityTypes.Message 
+03-06-2018 01:20:44.306: *** orgMent : 20133001
+03-06-2018 01:20:44.369: cacheList.luisIntent : userFail
+03-06-2018 01:20:44.433: *** loginStatus : N
+03-06-2018 01:20:44.437: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 01:20:44.441: *** orgMent : 20133001
+03-06-2018 01:20:44.451: *** fullentity : userFail
+03-06-2018 01:20:44.455: fullentity : userFail
+03-06-2018 01:20:44.469: relationList[0].dlgApiDefine : D
+03-06-2018 01:20:44.474: apiFlag : COMMON | relationList.Count : 1
+03-06-2018 01:20:44.479: * MessagesController.relationList.Count : 1
+03-06-2018 01:20:44.493: dlg.dlgType : 2
+03-06-2018 01:20:44.503: * activity.ChannelId : emulator
+03-06-2018 01:20:44.514: * dlg.dlgId : 4 | dlg.cardText : The ID entered does not exist. Please check and re-enter.
+03-06-2018 01:20:44.526: * commonReply.Attachments.Count : 1
+03-06-2018 01:20:46.525: db connect !! 
+03-06-2018 01:20:46.530: * activity.Type == ActivityTypes.Message 
+03-06-2018 01:20:46.546: *** orgMent : 20133003
+03-06-2018 01:20:46.567: cacheList.luisIntent : userOk
+03-06-2018 01:20:46.578: *** loginStatus : N
+03-06-2018 01:20:46.583: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 01:20:46.587: *** orgMent : 20133003
+03-06-2018 01:20:46.597: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 01:20:46.621: *** fullentity : userOk
+03-06-2018 01:20:46.626: fullentity : userOk
+03-06-2018 01:20:46.641: relationList[0].dlgApiDefine : D
+03-06-2018 01:20:46.646: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 01:20:46.651: 0{fbLeftCardCnt} :: conversationhistory.commonBeforeQustion : 20133001
+03-06-2018 01:20:46.657: * MessagesController.relationList.Count : 4
+03-06-2018 01:20:46.672: dlg.dlgType : 2
+03-06-2018 01:20:46.679: * activity.ChannelId : emulator
+03-06-2018 01:20:46.684: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 01:20:46.689: *** activity.Conversation.Id : 0a518gidi31l | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 01:20:46.694: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 01:20:46.702: * commonReply.Attachments.Count : 1
+03-06-2018 01:20:46.717: dlg.dlgType : 2
+03-06-2018 01:20:46.722: * activity.ChannelId : emulator
+03-06-2018 01:20:46.727: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 01:20:46.733: * commonReply.Attachments.Count : 1
+03-06-2018 01:20:46.745: dlg.dlgType : 2
+03-06-2018 01:20:46.749: * activity.ChannelId : emulator
+03-06-2018 01:20:46.753: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 01:20:46.757: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 01:20:46.763: * commonReply.Attachments.Count : 1
+03-06-2018 01:20:46.778: dlg.dlgType : 4
+03-06-2018 01:20:46.783: * activity.ChannelId : emulator
+03-06-2018 01:20:46.788: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 01:20:46.792: CARD IMG START
+03-06-2018 01:20:46.797: CARD BTN1 START
+03-06-2018 01:20:46.802: CARD BTN2 START
+03-06-2018 01:20:46.807: CARD BTN3 START
+03-06-2018 01:20:46.813: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 01:20:46.818: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 01:20:46.824: * commonReply.Attachments.Count : 1
+03-06-2018 02:28:06.445: db connect !! 
+03-06-2018 02:28:06.505: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 02:28:06.525: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 02:28:06.673: db conn SelectConfig !!
+03-06-2018 02:28:06.684: db SelectConfig end!! 
+03-06-2018 02:28:06.690: * DB conn : conversationUpdate
+03-06-2018 02:28:06.701:  db SelectInitDialog !! 
+03-06-2018 02:28:07.726: * activity.Type : 
+03-06-2018 02:28:07.732: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 02:28:07.737: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 02:28:07.742: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 02:28:09.904: db connect !! 
+03-06-2018 02:28:09.910: * activity.Type == ActivityTypes.Message 
+03-06-2018 02:28:09.940: *** orgMent : 20133003
+03-06-2018 02:28:09.961: cacheList.luisIntent : userOk
+03-06-2018 02:28:10.037: *** loginStatus : N
+03-06-2018 02:28:10.042: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 02:28:10.046: *** orgMent : 20133003
+03-06-2018 02:28:10.056: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 02:28:10.076: *** fullentity : userOk
+03-06-2018 02:28:10.081: fullentity : userOk
+03-06-2018 02:28:10.094: relationList[0].dlgApiDefine : D
+03-06-2018 02:28:10.098: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 02:28:10.102: * MessagesController.relationList.Count : 4
+03-06-2018 02:28:10.117: dlg.dlgType : 2
+03-06-2018 02:28:10.122: * activity.ChannelId : emulator
+03-06-2018 02:28:10.129: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 02:28:10.133: *** activity.Conversation.Id : 08d9kllcal7ig | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 02:28:10.137: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 02:28:10.142: * commonReply.Attachments.Count : 1
+03-06-2018 02:28:10.154: dlg.dlgType : 2
+03-06-2018 02:28:10.157: * activity.ChannelId : emulator
+03-06-2018 02:28:10.162: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 02:28:10.166: * commonReply.Attachments.Count : 1
+03-06-2018 02:28:10.177: dlg.dlgType : 2
+03-06-2018 02:28:10.183: * activity.ChannelId : emulator
+03-06-2018 02:28:10.188: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 02:28:10.193: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 02:28:10.206: *** SELECT weatherList : Exist | name : sunny                                             
+03-06-2018 02:28:10.211: *** weatherInfo : 10                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 38%11                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 40%12                                                :00/28/2 /2018, cloudy                                            , Rainfall 20%, Wind 2m/s, Humidity 50%
+03-06-2018 02:28:10.214: *** fullentity : userOk
+03-06-2018 02:28:10.219: * commonReply.Attachments.Count : 1
+03-06-2018 02:28:10.230: dlg.dlgType : 4
+03-06-2018 02:28:10.234: * activity.ChannelId : emulator
+03-06-2018 02:28:10.238: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 02:28:10.243: CARD IMG START
+03-06-2018 02:28:10.247: CARD BTN1 START
+03-06-2018 02:28:10.251: CARD BTN2 START
+03-06-2018 02:28:10.255: CARD BTN3 START
+03-06-2018 02:28:10.260: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 02:28:10.264: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 02:28:10.268: * commonReply.Attachments.Count : 1
+03-06-2018 02:30:04.845: db connect !! 
+03-06-2018 02:30:04.909: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 02:30:04.916: db SelectConfig start !! 
+03-06-2018 02:30:05.018: db conn SelectConfig !!
+03-06-2018 02:30:05.030: db SelectConfig end!! 
+03-06-2018 02:30:05.036: * DB conn : conversationUpdate
+03-06-2018 02:30:05.047:  db SelectInitDialog !! 
+03-06-2018 02:30:05.951: * activity.Type : 
+03-06-2018 02:30:05.957: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 02:30:05.963: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 02:30:05.969: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 02:30:08.035: db connect !! 
+03-06-2018 02:30:08.039: * activity.Type == ActivityTypes.Message 
+03-06-2018 02:30:08.069: *** orgMent : 20133003
+03-06-2018 02:30:08.089: cacheList.luisIntent : userOk
+03-06-2018 02:30:08.154: *** loginStatus : N
+03-06-2018 02:30:08.158: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 02:30:08.163: *** orgMent : 20133003
+03-06-2018 02:30:08.174: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 02:30:08.200: *** fullentity : userOk
+03-06-2018 02:30:08.205: fullentity : userOk
+03-06-2018 02:30:08.219: relationList[0].dlgApiDefine : D
+03-06-2018 02:30:08.224: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 02:30:08.230: * MessagesController.relationList.Count : 4
+03-06-2018 02:30:08.244: dlg.dlgType : 2
+03-06-2018 02:30:08.249: * activity.ChannelId : emulator
+03-06-2018 02:30:08.254: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 02:30:08.258: *** activity.Conversation.Id : 75h2l2al2b5l | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 02:30:08.263: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 02:30:08.268: * commonReply.Attachments.Count : 1
+03-06-2018 02:30:08.282: dlg.dlgType : 2
+03-06-2018 02:30:08.286: * activity.ChannelId : emulator
+03-06-2018 02:30:08.290: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 02:30:08.296: * commonReply.Attachments.Count : 1
+03-06-2018 02:30:08.307: dlg.dlgType : 2
+03-06-2018 02:30:08.312: * activity.ChannelId : emulator
+03-06-2018 02:30:08.316: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 02:30:08.320: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 02:30:08.329: *** SELECT weatherList : Exist | name : sunny                                             
+03-06-2018 02:30:08.334: *** weatherInfo : - 10                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 38% 
+- 11                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 40% 
+- 12                                                :00/28/2 /2018, cloudy                                            , Rainfall 20%, Wind 2m/s, Humidity 50% 
+
+03-06-2018 02:30:08.337: *** fullentity : userOk
+03-06-2018 02:30:08.342: * commonReply.Attachments.Count : 1
+03-06-2018 02:30:08.353: dlg.dlgType : 4
+03-06-2018 02:30:08.357: * activity.ChannelId : emulator
+03-06-2018 02:30:08.361: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 02:30:08.365: CARD IMG START
+03-06-2018 02:30:08.369: CARD BTN1 START
+03-06-2018 02:30:08.373: CARD BTN2 START
+03-06-2018 02:30:08.378: CARD BTN3 START
+03-06-2018 02:30:08.383: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 02:30:08.388: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 02:30:08.393: * commonReply.Attachments.Count : 1
+03-06-2018 02:32:30.850: db connect !! 
+03-06-2018 02:32:30.915: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 02:32:30.935: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 02:32:31.056: db conn SelectConfig !!
+03-06-2018 02:32:31.067: db SelectConfig end!! 
+03-06-2018 02:32:31.072: * DB conn : conversationUpdate
+03-06-2018 02:32:31.082:  db SelectInitDialog !! 
+03-06-2018 02:32:31.917: * activity.Type : 
+03-06-2018 02:32:31.923: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 02:32:31.929: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 02:32:31.933: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 02:32:41.156: db connect !! 
+03-06-2018 02:32:41.163: * activity.Type == ActivityTypes.Message 
+03-06-2018 02:32:41.194: *** orgMent : 20133001
+03-06-2018 02:32:41.214: cacheList.luisIntent : userFail
+03-06-2018 02:32:41.287: *** loginStatus : N
+03-06-2018 02:32:41.292: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 02:32:41.296: *** orgMent : 20133001
+03-06-2018 02:32:41.307: *** fullentity : userFail
+03-06-2018 02:32:41.311: fullentity : userFail
+03-06-2018 02:32:41.324: relationList[0].dlgApiDefine : D
+03-06-2018 02:32:41.329: apiFlag : COMMON | relationList.Count : 1
+03-06-2018 02:32:41.334: * MessagesController.relationList.Count : 1
+03-06-2018 02:32:41.347: dlg.dlgType : 2
+03-06-2018 02:32:41.351: * activity.ChannelId : emulator
+03-06-2018 02:32:41.356: * dlg.dlgId : 4 | dlg.cardText : The ID entered does not exist. Please check and re-enter.
+03-06-2018 02:32:41.361: * commonReply.Attachments.Count : 1
+03-06-2018 02:32:51.087: db connect !! 
+03-06-2018 02:32:51.092: * activity.Type == ActivityTypes.Message 
+03-06-2018 02:32:51.110: *** orgMent : 20133003
+03-06-2018 02:32:51.129: cacheList.luisIntent : userOk
+03-06-2018 02:32:51.139: *** loginStatus : N
+03-06-2018 02:32:51.144: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 02:32:51.149: *** orgMent : 20133003
+03-06-2018 02:32:51.160: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 02:32:51.188: *** fullentity : userOk
+03-06-2018 02:32:51.194: fullentity : userOk
+03-06-2018 02:32:51.209: relationList[0].dlgApiDefine : D
+03-06-2018 02:32:51.213: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 02:32:51.218: 0{fbLeftCardCnt} :: conversationhistory.commonBeforeQustion : 20133001
+03-06-2018 02:32:51.224: * MessagesController.relationList.Count : 4
+03-06-2018 02:32:51.239: dlg.dlgType : 2
+03-06-2018 02:32:51.245: * activity.ChannelId : emulator
+03-06-2018 02:32:51.251: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 02:32:51.256: *** activity.Conversation.Id : h8lebgjlc9ek | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 02:32:51.261: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 02:32:51.268: * commonReply.Attachments.Count : 1
+03-06-2018 02:32:51.281: dlg.dlgType : 2
+03-06-2018 02:32:51.286: * activity.ChannelId : emulator
+03-06-2018 02:32:51.291: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 02:32:51.296: * commonReply.Attachments.Count : 1
+03-06-2018 02:32:51.308: dlg.dlgType : 2
+03-06-2018 02:32:51.312: * activity.ChannelId : emulator
+03-06-2018 02:32:51.317: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 02:32:51.321: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 02:32:51.332: *** SELECT weatherList : Exist | name : sunny                                             
+03-06-2018 02:32:51.336: *** weatherInfo : - 10                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 38% 
+- 11                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 40% 
+- 12                                                :00/28/2 /2018, cloudy                                            , Rainfall 20%, Wind 2m/s, Humidity 50% 
+
+03-06-2018 02:32:51.341: *** fullentity : userOk
+03-06-2018 02:32:51.345: * commonReply.Attachments.Count : 1
+03-06-2018 02:32:51.358: dlg.dlgType : 4
+03-06-2018 02:32:51.362: * activity.ChannelId : emulator
+03-06-2018 02:32:51.366: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 02:32:51.371: CARD IMG START
+03-06-2018 02:32:51.376: CARD BTN1 START
+03-06-2018 02:32:51.380: CARD BTN2 START
+03-06-2018 02:32:51.384: CARD BTN3 START
+03-06-2018 02:32:51.388: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 02:32:51.392: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 02:32:51.396: * commonReply.Attachments.Count : 1
+03-06-2018 02:36:04.588: db connect !! 
+03-06-2018 02:36:04.649: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 02:36:04.672: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 02:36:04.768: db conn SelectConfig !!
+03-06-2018 02:36:04.779: db SelectConfig end!! 
+03-06-2018 02:36:04.786: * DB conn : conversationUpdate
+03-06-2018 02:36:04.799:  db SelectInitDialog !! 
+03-06-2018 02:36:06.124: * activity.Type : 
+03-06-2018 02:36:06.130: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 02:36:06.135: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 02:36:06.139: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 02:36:10.001: db connect !! 
+03-06-2018 02:36:10.006: * activity.Type == ActivityTypes.Message 
+03-06-2018 02:36:10.039: *** orgMent : 20133003
+03-06-2018 02:36:10.058: cacheList.luisIntent : userOk
+03-06-2018 02:36:10.116: *** loginStatus : N
+03-06-2018 02:36:10.120: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 02:36:10.123: *** orgMent : 20133003
+03-06-2018 02:36:10.135: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 02:36:10.158: *** fullentity : userOk
+03-06-2018 02:36:10.163: fullentity : userOk
+03-06-2018 02:36:10.176: relationList[0].dlgApiDefine : D
+03-06-2018 02:36:10.181: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 02:36:10.186: * MessagesController.relationList.Count : 4
+03-06-2018 02:36:10.199: dlg.dlgType : 2
+03-06-2018 02:36:10.204: * activity.ChannelId : emulator
+03-06-2018 02:36:10.208: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 02:36:10.213: *** activity.Conversation.Id : 25b363bjnmj1e | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 02:36:10.218: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 02:36:10.223: * commonReply.Attachments.Count : 1
+03-06-2018 02:36:10.237: dlg.dlgType : 2
+03-06-2018 02:36:10.241: * activity.ChannelId : emulator
+03-06-2018 02:36:10.246: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 02:36:10.251: * commonReply.Attachments.Count : 1
+03-06-2018 02:36:10.262: dlg.dlgType : 2
+03-06-2018 02:36:10.267: * activity.ChannelId : emulator
+03-06-2018 02:36:10.272: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 02:36:10.276: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 02:36:10.286: *** SELECT weatherList : Exist | name : sunny                                             
+03-06-2018 02:36:10.291: *** weatherInfo : - 10                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 38% 
+- 11                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 40% 
+- 12                                                :00/28/2 /2018, cloudy                                            , Rainfall 20%, Wind 2m/s, Humidity 50% 
+
+03-06-2018 02:36:10.295: *** fullentity : userOk
+03-06-2018 02:36:10.300: * commonReply.Attachments.Count : 1
+03-06-2018 02:36:10.312: dlg.dlgType : 4
+03-06-2018 02:36:10.317: * activity.ChannelId : emulator
+03-06-2018 02:36:10.321: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 02:36:10.326: CARD IMG START
+03-06-2018 02:36:10.331: CARD BTN1 START
+03-06-2018 02:36:10.336: CARD BTN2 START
+03-06-2018 02:36:10.342: CARD BTN3 START
+03-06-2018 02:36:10.347: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 02:36:10.353: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 02:36:10.358: * commonReply.Attachments.Count : 1
+03-06-2018 03:29:50.298: db connect !! 
+03-06-2018 03:29:50.369: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 03:29:50.374: db SelectConfig start !! 
+03-06-2018 03:29:50.486: db conn SelectConfig !!
+03-06-2018 03:29:50.498: db SelectConfig end!! 
+03-06-2018 03:29:50.503: * DB conn : conversationUpdate
+03-06-2018 03:29:50.514:  db SelectInitDialog !! 
+03-06-2018 03:29:51.358: * activity.Type : 
+03-06-2018 03:29:51.364: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 03:29:51.371: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 03:29:51.376: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 03:30:36.020: db connect !! 
+03-06-2018 03:30:36.024: * activity.Type == ActivityTypes.Message 
+03-06-2018 03:30:36.052: *** orgMent : 20133003
+03-06-2018 03:30:36.071: cacheList.luisIntent : userOk
+03-06-2018 03:30:36.139: *** loginStatus : N
+03-06-2018 03:30:36.144: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 03:30:36.149: *** orgMent : 20133003
+03-06-2018 03:30:36.159: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 03:30:36.183: *** fullentity : userOk
+03-06-2018 03:30:36.188: fullentity : userOk
+03-06-2018 03:30:36.203: relationList[0].dlgApiDefine : D
+03-06-2018 03:30:36.208: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 03:30:36.213: * MessagesController.relationList.Count : 4
+03-06-2018 03:30:36.225: dlg.dlgType : 2
+03-06-2018 03:30:36.231: * activity.ChannelId : emulator
+03-06-2018 03:30:36.235: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 03:30:36.239: *** activity.Conversation.Id : 4n6fe7jmbcb4 | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 03:30:36.243: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 03:30:36.249: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:36.260: dlg.dlgType : 2
+03-06-2018 03:30:36.265: * activity.ChannelId : emulator
+03-06-2018 03:30:36.269: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 03:30:36.275: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:36.286: dlg.dlgType : 2
+03-06-2018 03:30:36.291: * activity.ChannelId : emulator
+03-06-2018 03:30:36.295: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 03:30:36.300: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 03:30:36.312: *** SELECT weatherList : Exist | name : sunny                                             
+03-06-2018 03:30:36.316: *** weatherInfo : - 10                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 38% 
+- 11                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 40% 
+- 12                                                :00/28/2 /2018, cloudy                                            , Rainfall 20%, Wind 2m/s, Humidity 50% 
+
+03-06-2018 03:30:36.320: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:36.333: dlg.dlgType : 4
+03-06-2018 03:30:36.337: * activity.ChannelId : emulator
+03-06-2018 03:30:36.341: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 03:30:36.346: CARD IMG START
+03-06-2018 03:30:36.351: CARD BTN1 START
+03-06-2018 03:30:36.355: CARD BTN2 START
+03-06-2018 03:30:36.359: CARD BTN3 START
+03-06-2018 03:30:36.363: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 03:30:36.368: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 03:30:36.372: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:46.821: db connect !! 
+03-06-2018 03:30:46.828: * activity.Type == ActivityTypes.Message 
+03-06-2018 03:30:46.847: *** orgMent : 20133001
+03-06-2018 03:30:46.869: cacheList.luisIntent : userFail
+03-06-2018 03:30:46.881: *** loginStatus : N
+03-06-2018 03:30:46.887: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 03:30:46.891: *** orgMent : 20133001
+03-06-2018 03:30:46.903: *** fullentity : userFail
+03-06-2018 03:30:46.909: fullentity : userFail
+03-06-2018 03:30:46.926: relationList[0].dlgApiDefine : D
+03-06-2018 03:30:46.933: apiFlag : COMMON | relationList.Count : 1
+03-06-2018 03:30:46.938: 0{fbLeftCardCnt} :: conversationhistory.commonBeforeQustion : 20133003
+03-06-2018 03:30:46.946: * MessagesController.relationList.Count : 1
+03-06-2018 03:30:46.958: dlg.dlgType : 2
+03-06-2018 03:30:46.962: * activity.ChannelId : emulator
+03-06-2018 03:30:46.967: * dlg.dlgId : 4 | dlg.cardText : The ID entered does not exist. Please check and re-enter.
+03-06-2018 03:30:46.971: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:49.723: db connect !! 
+03-06-2018 03:30:49.729: * activity.Type == ActivityTypes.Message 
+03-06-2018 03:30:49.754: *** orgMent : 20133003
+03-06-2018 03:30:49.775: cacheList.luisIntent : userOk
+03-06-2018 03:30:49.789: *** loginStatus : N
+03-06-2018 03:30:49.794: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 03:30:49.800: *** orgMent : 20133003
+03-06-2018 03:30:49.811: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 03:30:49.826: *** fullentity : userOk
+03-06-2018 03:30:49.832: fullentity : userOk
+03-06-2018 03:30:49.846: relationList[0].dlgApiDefine : D
+03-06-2018 03:30:49.850: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 03:30:49.856: 0{fbLeftCardCnt} :: conversationhistory.commonBeforeQustion : 20133001
+03-06-2018 03:30:49.861: * MessagesController.relationList.Count : 4
+03-06-2018 03:30:49.874: dlg.dlgType : 2
+03-06-2018 03:30:49.879: * activity.ChannelId : emulator
+03-06-2018 03:30:49.885: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 03:30:49.889: *** activity.Conversation.Id : 4n6fe7jmbcb4 | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 03:30:49.895: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 03:30:49.900: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:49.911: dlg.dlgType : 2
+03-06-2018 03:30:49.916: * activity.ChannelId : emulator
+03-06-2018 03:30:49.921: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 03:30:49.926: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:49.940: dlg.dlgType : 2
+03-06-2018 03:30:49.946: * activity.ChannelId : emulator
+03-06-2018 03:30:49.950: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 03:30:49.955: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 03:30:49.965: *** SELECT weatherList : Exist | name : sunny                                             
+03-06-2018 03:30:49.969: *** weatherInfo : - 10                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 38% 
+- 11                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 40% 
+- 12                                                :00/28/2 /2018, cloudy                                            , Rainfall 20%, Wind 2m/s, Humidity 50% 
+
+03-06-2018 03:30:49.973: * commonReply.Attachments.Count : 1
+03-06-2018 03:30:49.985: dlg.dlgType : 4
+03-06-2018 03:30:49.989: * activity.ChannelId : emulator
+03-06-2018 03:30:49.993: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 03:30:49.997: CARD IMG START
+03-06-2018 03:30:50.001: CARD BTN1 START
+03-06-2018 03:30:50.005: CARD BTN2 START
+03-06-2018 03:30:50.009: CARD BTN3 START
+03-06-2018 03:30:50.013: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 03:30:50.017: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 03:30:50.021: * commonReply.Attachments.Count : 1
+03-06-2018 03:37:10.413: db connect !! 
+03-06-2018 03:37:10.460: 'C:\Users\micha\Source\Repos\portChatBot\LOG\2018-03-06.LOG' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.
+03-06-2018 03:37:10.466: db SelectConfig start !! 
+03-06-2018 03:37:10.547: db conn SelectConfig !!
+03-06-2018 03:37:10.557: db SelectConfig end!! 
+03-06-2018 03:37:10.564: * DB conn : conversationUpdate
+03-06-2018 03:37:10.574:  db SelectInitDialog !! 
+03-06-2018 03:37:10.694: * activity.Type : 
+03-06-2018 03:37:10.700: * activity.Recipient.Id : 5ejnh0a9k0fn
+03-06-2018 03:37:10.704: * activity.ServiceUrl : http://localhost:2293
+03-06-2018 03:37:10.709: * activity.attachments.content.title : System.Collections.Generic.List`1[Microsoft.Bot.Connector.Attachment]
+03-06-2018 03:37:17.781: db connect !! 
+03-06-2018 03:37:17.786: * activity.Type == ActivityTypes.Message 
+03-06-2018 03:37:17.806: *** orgMent : 20133003
+03-06-2018 03:37:17.827: cacheList.luisIntent : userOk
+03-06-2018 03:37:17.840: *** loginStatus : N
+03-06-2018 03:37:17.847: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 03:37:17.852: *** orgMent : 20133003
+03-06-2018 03:37:17.863: *** SELECT hrList : Exist | name : 김길수
+03-06-2018 03:37:17.880: *** fullentity : userOk
+03-06-2018 03:37:17.885: fullentity : userOk
+03-06-2018 03:37:17.903: relationList[0].dlgApiDefine : D
+03-06-2018 03:37:17.911: apiFlag : COMMON | relationList.Count : 4
+03-06-2018 03:37:17.916: 0{fbLeftCardCnt} :: conversationhistory.commonBeforeQustion : 20133003
+03-06-2018 03:37:17.921: * MessagesController.relationList.Count : 4
+03-06-2018 03:37:17.934: dlg.dlgType : 2
+03-06-2018 03:37:17.938: * activity.ChannelId : emulator
+03-06-2018 03:37:17.943: * dlg.dlgId : 3 | dlg.cardText : Welcome #OPTIONS
+03-06-2018 03:37:17.949: *** activity.Conversation.Id : 8ml41jkl24bc | dlg.cardText : Welcome #OPTIONS | fullentity : userOk
+03-06-2018 03:37:17.953: *** strComment[0] : 한전 | strComment[1] : 김길수 | strComment[2] : 20133003
+03-06-2018 03:37:17.959: * commonReply.Attachments.Count : 1
+03-06-2018 03:37:17.972: dlg.dlgType : 2
+03-06-2018 03:37:17.976: * activity.ChannelId : emulator
+03-06-2018 03:37:17.983: * dlg.dlgId : 5 | dlg.cardText : Hello! Safety recommendation Chat-bot service. Safety information and live issue & event.
+03-06-2018 03:37:17.987: * commonReply.Attachments.Count : 1
+03-06-2018 03:37:18.002: dlg.dlgType : 2
+03-06-2018 03:37:18.007: * activity.ChannelId : emulator
+03-06-2018 03:37:18.012: * dlg.dlgId : 6 | dlg.cardText : #weatherInfo
+03-06-2018 03:37:18.018: *** dlg.cardTitle : weatherInfo | dlg.cardText : #weatherInfo | fullentity : userOk
+03-06-2018 03:37:18.029: *** SELECT weatherList : Exist | name : sunny                                             
+03-06-2018 03:37:18.033: *** weatherInfo : - 10                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 38% 
+- 11                                                :00/28/2 /2018, sunny                                             , Rainfall 0%, Wind 1m/s, Humidity 40% 
+- 12                                                :00/28/2 /2018, cloudy                                            , Rainfall 20%, Wind 2m/s, Humidity 50% 
+
+03-06-2018 03:37:18.037: * commonReply.Attachments.Count : 1
+03-06-2018 03:37:18.054: dlg.dlgType : 4
+03-06-2018 03:37:18.058: * activity.ChannelId : emulator
+03-06-2018 03:37:18.064: * dlg.dlgId : 7 | dlg.cardText : Please select the information you need to verify.
+03-06-2018 03:37:18.068: CARD IMG START
+03-06-2018 03:37:18.072: CARD BTN1 START
+03-06-2018 03:37:18.077: CARD BTN2 START
+03-06-2018 03:37:18.081: CARD BTN3 START
+03-06-2018 03:37:18.085: !!!!!FB CARD BTN1 START channelID.Equals(facebook) && cardButtons.Count < 1 && cardImages.Count < 1
+03-06-2018 03:37:18.089: !!!!!!!!FB CARD BTN1 START channelID.Equals(facebook) && string.IsNullOrEmpty(card.cardTitle)
+03-06-2018 03:37:18.095: * commonReply.Attachments.Count : 1
+03-06-2018 03:37:25.852: db connect !! 
+03-06-2018 03:37:25.859: * activity.Type == ActivityTypes.Message 
+03-06-2018 03:37:25.885: *** orgMent : 20133001
+03-06-2018 03:37:25.904: cacheList.luisIntent : userFail
+03-06-2018 03:37:25.916: *** loginStatus : N
+03-06-2018 03:37:25.921: *** loginStatus : N | activity.ChannelId : emulator | activity.From.Id : default-user
+03-06-2018 03:37:25.926: *** orgMent : 20133001
+03-06-2018 03:37:25.936: *** fullentity : userFail
+03-06-2018 03:37:25.943: fullentity : userFail
+03-06-2018 03:37:25.959: relationList[0].dlgApiDefine : D
+03-06-2018 03:37:25.965: apiFlag : COMMON | relationList.Count : 1
+03-06-2018 03:37:25.971: 0{fbLeftCardCnt} :: conversationhistory.commonBeforeQustion : 20133003
+03-06-2018 03:37:25.976: * MessagesController.relationList.Count : 1
+03-06-2018 03:37:25.987: dlg.dlgType : 2
+03-06-2018 03:37:25.991: * activity.ChannelId : emulator
+03-06-2018 03:37:25.996: * dlg.dlgId : 4 | dlg.cardText : The ID entered does not exist. Please check and re-enter.
+03-06-2018 03:37:26.001: * commonReply.Attachments.Count : 1
