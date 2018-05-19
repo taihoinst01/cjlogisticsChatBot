@@ -72,8 +72,8 @@ namespace cjlogisticsChatBot.DB
 
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 DButil.HistoryLog(" db SelectInitDialog !! ");
-                
-                                
+
+
                 while (rdr.Read())
                 {
                     DialogList dlg = new DialogList();
@@ -81,7 +81,7 @@ namespace cjlogisticsChatBot.DB
                     dlg.dlgType = rdr["DLG_TYPE"] as string;
                     dlg.dlgGroup = rdr["DLG_GROUP"] as string;
                     dlg.dlgOrderNo = rdr["DLG_ORDER_NO"] as string;
-                    
+
                     using (SqlConnection conn2 = new SqlConnection(connStr))
                     {
                         SqlCommand cmd2 = new SqlCommand();
@@ -100,7 +100,8 @@ namespace cjlogisticsChatBot.DB
                                 dlg.cardText = rdr2["CARD_TEXT"] as string;
                             }
                             rdr2.Close();
-                        } else if (dlg.dlgType.Equals(CARDDLG))
+                        }
+                        else if (dlg.dlgType.Equals(CARDDLG))
                         {
                             cmd2.CommandText = "SELECT CARD_TITLE, CARD_SUBTITLE, CARD_TEXT, IMG_URL," +
                                     "BTN_1_TYPE, BTN_1_TITLE, BTN_1_CONTEXT, BTN_2_TYPE, BTN_2_TITLE, BTN_2_CONTEXT, BTN_3_TYPE, BTN_3_TITLE, BTN_3_CONTEXT, BTN_4_TYPE, BTN_4_TITLE, BTN_4_CONTEXT, " +
@@ -138,7 +139,8 @@ namespace cjlogisticsChatBot.DB
                                 dialogCards.Add(dlgCard);
                             }
                             dlg.dialogCard = dialogCards;
-                        } else if (dlg.dlgType.Equals(MEDIADLG))
+                        }
+                        else if (dlg.dlgType.Equals(MEDIADLG))
                         {
                             cmd2.CommandText = "SELECT CARD_TITLE, CARD_TEXT, MEDIA_URL," +
                                     "BTN_1_TYPE, BTN_1_TITLE, BTN_1_CONTEXT, BTN_2_TYPE, BTN_2_TITLE, BTN_2_CONTEXT, BTN_3_TYPE, BTN_3_TITLE, BTN_3_CONTEXT, BTN_4_TYPE, BTN_4_TITLE, BTN_4_CONTEXT " +
@@ -165,7 +167,7 @@ namespace cjlogisticsChatBot.DB
                                 dlg.btn4Context = rdr2["BTN_4_CONTEXT"] as string;
                             }
                         }
-                        
+
                     }
                     dialogs.Add(dlg);
                 }
@@ -184,19 +186,20 @@ namespace cjlogisticsChatBot.DB
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-
-                cmd.CommandText += " SELECT   				    ";
-                cmd.CommandText += " 	DLG_ID,                 ";
-                cmd.CommandText += " 	DLG_NAME,               ";
-                cmd.CommandText += " 	DLG_DESCRIPTION,        ";
-                cmd.CommandText += " 	DLG_LANG,               ";
-                cmd.CommandText += " 	DLG_TYPE,               ";
-                cmd.CommandText += " 	DLG_ORDER_NO,           ";
-                cmd.CommandText += " 	DLG_GROUP               ";
-                cmd.CommandText += " FROM TBL_DLG               ";
-                cmd.CommandText += " WHERE DLG_ID = @dlgId      ";
-                cmd.CommandText += " AND USE_YN = 'Y'           ";
-                cmd.CommandText += " ORDER BY  DLG_ORDER_NO     ";
+                
+                cmd.CommandText += " SELECT   				                    ";
+                cmd.CommandText += " 	A.DLG_ID,                               ";
+                cmd.CommandText += " 	A.DLG_NAME,                             ";
+                cmd.CommandText += " 	A.DLG_DESCRIPTION,                      ";
+                cmd.CommandText += " 	A.DLG_LANG,                             ";
+                cmd.CommandText += " 	A.DLG_TYPE,                             ";
+                cmd.CommandText += " 	A.DLG_ORDER_NO,                         ";
+                cmd.CommandText += " 	A.DLG_GROUP                             ";
+                cmd.CommandText += " FROM TBL_DLG A, TBL_DLG_RELATION_LUIS B    ";
+                cmd.CommandText += " WHERE A.DLG_ID = B.DLG_ID                  ";
+                cmd.CommandText += "   AND A.DLG_ID = @dlgId                    ";
+                cmd.CommandText += "   AND A.USE_YN = 'Y'                       ";
+                cmd.CommandText += " ORDER BY  A.DLG_ORDER_NO                   ";
 
                 cmd.Parameters.AddWithValue("@dlgID", dlgID);
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -314,7 +317,7 @@ namespace cjlogisticsChatBot.DB
                     "BTN_1_TYPE, BTN_1_TITLE, BTN_1_CONTEXT, BTN_2_TYPE, BTN_2_TITLE, BTN_2_CONTEXT, BTN_3_TYPE, BTN_3_TITLE, BTN_3_CONTEXT, " +
                     "CARD_DIVISION, CARD_VALUE " +
                     "FROM TBL_DLG_CARD WHERE DLG_ID = @dlgID AND USE_YN = 'Y' AND DLG_ID > 999 ORDER BY CARD_ORDER_NO";
-                    //"FROM TBL_SECCS_DLG_CARD WHERE DLG_ID = @dlgID AND USE_YN = 'Y' AND DLG_ID > 999 ORDER BY CARD_ORDER_NO";
+                //"FROM TBL_SECCS_DLG_CARD WHERE DLG_ID = @dlgID AND USE_YN = 'Y' AND DLG_ID > 999 ORDER BY CARD_ORDER_NO";
 
                 cmd.Parameters.AddWithValue("@dlgID", dlgID);
 
@@ -425,20 +428,22 @@ namespace cjlogisticsChatBot.DB
                     int dlgId = Convert.ToInt32(rdr["DLG_ID"]);
                     string cardTitle = rdr["CARD_TITLE"] as string;
                     string cardText = rdr["CARD_TEXT"] as string;
-                    
+
+
                     TextList dlgText = new TextList();
                     dlgText.textDlgId = textDlgId;
                     dlgText.dlgId = dlgId;
                     dlgText.cardTitle = cardTitle;
                     dlgText.cardText = cardText;
-                    
+
+
                     dialogText.Add(dlgText);
                 }
             }
             return dialogText;
         }
-        
-        
+
+
         //KSO START
         public CardList BannedChk(string orgMent)
         {
@@ -473,7 +478,7 @@ namespace cjlogisticsChatBot.DB
                     int dlg_id = Convert.ToInt32(rdr["DLG_ID"]);
                     String card_title = rdr["CARD_TITLE"] as String;
                     String card_text = rdr["CARD_TEXT"] as String;
-                    
+
                     SelectBanned.dlgId = dlg_id;
                     SelectBanned.cardTitle = card_title;
                     SelectBanned.cardText = card_text;
@@ -496,62 +501,6 @@ namespace cjlogisticsChatBot.DB
 
                 cmd.Parameters.AddWithValue("@msg", orgMent);
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                
-                /*
-                if (rdr.Read())
-                {
-                    Debug.WriteLine("* YES - TBL_QUERY_ANALYSIS_RESULT");
-                }
-                else
-                {
-                    Debug.WriteLine("* NO - TBL_QUERY_ANALYSIS_RESULT");
-                }
-                */
-
-                while (rdr.Read())
-                {
-                    string luisId = rdr["LUIS_ID"] as String;
-                    string intentId = rdr["LUIS_INTENT"] as String;
-                    string entitiesId = rdr["LUIS_ENTITIES"] as String;
-                    string luisScore = rdr["LUIS_INTENT_SCORE"] as String;
-                    
-                    result.luisId = luisId;
-                    result.luisIntent = intentId;
-                    result.luisEntities = entitiesId;
-                    result.luisScore = luisScore;
-
-                    Debug.WriteLine("Yes rdr | intentId : " + intentId + " | entitiesId : "+ entitiesId + " | luisScore : " + luisScore);
-                }
-
-            }
-            return result;
-        }
-
-        public CacheList CacheDataFromIntent(string intent)
-        {
-            SqlDataReader rdr = null;
-            CacheList result = new CacheList();
-
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                cmd.CommandText += "SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, '' AS LUIS_INTENT_SCORE FROM TBL_DLG_RELATION_LUIS WHERE LUIS_INTENT=@intent";
-
-                cmd.Parameters.AddWithValue("@intent", intent);
-                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                /*
-                if (rdr.Read())
-                {
-                    Debug.WriteLine("* YES - TBL_QUERY_ANALYSIS_RESULT");
-                }
-                else
-                {
-                    Debug.WriteLine("* NO - TBL_QUERY_ANALYSIS_RESULT");
-                }
-                */
 
                 while (rdr.Read())
                 {
@@ -560,58 +509,21 @@ namespace cjlogisticsChatBot.DB
                     string entitiesId = rdr["LUIS_ENTITIES"] as String;
                     string luisScore = rdr["LUIS_INTENT_SCORE"] as String;
 
+
                     result.luisId = luisId;
                     result.luisIntent = intentId;
                     result.luisEntities = entitiesId;
                     result.luisScore = luisScore;
-
-                    Debug.WriteLine("Yes rdr | intentId : " + intentId + " | entitiesId : " + entitiesId + " | luisScore : " + luisScore);
                 }
-
             }
             return result;
         }
-
-        public QueryIntentList SelectQueryIntent(string orgMent)
-        {
-            SqlDataReader rdr = null;
-            QueryIntentList result = new QueryIntentList();
-
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                //cmd.CommandText += "SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, ISNULL(LUIS_INTENT_SCORE,'') AS LUIS_INTENT_SCORE FROM TBL_QUERY_ANALYSIS_RESULT WHERE LOWER(QUERY) = LOWER(@msg) AND RESULT ='H'";
-                cmd.CommandText += "SELECT LUIS_ID, LUIS_INTENT, DLG_ID FROM TBL_QUERY_INTENT WHERE LOWER(QUERY) = LOWER(@msg) ";
-
-                cmd.Parameters.AddWithValue("@msg", orgMent);
-                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                
-                while (rdr.Read())
-                {
-                    string luisId = rdr["LUIS_ID"] as String;
-                    string intentId = rdr["LUIS_INTENT"] as String;
-                    //string dlgid = rdr["DLG_ID"] as String;
-                    int dlgId = Convert.ToInt32(rdr["DLG_ID"] ?? 0);
-
-                    result.luisId = luisId;
-                    result.luisIntent = intentId;
-                    result.dlgId = dlgId;
-                    Debug.WriteLine("Yes rdr | intentId : " + intentId + " | intentId : " + intentId + " | dlgid : " + dlgId);
-                }
-
-            }
-            return result;
-        }
-
-
 
         public List<RelationList> DefineTypeChk(string luisId, string intentId, string entitiesId)
         {
             SqlDataReader rdr = null;
             List<RelationList> result = new List<RelationList>();
-            Debug.WriteLine("luisId ::: "+ luisId);
+            Debug.WriteLine("luisId ::: " + luisId);
             Debug.WriteLine("intentId ::: " + intentId);
             Debug.WriteLine("entitiesId ::: " + entitiesId);
             using (SqlConnection conn = new SqlConnection(connStr))
@@ -619,34 +531,42 @@ namespace cjlogisticsChatBot.DB
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText += "SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, ISNULL(DLG_ID,0) AS DLG_ID, DLG_API_DEFINE, API_ID ";
-                cmd.CommandText += "  FROM TBL_DLG_RELATION_LUIS                                                    ";
-                //cmd.CommandText += " WHERE 1=1                                               ";
-                cmd.CommandText += " WHERE LUIS_INTENT = @intentId                                                 ";
-                //cmd.CommandText += "   AND LUIS_ENTITIES = @entities                                                ";
+                cmd.CommandText += "SELECT A.LUIS_ID, A.LUIS_INTENT, A.LUIS_ENTITIES, ISNULL(A.DLG_ID,0) AS DLG_ID, A.DLG_API_DEFINE, A.API_ID ";
+                cmd.CommandText += "  FROM TBL_DLG_RELATION_LUIS A, TBL_DLG B                                                    ";
+                cmd.CommandText += " WHERE A.DLG_ID = B.DLG_ID                                               ";
+                //cmd.CommandText += " WHERE LUIS_INTENT = @intentId                                                 ";
+                cmd.CommandText += "   AND A.LUIS_ENTITIES = @entities                                                ";
                 //cmd.CommandText += "   AND LUIS_ID = @luisId                                                        ";
 
-                if(intentId != null){
+                if (intentId != null)
+                {
                     cmd.Parameters.AddWithValue("@intentId", intentId);
-                }else{
+                }
+                else
+                {
                     cmd.Parameters.AddWithValue("@intentId", DBNull.Value);
                 }
 
-                if (entitiesId != null){
+                if (entitiesId != null)
+                {
                     cmd.Parameters.AddWithValue("@entities", entitiesId);
-                }else{
+                }
+                else
+                {
                     cmd.Parameters.AddWithValue("@entities", DBNull.Value);
                 }
 
-                if (luisId != null){
+                if (luisId != null)
+                {
                     cmd.Parameters.AddWithValue("@luisId", luisId);
                 }
-                else{
+                else
+                {
                     cmd.Parameters.AddWithValue("@luisId", DBNull.Value);
                 }
+                cmd.CommandText += "   ORDER BY B.DLG_ORDER_NO ASC                                               ";
 
 
-                
 
                 Debug.WriteLine("query : " + cmd.CommandText);
 
@@ -660,7 +580,7 @@ namespace cjlogisticsChatBot.DB
                     relationList.dlgId = Convert.ToInt32(rdr["DLG_ID"]);
                     relationList.dlgApiDefine = rdr["DLG_API_DEFINE"] as string;
                     //relationList.apiId = Convert.ToInt32(rdr["API_ID"] ?? 0);
-                    relationList.apiId = rdr["API_ID"].Equals(DBNull.Value)? 0 : Convert.ToInt32(rdr["API_ID"]) ;
+                    relationList.apiId = rdr["API_ID"].Equals(DBNull.Value) ? 0 : Convert.ToInt32(rdr["API_ID"]);
                     //DBNull.Value
                     result.Add(relationList);
                 }
@@ -679,12 +599,11 @@ namespace cjlogisticsChatBot.DB
                 cmd.Connection = conn;
                 cmd.CommandText += "SELECT  LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, ISNULL(DLG_ID,0) AS DLG_ID, DLG_API_DEFINE, API_ID ";
                 cmd.CommandText += "  FROM  TBL_DLG_RELATION_LUIS                                                    ";
-                //cmd.CommandText += " WHERE  LUIS_ENTITIES = @entities                                                ";
-                cmd.CommandText += " WHERE  LUIS_INTENT = @intentId                                                ";
-                
+                cmd.CommandText += " WHERE  LUIS_ENTITIES = @entities                                                ";
 
                 Debug.WriteLine("query : " + cmd.CommandText);
-                cmd.Parameters.AddWithValue("@intentId", entity);
+                Debug.WriteLine("entity : " + entity);
+                cmd.Parameters.AddWithValue("@entities", entity);
 
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 while (rdr.Read())
@@ -764,59 +683,59 @@ namespace cjlogisticsChatBot.DB
             return conflist;
         }
 
-		public string SelectChgMsg(string oldMsg)
-		{
-			SqlDataReader rdr = null;
-			string newMsg = "";
+        public string SelectChgMsg(string oldMsg)
+        {
+            SqlDataReader rdr = null;
+            string newMsg = "";
 
-			using (SqlConnection conn = new SqlConnection(connStr))
-			{
-				conn.Open();
-				SqlCommand cmd = new SqlCommand();
-				cmd.Connection = conn;
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
 
-				cmd.CommandText += "	SELECT FIND.CHG  CHG_WORD FROM(    					    ";
-				cmd.CommandText += "	SELECT                                                  ";
-				cmd.CommandText += "			CASE WHEN LEN(ORG_WORD) = LEN(@oldMsg)          ";
-				cmd.CommandText += "				THEN CHARINDEX(ORG_WORD, @oldMsg)           ";
-				cmd.CommandText += "				ELSE 0                                      ";
-				cmd.CommandText += "				END AS FIND_NUM,                            ";
-				cmd.CommandText += "				REPLACE(@oldMsg, ORG_WORD, CHG_WORD) CHG    ";
-				cmd.CommandText += "	  FROM TBL_WORD_CHG_DICT                                ";
-				cmd.CommandText += "	  ) FIND                                                ";
-				cmd.CommandText += "	  WHERE FIND.FIND_NUM > 0                               ";
-
-
+                cmd.CommandText += "	SELECT FIND.CHG  CHG_WORD FROM(    					    ";
+                cmd.CommandText += "	SELECT                                                  ";
+                cmd.CommandText += "			CASE WHEN LEN(ORG_WORD) = LEN(@oldMsg)          ";
+                cmd.CommandText += "				THEN CHARINDEX(ORG_WORD, @oldMsg)           ";
+                cmd.CommandText += "				ELSE 0                                      ";
+                cmd.CommandText += "				END AS FIND_NUM,                            ";
+                cmd.CommandText += "				REPLACE(@oldMsg, ORG_WORD, CHG_WORD) CHG    ";
+                cmd.CommandText += "	  FROM TBL_WORD_CHG_DICT                                ";
+                cmd.CommandText += "	  ) FIND                                                ";
+                cmd.CommandText += "	  WHERE FIND.FIND_NUM > 0                               ";
 
 
 
-				cmd.Parameters.AddWithValue("@oldMsg", oldMsg);
 
-				rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-				while (rdr.Read())
-				{
-					newMsg = rdr["CHG_WORD"] as string;
-				}
-			}
-			return newMsg;
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Query Analysis
-		// Insert user chat message for history and analysis
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		public int insertUserQuery()
-		{
-			int dbResult = 0;
-			using (SqlConnection conn = new SqlConnection(connStr))
-			{
+                cmd.Parameters.AddWithValue("@oldMsg", oldMsg);
+
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    newMsg = rdr["CHG_WORD"] as string;
+                }
+            }
+            return newMsg;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Query Analysis
+        // Insert user chat message for history and analysis
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public int insertUserQuery()
+        {
+            int dbResult = 0;
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
                 String luisID = "", intentName = "", entities = "", result = "", intentScore = "";
 
-                int appID = 0,luisScore = 0;
+                int appID = 0, luisScore = 0;
 
 
                 //if(MessagesController.recommendResult != "recommend")
-                if(MessagesController.apiFlag != "RECOMMEND")
+                if (MessagesController.apiFlag != "RECOMMEND")
                 {
                     //if (MessagesController.relationList.Equals(null))
                     if (MessagesController.relationList == null)
@@ -933,7 +852,7 @@ namespace cjlogisticsChatBot.DB
                     cmd.Parameters.AddWithValue("@Query", Regex.Replace(MessagesController.queryStr, @"[^a-zA-Z0-9ㄱ-힣]", "", RegexOptions.Singleline).Trim().ToLower());
                     cmd.Parameters.AddWithValue("@intentID", intentName.Trim());
                     cmd.Parameters.AddWithValue("@entitiesIDS", entities.Trim().ToLower());
-                    if(result.Equals("D") || result.Equals("S"))
+                    if (result.Equals("D") || result.Equals("S"))
                     {
                         cmd.Parameters.AddWithValue("@intentScore", "0");
                     }
@@ -941,10 +860,10 @@ namespace cjlogisticsChatBot.DB
                     {
                         //if(MessagesController.relationList != null)
                         //{
-                            if (MessagesController.relationList.Count > 0 && MessagesController.relationList[0].luisEntities != null)
-                            {
-                                cmd.Parameters.AddWithValue("@intentScore", MessagesController.relationList[0].luisScore);
-                            }
+                        if (MessagesController.relationList.Count > 0 && MessagesController.relationList[0].luisEntities != null)
+                        {
+                            cmd.Parameters.AddWithValue("@intentScore", MessagesController.relationList[0].luisScore);
+                        }
                         //}
                         else
                         {
@@ -959,10 +878,10 @@ namespace cjlogisticsChatBot.DB
                     dbResult = cmd.ExecuteNonQuery();
                 }
 
-                
-			}
-			return dbResult;
-		}
+
+            }
+            return dbResult;
+        }
 
         public int insertUserQuery(string korQuery, string intentID, string entitiesIDS, string intentScore, String luisID, char result, int appID)
         {
@@ -993,7 +912,7 @@ namespace cjlogisticsChatBot.DB
 
 
         public int insertHistory(string userNumber, string channel, int responseTime)
-		{
+        {
             //SqlDataReader rdr = null;
             int appID = 0;
             int result;
@@ -1031,19 +950,19 @@ namespace cjlogisticsChatBot.DB
             }
 
             using (SqlConnection conn = new SqlConnection(connStr))
-			{
-				conn.Open();
-				SqlCommand cmd = new SqlCommand();
-				cmd.Connection = conn;
-				cmd.CommandText += " INSERT INTO TBL_HISTORY_QUERY ";
-				cmd.CommandText += " (USER_NUMBER, CUSTOMER_COMMENT_KR, CHATBOT_COMMENT_CODE, CHANNEL, RESPONSE_TIME, REG_DATE, ACTIVE_FLAG, APP_ID) ";
-				cmd.CommandText += " VALUES ";
-				cmd.CommandText += " (@userNumber, @customerCommentKR, @chatbotCommentCode, @channel, @responseTime, CONVERT(VARCHAR,  GETDATE(), 101) + ' ' + CONVERT(VARCHAR,  DATEADD( HH, 9, GETDATE() ), 24), 0, @appID) ";
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " INSERT INTO TBL_HISTORY_QUERY ";
+                cmd.CommandText += " (USER_NUMBER, CUSTOMER_COMMENT_KR, CHATBOT_COMMENT_CODE, CHANNEL, RESPONSE_TIME, REG_DATE, ACTIVE_FLAG, APP_ID) ";
+                cmd.CommandText += " VALUES ";
+                cmd.CommandText += " (@userNumber, @customerCommentKR, @chatbotCommentCode, @channel, @responseTime, CONVERT(VARCHAR,  GETDATE(), 101) + ' ' + CONVERT(VARCHAR,  DATEADD( HH, 9, GETDATE() ), 24), 0, @appID) ";
 
-				cmd.Parameters.AddWithValue("@userNumber", userNumber);
-				cmd.Parameters.AddWithValue("@customerCommentKR", MessagesController.queryStr);
+                cmd.Parameters.AddWithValue("@userNumber", userNumber);
+                cmd.Parameters.AddWithValue("@customerCommentKR", MessagesController.queryStr);
 
-                if(MessagesController.replyresult.Equals("S"))
+                if (MessagesController.replyresult.Equals("S"))
                 {
                     cmd.Parameters.AddWithValue("@chatbotCommentCode", "SEARCH");
                 }
@@ -1055,50 +974,50 @@ namespace cjlogisticsChatBot.DB
                 {
                     cmd.Parameters.AddWithValue("@chatbotCommentCode", intentName);
                 }
-                    
-				cmd.Parameters.AddWithValue("@channel", channel);
-				cmd.Parameters.AddWithValue("@responseTime", responseTime);
-				cmd.Parameters.AddWithValue("@appID", appID);
 
-				result = cmd.ExecuteNonQuery();
-				Debug.WriteLine("result : " + result);
-			}
-			return result;
-		}
+                cmd.Parameters.AddWithValue("@channel", channel);
+                cmd.Parameters.AddWithValue("@responseTime", responseTime);
+                cmd.Parameters.AddWithValue("@appID", appID);
 
-		public int SelectUserQueryErrorMessageCheck(string userID, int appID)
-		{
-			SqlDataReader rdr = null;
-			int result = 0;
-			//userID = arg.Replace("'", "''");
-			using (SqlConnection conn = new SqlConnection(connStr))
-			{
-				conn.Open();
-				SqlCommand cmd = new SqlCommand();
-				cmd.Connection = conn;
+                result = cmd.ExecuteNonQuery();
+                Debug.WriteLine("result : " + result);
+            }
+            return result;
+        }
 
-				cmd.CommandText += " SELECT TOP 1 A.CHATBOT_COMMENT_CODE ";
-				cmd.CommandText += " FROM ( ";
-				cmd.CommandText += " 	SELECT  ";
-				cmd.CommandText += " 		SID, ";
-				cmd.CommandText += " 		CASE  CHATBOT_COMMENT_CODE  ";
-				cmd.CommandText += " 			WHEN 'SEARCH' THEN '1' ";
-				cmd.CommandText += " 			WHEN 'ERROR' THEN '1' ";
-				cmd.CommandText += " 			ELSE '0' ";
-				cmd.CommandText += " 		END CHATBOT_COMMENT_CODE ";
-				cmd.CommandText += " 	FROM TBL_HISTORY_QUERY WHERE USER_NUMBER = '" + userID + "' AND APP_ID = " + appID;
-				cmd.CommandText += " ) A ";
-				cmd.CommandText += " ORDER BY A.SID DESC ";
+        public int SelectUserQueryErrorMessageCheck(string userID, int appID)
+        {
+            SqlDataReader rdr = null;
+            int result = 0;
+            //userID = arg.Replace("'", "''");
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
 
-				rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                cmd.CommandText += " SELECT TOP 1 A.CHATBOT_COMMENT_CODE ";
+                cmd.CommandText += " FROM ( ";
+                cmd.CommandText += " 	SELECT  ";
+                cmd.CommandText += " 		SID, ";
+                cmd.CommandText += " 		CASE  CHATBOT_COMMENT_CODE  ";
+                cmd.CommandText += " 			WHEN 'SEARCH' THEN '1' ";
+                cmd.CommandText += " 			WHEN 'ERROR' THEN '1' ";
+                cmd.CommandText += " 			ELSE '0' ";
+                cmd.CommandText += " 		END CHATBOT_COMMENT_CODE ";
+                cmd.CommandText += " 	FROM TBL_HISTORY_QUERY WHERE USER_NUMBER = '" + userID + "' AND APP_ID = " + appID;
+                cmd.CommandText += " ) A ";
+                cmd.CommandText += " ORDER BY A.SID DESC ";
 
-				while (rdr.Read())
-				{
-					result = Convert.ToInt32(rdr["CHATBOT_COMMENT_CODE"]);
-				}
-			}
-			return result;
-		}
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    result = Convert.ToInt32(rdr["CHATBOT_COMMENT_CODE"]);
+                }
+            }
+            return result;
+        }
 
 
 
@@ -1144,7 +1063,7 @@ namespace cjlogisticsChatBot.DB
         {
             get
             {
-                String query = Regex.Replace(MessagesController.queryStr, @"[^a-zA-Z0-9ㄱ-힣]", "", RegexOptions.Singleline).Replace(" ", "");
+                String query = Regex.Replace(MessagesController.queryStr, @"[^a-zA-Z0-9ㄱ-힣-]", "", RegexOptions.Singleline).Replace(" ", "");
                 SqlDataReader rdr = null;
                 //List<RecommendConfirm> rc = new List<RecommendConfirm>();
                 String entityarr = "";
@@ -1163,7 +1082,6 @@ namespace cjlogisticsChatBot.DB
                     cmd.CommandText += "SELECT RESULT AS ENTITIES FROM FN_ENTITY_ORDERBY_ADD(@kr_query) ";
 
                     cmd.Parameters.AddWithValue("@kr_query", query);
-                    Debug.WriteLine("* SearchCommonEntities (CommandText : " + cmd.CommandText + ")");
 
                     rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                     //int count = 0;
@@ -1183,209 +1101,5 @@ namespace cjlogisticsChatBot.DB
                 return entityarr;
             }
         }
-
-        public String SelectUserHistoryComment(string userNumber, string chatbotCommentCode)
-        {
-            // userNumber, chatbotCommentCode
-            string resultComment = "";
-            SqlDataReader rdr = null;
-
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-
-                cmd.CommandText += "	SELECT ";
-                cmd.CommandText += "        TOP 1 ISNULL(CUSTOMER_COMMENT_KR, '') AS COMMENT ";
-                cmd.CommandText += "        FROM TBL_HISTORY_QUERY";
-                cmd.CommandText += " 	WHERE USER_NUMBER = '" + userNumber + "' AND CHATBOT_COMMENT_CODE = '" + chatbotCommentCode + "'";
-                cmd.CommandText += "    ORDER BY SID DESC";
-                cmd.Parameters.AddWithValue("@userNumber", userNumber);
-                cmd.Parameters.AddWithValue("@chatbotCommentCode", chatbotCommentCode);
-
-                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (rdr.Read())
-                {
-                    resultComment = rdr["COMMENT"] as string;
-
-                }
-
-                //resultComment = newComment;
-            }
-
-            return resultComment;
-        }
-
-        public List<HrList> SelectHrInfo(string workerId)
-        {
-            SqlDataReader rdr = null;
-            List<HrList> result = new List<HrList>();
-            DButil.HistoryLog("* SelectHrInfo start: ");
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                DButil.HistoryLog("* SelectHrInfo commandText start: ");
-                cmd.CommandText += "	SELECT ";
-                cmd.CommandText += "        TMN_COD, WORKERID, NAME, EQP_TYP, EQP_TYP_NAME, EQUIPMENT_NO, ACCIDENT_RECORD, TRAINING_RECORD, AGE, VACATION, EYE_SIGHT_LEFT, EYE_SIGHT_RIGHT";
-                cmd.CommandText += "        FROM PORT_HR";
-                cmd.CommandText += " 	WHERE WORKERID = '" + workerId + "' OR NAME = '"+ workerId + "' ";
-                cmd.Parameters.AddWithValue("@workerId", workerId);
-
-                Debug.WriteLine("* SelectHrInfo() CommandText : " + cmd.CommandText);
-                DButil.HistoryLog("* SelectHrInfo : " + cmd.CommandText);
-                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (rdr.Read())
-                {
-                    HrList hrList = new HrList();
-                    hrList.tmn_cod = rdr["TMN_COD"] as string;
-                    //hrList.comp = rdr["COMP"] as string;
-                    //hrList.part = rdr["PART"] as string;
-                    hrList.workerid = rdr["WORKERID"] as string;
-                    hrList.name = rdr["NAME"] as string;
-                    hrList.eqp_typ = rdr["EQP_TYP"] as string;
-                    hrList.eqp_typ_name = rdr["EQP_TYP_NAME"] as string;
-                    hrList.equipment_no = rdr["EQUIPMENT_NO"] as string;
-                    hrList.accident_record = rdr["ACCIDENT_RECORD"] as string;
-                    hrList.training_record = rdr["TRAINING_RECORD"] as string;
-                    hrList.age = rdr["AGE"] as string;
-                    hrList.vacation = rdr["VACATION"] as string;
-                    hrList.eye_sight_left = rdr["EYE_SIGHT_LEFT"] as string;
-                    hrList.eye_sight_right = rdr["EYE_SIGHT_RIGHT"] as string;
-                    result.Add(hrList);
-                }
-
-                return result;
-            }
-
-        }
-
-        public List<AnalysisList> SelectAnalysisInfo(string tmnCod, string eqpTypNam)
-        {
-            SqlDataReader rdr = null;
-            List<AnalysisList> result = new List<AnalysisList>();
-
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-
-                cmd.CommandText += "    SELECT ";
-                cmd.CommandText += "        TMN_COD, EQP_TYP, EQP_TYP_NAME, ACCIDENTTYPE, FACTOR1, FACTOR2, FACTOR3, ANALYSIS ";
-                cmd.CommandText += "        FROM PORT_ACCIDENT_ANALYSIS ";
-                cmd.CommandText += " 	WHERE TMN_COD = '" + tmnCod + "' AND EQP_TYP_NAME = '" + eqpTypNam + "'";
-                cmd.Parameters.AddWithValue("@tmnCod", tmnCod);
-                cmd.Parameters.AddWithValue("@eqpTypNam", eqpTypNam);
-
-                Debug.WriteLine("* SelectAnalysisInfo() CommandText : " + cmd.CommandText);
-                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (rdr.Read())
-                {
-                    AnalysisList analysisList = new AnalysisList();
-                    analysisList.tmn_cod = rdr["TMN_COD"] as string;
-                    analysisList.eqp_typ = rdr["EQP_TYP"] as string;
-                    analysisList.eqp_typ_name = rdr["EQP_TYP_NAME"] as string;
-                    analysisList.accidenttype = rdr["ACCIDENTTYPE"] as string;
-                    analysisList.factor1 = rdr["FACTOR1"] as string;
-                    analysisList.factor2 = rdr["FACTOR2"] as string;
-                    analysisList.factor3 = rdr["FACTOR3"] as string;
-                    analysisList.analysis = rdr["ANALYSIS"] as string;
-                    result.Add(analysisList);
-                }
-
-                return result;
-            }
-        }
-
-         
-
-
-        public List<TrendList> SelectTrendInfo(string eqpTyp)
-        {
-            SqlDataReader rdr = null;
-            List<TrendList> result = new List<TrendList>();
-
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                /*
-                cmd.CommandText += "	SELECT ";
-                cmd.CommandText += "        YEAR, MONTH, EQP_TYP, ACCIDENTTYPE, COUNT ";
-                cmd.CommandText += "        FROM PORT_ACCIDENT_TREND ";
-                cmd.CommandText += " 	WHERE EQP_TYP = '" + eqpTyp + "' ";
-                cmd.Parameters.AddWithValue("@eqpTyp", eqpTyp);
-                */
-                //select ACCIDENTTYPE, SUM(COUNT) AS countSum from PORT_ACCIDENT_TREND group by ACCIDENTTYPE ORDER BY countSum DESC
-                cmd.CommandText += "    SELECT ACCIDENTTYPE, SUM(COUNT) AS COUNTSUM ";
-                cmd.CommandText += "        FROM PORT_ACCIDENT_TREND ";
-                cmd.CommandText += "        GROUP BY ACCIDENTTYPE ORDER BY COUNTSUM DESC ";
-
-                Debug.WriteLine("* SelectTrendInfo() CommandText : " + cmd.CommandText);
-                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (rdr.Read())
-                {
-                    TrendList trendList = new TrendList();
-                    //trendList.year = rdr["YEAR"] as string;
-                    //trendList.month = rdr["MONTH"] as string;
-                    //trendList.eqp_typ = rdr["EQP_TYP"] as string;
-                    trendList.accidenttype = rdr["ACCIDENTTYPE"] as string;
-                    trendList.count = Convert.ToInt32(rdr["COUNTSUM"]);
-                    result.Add(trendList);
-                }
-
-                return result;
-
-            }
-        }
-
-        public List<WeatherList> SelectWeatherInfo(string strTime)
-        {
-            SqlDataReader rdr = null;
-            List<WeatherList> result = new List<WeatherList>();
-
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                cmd.CommandText += " SELECT TOP 3 * FROM (";
-                cmd.CommandText += "    SELECT  TIME, TEMP, RAINFALL, WIND, HUMIDITY, ERNAM ";
-                cmd.CommandText += "        FROM PORT_WEATHER "; 
-                cmd.CommandText += "    WHERE TIME > '" + strTime + "'";
-                cmd.CommandText += " ) t1 ";
-                cmd.Parameters.AddWithValue("@strTime", strTime);
-
-                Debug.WriteLine("* SelectWeatherInfo() CommandText : " + cmd.CommandText);
-
-                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (rdr.Read())
-                {
-                    WeatherList weatherList = new WeatherList();
-                    weatherList.time = rdr["TIME"] as string;
-                    weatherList.temp = rdr["TEMP"] as string;
-                    weatherList.rainfall = rdr["RAINFALL"] as string;
-                    weatherList.wind = rdr["WIND"] as string;
-                    weatherList.humidity = rdr["HUMIDITY"] as string;
-                    weatherList.ernam = rdr["ERNAM"] as string;
-                    
-                    result.Add(weatherList);
-                }
-
-                return result;
-            }
-
-        }
-
-
     }
 }
