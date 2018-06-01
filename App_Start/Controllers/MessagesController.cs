@@ -276,41 +276,56 @@ namespace cjlogisticsChatBot
                         //인텐트 엔티티 검출
                         //캐시 체크
                         cashOrgMent = Regex.Replace(orgMent, @"[^a-zA-Z0-9ㄱ-힣]", "", RegexOptions.Singleline);
-                        cacheList = db.CacheChk(cashOrgMent.Replace(" ", ""));                     // 캐시 체크
+                        //cacheList = db.CacheChk(cashOrgMent.Replace(" ", ""));                     // 캐시 체크
 
-
+                        JArray compositEntities = new JArray();
                         //캐시에 없을 경우
                         if (cacheList.luisIntent == null || cacheList.luisEntities == null)
                         {
                             DButil.HistoryLog("cache none : " + orgMent);
                             //루이스 체크
                             cacheList.luisId = dbutil.GetMultiLUIS(orgMent);
+
+                            compositEntities = dbutil.GetCompositEnities(orgMent);  //compositEntities 가져오는 부분
                         }
 
-                        if (cacheList != null && cacheList.luisIntent != null)
+                        for (int i = 0; i < compositEntities.Count(); i++)
                         {
-                            if (cacheList.luisIntent.Contains("testdrive") || cacheList.luisIntent.Contains("branch"))
-                            {
-                                apiFlag = "TESTDRIVE";
-                            }
-                            else if (cacheList.luisIntent.Contains("quot"))
-                            {
-                                apiFlag = "QUOT";
-                            }
-                            else if (cacheList.luisIntent.Contains("recommend "))
-                            {
-                                apiFlag = "RECOMMEND";
-                            }
-                            else
-                            {
-                                apiFlag = "COMMON";
-                            }
-                            DButil.HistoryLog("cacheList.luisIntent : " + cacheList.luisIntent);
+                            Debug.WriteLine("LUIS compositEntities : " + compositEntities[i]);
                         }
+
+                        //if (cacheList != null && cacheList.luisIntent != null)
+                        //{
+                        //    if (cacheList.luisIntent.Contains("testdrive") || cacheList.luisIntent.Contains("branch"))
+                        //    {
+                        //        apiFlag = "TESTDRIVE";
+                        //    }
+                        //    else if (cacheList.luisIntent.Contains("quot"))
+                        //    {
+                        //        apiFlag = "QUOT";
+                        //    }
+                        //    else if (cacheList.luisIntent.Contains("recommend "))
+                        //    {
+                        //        apiFlag = "RECOMMEND";
+                        //    }
+                        //    else
+                        //    {
+                        //        apiFlag = "COMMON";
+                        //    }
+                        //}
+
+                        ////////////////////////////
+                        ////////////////////////////
+
 
                         luisId = cacheList.luisId;
                         luisIntent = cacheList.luisIntent;
                         luisEntities = cacheList.luisEntities;
+
+                        DButil.HistoryLog("luisId : " + luisId);
+                        DButil.HistoryLog("luisIntent : " + luisIntent);
+                        DButil.HistoryLog("luisEntities : " + luisEntities);
+
 
                         String fullentity = db.SearchCommonEntities;
                         DButil.HistoryLog("fullentity : " + fullentity);
@@ -350,6 +365,7 @@ namespace cjlogisticsChatBot
                         if (relationList != null)
                         //if (relationList.Count > 0)
                         {
+                            DButil.HistoryLog("relationList 조건 in ");
                             if (relationList.Count > 0 && relationList[0].dlgApiDefine != null)
                             {
                                 if (relationList[0].dlgApiDefine.Equals("api testdrive"))
@@ -383,6 +399,7 @@ namespace cjlogisticsChatBot
                             {
                                 apiFlag = "QUOT";
                             }
+                            DButil.HistoryLog("apiFlag : " + apiFlag);
                         }
 
 

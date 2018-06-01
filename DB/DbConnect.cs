@@ -519,6 +519,222 @@ namespace cjlogisticsChatBot.DB
             return result;
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 이부분(수정해야함)
+        public String ContextChk(string luisIntent, string luisEntities)
+        {
+            SqlDataReader rdr = null;
+            string result = "";
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, DLG_ID, ContextLabel, MissingEntities   ";
+                cmd.CommandText += " FROM TBL_DLG_RELATION_LUIS                                                          ";
+                cmd.CommandText += " WHERE LUIS_INTENT = @luisIntent AND LUIS_ENTITIES = @luisEntities                   ";
+
+                cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
+                cmd.Parameters.AddWithValue("@luisEntities", luisEntities);
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    string ContextLabel = rdr["ContextLabel"] as String;
+                    result = ContextLabel;
+                }
+            }
+            return result;
+        }
+
+        public String ContextYN(string conversationId)
+        {
+            SqlDataReader rdr = null;
+            string result = "";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT INTENT, User_Id, Entities_Values    ";
+                cmd.CommandText += " FROM TBL_CONTEXT_LOG                       ";
+                cmd.CommandText += " WHERE User_Id = @conversationId            ";
+
+                cmd.Parameters.AddWithValue("@conversationId", conversationId);
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    string userId = rdr["User_id"] as String;
+                    result = userId;
+                }
+            }
+            return result;
+        }
+
+        public String ContextEntitiesChk(string luisIntent)
+        {
+            SqlDataReader rdr = null;
+            string result = "";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT Intent, Entities FROM TBL_CONTEXT_DEFINE    ";
+                cmd.CommandText += " WHERE INTENT = @luisIntent                         ";
+
+                cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    string entities = rdr["Entities"] as String;
+                    result = entities;
+                }
+            }
+            return result;
+        }
+
+        public String EntitiyDefineChk(string entitiesValue)
+        {
+            SqlDataReader rdr = null;
+            string result = "";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT ENTITY_VALUE, ENTITY, API_GROUP     ";
+                cmd.CommandText += " FROM TBL_COMMON_ENTITY_DEFINE              ";
+                cmd.CommandText += " WHERE ENTITY_VALUE = @entitiesValue           ";
+
+                cmd.Parameters.AddWithValue("@entitiesValue", entitiesValue);
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    string entities = rdr["ENTITY"] as String;
+                    result = entities;
+                }
+            }
+            return result;
+        }
+
+        public int InsertContextLog(string luisIntent, string conversationId, string contextEntities)
+        {
+            Debug.WriteLine("luisIntent ::: " + luisIntent);
+            Debug.WriteLine("conversationId ::: " + conversationId);
+            Debug.WriteLine("contextEntities ::: " + contextEntities);
+            int dbResult = 0;
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " INSERT INTO TBL_CONTEXT_LOG                        ";
+                cmd.CommandText += " (INTENT, User_Id, Entities_Values)                 ";
+                cmd.CommandText += " VALUES                                             ";
+                cmd.CommandText += " (@luisIntent, @conversationId, @contextEntities)   ";
+
+                //cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
+                cmd.Parameters.AddWithValue("@conversationId", conversationId);
+                cmd.Parameters.AddWithValue("@contextEntities", contextEntities);
+                
+                dbResult = cmd.ExecuteNonQuery();
+                Debug.WriteLine("query : " + cmd.CommandText);
+            }
+            return dbResult;
+        }
+
+        public int UpdateContextLog(string luisIntent, string conversationId, string contextEntities)
+        {
+            Debug.WriteLine("luisIntent ::: " + luisIntent);
+            Debug.WriteLine("conversationId ::: " + conversationId);
+            Debug.WriteLine("contextEntities ::: " + contextEntities);
+            int dbResult = 0;
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " UPDATE TBL_CONTEXT_LOG                     ";
+                cmd.CommandText += " SET Entities_Values = @contextEntities     ";
+                cmd.CommandText += " WHERE INTENT = @luisIntent                 ";
+                cmd.CommandText += " AND User_Id = @conversationId              ";
+
+                //cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
+                cmd.Parameters.AddWithValue("@conversationId", conversationId);
+                cmd.Parameters.AddWithValue("@contextEntities", contextEntities);
+
+                dbResult = cmd.ExecuteNonQuery();
+                Debug.WriteLine("query : " + cmd.CommandText);
+            }
+            return dbResult;
+        }
+
+
+        public String SelectContextLog(string luisIntent, string conversationId)
+        {
+            SqlDataReader rdr = null;
+            string result = "";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT INTENT,User_Id,Entities_Values  ";
+                cmd.CommandText += " FROM TBL_CONTEXT_LOG                   ";
+                cmd.CommandText += " WHERE INTENT = @luisIntent             ";
+                cmd.CommandText += " AND User_Id = @conversationId          ";
+
+                cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
+                cmd.Parameters.AddWithValue("@conversationId", conversationId);
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    string entitiesValue = rdr["Entities_Values"] as String;
+                    result = entitiesValue;
+                }
+            }
+            return result;
+        }
+
+        public String SelectMissingEntities(string luisIntent, string luisEntities)
+        {
+            SqlDataReader rdr = null;
+            string result = "";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, DLG_ID, ContextLabel, MissingEntities   ";
+                cmd.CommandText += " FROM TBL_DLG_RELATION_LUIS                                                          ";
+                cmd.CommandText += " WHERE LUIS_INTENT = @luisIntent AND LUIS_ENTITIES = @luisEntities                   ";
+
+                cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
+                cmd.Parameters.AddWithValue("@luisEntities", luisEntities);
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    string missingEntities = rdr["MissingEntities"] as String;
+                    result = missingEntities;
+                }
+            }
+            return result;
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         public List<RelationList> DefineTypeChk(string luisId, string intentId, string entitiesId)
         {
             SqlDataReader rdr = null;
