@@ -76,6 +76,11 @@ namespace cjlogisticsChatBot.DB
                 if (Luis != null || Luis.Count > 0)
                 {
                     int compositeEntitiesCount = (int)Luis["compositeEntities"].Count();
+
+                    var luisIntent = Luis["topScoringIntent"]["intent"].ToString();//add
+                    Debug.WriteLine("LUIS luisIntent : " + luisIntent);
+                    MessagesController.cacheList.luisIntent  = luisIntent;
+
                     for (int i = 0; i < compositeEntitiesCount; i++)
                     {
                         Debug.WriteLine("count ::: " + Luis["compositeEntities"][i]["children"].Count());
@@ -176,11 +181,6 @@ namespace cjlogisticsChatBot.DB
                 string luisType = "";
                 string luisIntent = "";
 
-                JArray test1 = new JArray();
-                JArray test2 = new JArray();
-                JArray test3 = new JArray();
-                JArray test4 = new JArray();
-
                 if (MAX > 0)
                 {
                     LuisName = returnLuisName[0];
@@ -196,39 +196,7 @@ namespace cjlogisticsChatBot.DB
 
                         luisIntent = Luis["topScoringIntent"]["intent"].ToString();//add
                         Debug.WriteLine("LUIS luisIntent : " + luisIntent);
-
-
-
-                        int compositeEntitiesCount = (int)Luis["compositeEntities"].Count();
-
-                        for (int i = 0; i < luisEntityCount; i++)
-                        {
-                            test1.Add((string)Luis["entities"][i]["entity"]);
-                            Debug.WriteLine("LUIS entities : " + test1[i]);
-                        }
-
-                        //compositeEntities 에 children을 출력하여 본다 ///////////////////////////////////////////////////
-                        for (int i=0; i< compositeEntitiesCount; i++)
-                        {
-                            Debug.WriteLine("count ::: " + Luis["compositeEntities"][i]["children"].Count());
-                            for (int j=0; j< Luis["compositeEntities"][i]["children"].Count(); j++)
-                            {
-                                test2.Add(Luis["compositeEntities"][i]["children"][j]["type"]);
-                                test3.Add(Luis["compositeEntities"][i]["children"][j]["value"]);
-                                test4.Add(Luis["compositeEntities"][i]["children"][j]);
-                                Debug.WriteLine("LUIS compositeEntities.type : " + test2[j]);
-                                Debug.WriteLine("LUIS compositeEntities.value : " + test3[j]);
-                            }
-
-
-                        }
-
-                        for(int i=0; i< test4.Count(); i++)
-                        {
-                            Debug.WriteLine("LUIS test4 : " + test4[i]);
-                        }
-
-
+                        
                         if (MessagesController.relationList != null)
                         {
                             if (MessagesController.relationList.Count() > 0)
