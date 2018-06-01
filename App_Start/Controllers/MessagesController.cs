@@ -294,25 +294,9 @@ namespace cjlogisticsChatBot
                             Debug.WriteLine("LUIS compositEntities : " + compositEntities[i]);
                         }
 
-                        //if (cacheList != null && cacheList.luisIntent != null)
-                        //{
-                        //    if (cacheList.luisIntent.Contains("testdrive") || cacheList.luisIntent.Contains("branch"))
-                        //    {
-                        //        apiFlag = "TESTDRIVE";
-                        //    }
-                        //    else if (cacheList.luisIntent.Contains("quot"))
-                        //    {
-                        //        apiFlag = "QUOT";
-                        //    }
-                        //    else if (cacheList.luisIntent.Contains("recommend "))
-                        //    {
-                        //        apiFlag = "RECOMMEND";
-                        //    }
-                        //    else
-                        //    {
-                        //        apiFlag = "COMMON";
-                        //    }
-                        //}
+                        //Intent로 context모듈인지 select (T,F)
+                        //var contextChk = db.ContextChk(cacheList.luisIntent, cacheList.luisEntities);
+                        //DButil.HistoryLog("contextChk : " + contextChk);
 
                         ////////////////////////////
                         ////////////////////////////
