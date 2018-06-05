@@ -520,7 +520,7 @@ namespace cjlogisticsChatBot.DB
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 이부분(수정해야함)
-        public String ContextChk(string luisIntent, string luisEntities)
+        public String ContextChk(string luisIntent)
         {
             SqlDataReader rdr = null;
             string result = "";
@@ -529,12 +529,11 @@ namespace cjlogisticsChatBot.DB
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText += " SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, DLG_ID, ContextLabel, MissingEntities   ";
-                cmd.CommandText += " FROM TBL_DLG_RELATION_LUIS                                                          ";
-                cmd.CommandText += " WHERE LUIS_INTENT = @luisIntent AND LUIS_ENTITIES = @luisEntities                   ";
+                cmd.CommandText += " SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, DLG_ID, ContextLabel, MissingEntities  ";
+                cmd.CommandText += " FROM TBL_DLG_RELATION_LUIS                                                         ";
+                cmd.CommandText += " WHERE LUIS_INTENT = @luisIntent AND MissingEntities = ''                           ";
 
                 cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
-                cmd.Parameters.AddWithValue("@luisEntities", luisEntities);
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (rdr.Read())
