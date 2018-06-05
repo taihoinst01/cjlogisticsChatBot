@@ -531,9 +531,11 @@ namespace cjlogisticsChatBot.DB
                 cmd.Connection = conn;
                 cmd.CommandText += " SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, DLG_ID, ContextLabel, MissingEntities  ";
                 cmd.CommandText += " FROM TBL_DLG_RELATION_LUIS                                                         ";
-                cmd.CommandText += " WHERE LUIS_INTENT = @luisIntent AND MissingEntities = ''                           ";
+                cmd.CommandText += " WHERE LUIS_INTENT = @luisIntent AND MissingEntities is NULL                        ";
 
                 cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
+                Debug.WriteLine("* luisIntent : " + luisIntent);
+                Debug.WriteLine("* cmd.CommandText : " + cmd.CommandText);
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (rdr.Read())
@@ -545,7 +547,7 @@ namespace cjlogisticsChatBot.DB
             return result;
         }
 
-        public String ContextYN(string conversationId)
+        public String ContextYN(string luisIntent, string conversationId)
         {
             SqlDataReader rdr = null;
             string result = "";
@@ -557,8 +559,10 @@ namespace cjlogisticsChatBot.DB
                 cmd.Connection = conn;
                 cmd.CommandText += " SELECT INTENT, User_Id, Entities_Values    ";
                 cmd.CommandText += " FROM TBL_CONTEXT_LOG                       ";
-                cmd.CommandText += " WHERE User_Id = @conversationId            ";
+                cmd.CommandText += " WHERE Intent = @luisIntent                 ";
+                cmd.CommandText += " AND User_Id = @conversationId              ";
 
+                cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
                 cmd.Parameters.AddWithValue("@conversationId", conversationId);
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
