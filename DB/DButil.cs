@@ -21,6 +21,8 @@ namespace cjlogisticsChatBot.DB
 
         public JArray GetCompositEnities(string query)
         {
+
+            Debug.WriteLine("GetCompositEnities() ::: START");
             //루이스 json 선언
             JObject Luis = new JObject();
             string LuisName = "";
@@ -45,10 +47,11 @@ namespace cjlogisticsChatBot.DB
             }
 
             //병렬처리 시간 체크
-            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
-            watch.Start();
+            //System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+            //watch.Start();
             Parallel.For(0, MAX, new ParallelOptions { MaxDegreeOfParallelism = MAX }, async async =>
             {
+
                 var task_luis = Task<JObject>.Run(() => GetIntentFromBotLUIS(textList[async][1], textList[async][2], textList[async][3]));
                 try
                 {
@@ -63,7 +66,8 @@ namespace cjlogisticsChatBot.DB
                 }
             });
 
-            watch.Stop();
+            //watch.Stop();
+            
 
             if (MAX > 0)
             {
@@ -75,12 +79,14 @@ namespace cjlogisticsChatBot.DB
             {
                 if (Luis != null || Luis.Count > 0)
                 {
-                    int compositeEntitiesCount = (int)Luis["compositeEntities"].Count();
+                    int compositeEntitiesCount = 0;
 
-                    var luisIntent = Luis["topScoringIntent"]["intent"].ToString();//add
-                    Debug.WriteLine("LUIS luisIntent : " + luisIntent);
-                    MessagesController.cacheList.luisIntent  = luisIntent;
+                    if (Luis["compositeEntities"] != null)
+                    {
+                        compositeEntitiesCount = (int)Luis["compositeEntities"].Count();
+                    }
 
+                    
                     for (int i = 0; i < compositeEntitiesCount; i++)
                     {
                         Debug.WriteLine("count ::: " + Luis["compositeEntities"][i]["children"].Count());
@@ -196,7 +202,10 @@ namespace cjlogisticsChatBot.DB
 
                         luisIntent = Luis["topScoringIntent"]["intent"].ToString();//add
                         Debug.WriteLine("LUIS luisIntent : " + luisIntent);
+
                         
+
+
                         if (MessagesController.relationList != null)
                         {
                             if (MessagesController.relationList.Count() > 0)
