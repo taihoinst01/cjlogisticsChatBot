@@ -309,9 +309,9 @@ namespace cjlogisticsChatBot
                             var insertEntities = "";
                             var updateEntities = "";
 
-                            DButil.HistoryLog("contextYN : " + contextYN);
-                            DButil.HistoryLog("cacheList.luisIntent : " + cacheList.luisIntent);
-                            DButil.HistoryLog("selectEntities : " + selectEntities);
+                            //DButil.HistoryLog("contextYN : " + contextYN);
+                            //DButil.HistoryLog("cacheList.luisIntent : " + cacheList.luisIntent);
+                            //DButil.HistoryLog("selectEntities : " + selectEntities);
 
                             //조회되지 않을경우 새로운 사용자로 판단되어 contextLog를 쌓는다.
                             if (contextYN.Equals(""))   // 새로운 사용자
@@ -322,11 +322,11 @@ namespace cjlogisticsChatBot
                                     //compositEntities 있을경우
                                     for (var i = 0; i < contextEntitiesValue.Length; i++)
                                     {
-                                        DButil.HistoryLog("contextEntitiesValue : " + i + " : " + contextEntitiesValue[i]);
+                                        //DButil.HistoryLog("contextEntitiesValue : " + i + " : " + contextEntitiesValue[i]);
                                         insertEntities = insertEntities + contextEntitiesValue[i] + ":";
                                         for (int j = 0; j < compositEntities.Count(); j++)
                                         {
-                                            DButil.HistoryLog("contextEntitiesValue : " + j + " : " + compositEntities[j]);
+                                            //DButil.HistoryLog("contextEntitiesValue : " + j + " : " + compositEntities[j]);
                                             if ((j % 2).Equals(1) && "숫자".Equals(compositEntities[j]["type"].ToString()))
                                             {
                                                 if (contextEntitiesValue[i].Equals(compositEntities[j - 1]["type"].ToString()))
@@ -361,7 +361,7 @@ namespace cjlogisticsChatBot
                                             //DButil.HistoryLog("entities :::::::: " + entities[j]["type"].ToString());
                                             if (contextEntitiesValue[i].Equals(entities[j]["type"].ToString()))
                                             {
-                                                insertEntities = insertEntities + entities[j]["entity"].ToString();
+                                                insertEntities = insertEntities + entities[j]["entity"].ToString().Trim();
                                             }
                                         }
                                         insertEntities = insertEntities + ",";
@@ -375,46 +375,60 @@ namespace cjlogisticsChatBot
                                 db.InsertContextLog(cacheList.luisIntent, activity.Conversation.Id, insertEntities);
                             }
                             else
-                            {       // 기존 사용자 업데이트
-                                DButil.HistoryLog("update!!!!///////////////////////////////////////////");
-
+                            {
+                                // 기존 사용자 업데이트
                                 if (compositEntities.Count() > 0)
                                 {
                                     //compositEntities 있을경우
+                                    //DButil.HistoryLog("contextEntitiesValue.Length : " + contextEntitiesValue.Length);
+                                    for (var i = 0; i < contextEntitiesValue.Length; i++)
+                                    {
+                                        //DButil.HistoryLog("contextEntitiesValue : " + i + " : " + contextEntitiesValue[i]);
+                                        updateEntities = updateEntities + contextEntitiesValue[i] + ":";
+                                        for (int j = 0; j < compositEntities.Count(); j++)
+                                        {
+                                            //DButil.HistoryLog("contextEntitiesValue : " + j + " : " + compositEntities[j]);
+                                            if ((j % 2).Equals(1) && "숫자".Equals(compositEntities[j]["type"].ToString()))
+                                            {
+                                                if (contextEntitiesValue[i].Equals(compositEntities[j - 1]["type"].ToString()))
+                                                {
+                                                    updateEntities = updateEntities + compositEntities[j]["value"].ToString();
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (j > 0 && contextEntitiesValue[i].Equals(compositEntities[j]["type"].ToString()))
+                                                {
+                                                    if ("숫자".Equals(compositEntities[j - 1]["type"].ToString()))
+                                                    {
+                                                        updateEntities = updateEntities + compositEntities[j - 1]["value"].ToString();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        updateEntities = updateEntities + ",";
+                                    }
                                 }
                                 else
                                 {
                                     //compositEntities 없어서 Entites로만
+                                    for (var i = 0; i < contextEntitiesValue.Length; i++)
+                                    {
+                                        updateEntities = updateEntities + contextEntitiesValue[i] + ":";
+                                        for (var j = 0; j < entities.Count(); j++)
+                                        {
+                                            //DButil.HistoryLog("contextEntitiesValue[i] :::::::: " + contextEntitiesValue[i]);
+                                            //DButil.HistoryLog("entities :::::::: " + entities[j]["type"].ToString());
+                                            if (contextEntitiesValue[i].Equals(entities[j]["type"].ToString()))
+                                            {
+                                                updateEntities = updateEntities + entities[j]["entity"].ToString().Trim();
+                                            }
+                                        }
+                                        updateEntities = updateEntities + ",";
+                                    }
                                 }
 
-                                DButil.HistoryLog("contextEntitiesValue.Length : " + contextEntitiesValue.Length);
-                                for (var i = 0; i < contextEntitiesValue.Length; i++)
-                                {
-                                    DButil.HistoryLog("contextEntitiesValue : " + i + " : " + contextEntitiesValue[i]);
-                                    updateEntities = updateEntities + contextEntitiesValue[i] + ":";
-                                    for (int j = 0; j < compositEntities.Count(); j++)
-                                    {
-                                        DButil.HistoryLog("contextEntitiesValue : " + j + " : " + compositEntities[j]);
-                                        if ((j % 2).Equals(1) && "숫자".Equals(compositEntities[j]["type"].ToString()))
-                                        {
-                                            if (contextEntitiesValue[i].Equals(compositEntities[j - 1]["type"].ToString()))
-                                            {
-                                                updateEntities = updateEntities + compositEntities[j]["value"].ToString();
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (j > 0 && contextEntitiesValue[i].Equals(compositEntities[j]["type"].ToString()))
-                                            {
-                                                if ("숫자".Equals(compositEntities[j - 1]["type"].ToString()))
-                                                {
-                                                    updateEntities = updateEntities + compositEntities[j - 1]["value"].ToString();
-                                                }
-                                            }
-                                        }
-                                    }
-                                    updateEntities = updateEntities + ",";
-                                }
+                                
 
                                 updateEntities = updateEntities.Substring(0, updateEntities.Length - 1);
                                 DButil.HistoryLog("updateEntities : " + updateEntities);
