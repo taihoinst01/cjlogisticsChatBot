@@ -361,7 +361,7 @@ namespace cjlogisticsChatBot
                                             //DButil.HistoryLog("entities :::::::: " + entities[j]["type"].ToString());
                                             if (contextEntitiesValue[i].Equals(entities[j]["type"].ToString()))
                                             {
-                                                insertEntities = insertEntities + entities[j]["entity"].ToString().Trim();
+                                                insertEntities = insertEntities + entities[j]["entity"].ToString().Replace(" ", "");
                                             }
                                         }
                                         insertEntities = insertEntities + ",";
@@ -421,7 +421,7 @@ namespace cjlogisticsChatBot
                                             //DButil.HistoryLog("entities :::::::: " + entities[j]["type"].ToString());
                                             if (contextEntitiesValue[i].Equals(entities[j]["type"].ToString()))
                                             {
-                                                updateEntities = updateEntities + entities[j]["entity"].ToString().Trim();
+                                                updateEntities = updateEntities + entities[j]["entity"].ToString().Replace(" ", "");
                                             }
                                         }
                                         updateEntities = updateEntities + ",";
