@@ -56,61 +56,61 @@ C:\Users\Taiho_KSO\source\repos\cjlogisticsChatBot\obj\Debug\cjlogisticsChatBot.
 C:\Users\Taiho_KSO\source\repos\cjlogisticsChatBot\obj\Debug\cjlogisticsChatBot.csproj.CoreCompileInputs.cache
 C:\Users\Taiho_KSO\source\repos\cjlogisticsChatBot\obj\Debug\Bot Application.dll
 C:\Users\Taiho_KSO\source\repos\cjlogisticsChatBot\obj\Debug\Bot Application.pdb
-D:\taihoinst\cjlogisticsChatBot\bin\Bot Application.dll.config
-D:\taihoinst\cjlogisticsChatBot\bin\Bot Application.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Bot Application.pdb
-D:\taihoinst\cjlogisticsChatBot\bin\Autofac.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Castle.Core.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Chronic.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.Autofac.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Bot.Connector.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Logging.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Tokens.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Rest.ClientRuntime.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.WindowsAzure.Configuration.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Moq.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Newtonsoft.Json.dll
-D:\taihoinst\cjlogisticsChatBot\bin\System.IdentityModel.Tokens.Jwt.dll
-D:\taihoinst\cjlogisticsChatBot\bin\System.Net.Http.Formatting.dll
-D:\taihoinst\cjlogisticsChatBot\bin\System.Web.Http.dll
-D:\taihoinst\cjlogisticsChatBot\bin\System.Web.Http.WebHost.dll
-D:\taihoinst\cjlogisticsChatBot\bin\Autofac.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Castle.Core.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.Autofac.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Bot.Connector.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Logging.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Tokens.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.Rest.ClientRuntime.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Microsoft.WindowsAzure.Configuration.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Moq.pdb
-D:\taihoinst\cjlogisticsChatBot\bin\Moq.xml
-D:\taihoinst\cjlogisticsChatBot\bin\Newtonsoft.Json.xml
-D:\taihoinst\cjlogisticsChatBot\bin\System.IdentityModel.Tokens.Jwt.xml
-D:\taihoinst\cjlogisticsChatBot\bin\System.Net.Http.Formatting.xml
-D:\taihoinst\cjlogisticsChatBot\bin\System.Web.Http.xml
-D:\taihoinst\cjlogisticsChatBot\bin\System.Web.Http.WebHost.xml
-D:\taihoinst\cjlogisticsChatBot\bin\ar\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\cs\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\de-dE\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\en\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\es\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\fa\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\fr\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\it\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\ja\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\nl\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\pt-BR\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\ru\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
-D:\taihoinst\cjlogisticsChatBot\obj\Debug\cjlogisticsChatBot.csprojResolveAssemblyReference.cache
-D:\taihoinst\cjlogisticsChatBot\obj\Debug\cjlogisticsChatBot.csproj.CoreCompileInputs.cache
-D:\taihoinst\cjlogisticsChatBot\obj\Debug\Bot Application.dll
-D:\taihoinst\cjlogisticsChatBot\obj\Debug\Bot Application.pdb
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Bot Application.dll.config
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Bot Application.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Bot Application.pdb
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Autofac.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Castle.Core.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Chronic.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.Autofac.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Bot.Connector.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Rest.ClientRuntime.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Moq.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Newtonsoft.Json.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.Net.Http.Formatting.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.Web.Http.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.Web.Http.WebHost.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Autofac.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Castle.Core.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Bot.Builder.Autofac.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Bot.Connector.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.Rest.ClientRuntime.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Microsoft.WindowsAzure.Configuration.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Moq.pdb
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Moq.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\Newtonsoft.Json.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.Net.Http.Formatting.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.Web.Http.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\System.Web.Http.WebHost.xml
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\ar\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\cs\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\de-dE\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\en\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\es\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\fa\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\fr\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\it\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\ja\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\nl\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\pt-BR\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\ru\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\obj\Debug\cjlogisticsChatBot.csprojResolveAssemblyReference.cache
+C:\Users\micha\source\repos\cjlogisticsChatBot\obj\Debug\cjlogisticsChatBot.csproj.CoreCompileInputs.cache
+C:\Users\micha\source\repos\cjlogisticsChatBot\obj\Debug\Bot Application.dll
+C:\Users\micha\source\repos\cjlogisticsChatBot\obj\Debug\Bot Application.pdb
