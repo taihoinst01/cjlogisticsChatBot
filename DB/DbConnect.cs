@@ -186,7 +186,7 @@ namespace cjlogisticsChatBot.DB
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                
+
                 cmd.CommandText += " SELECT   				                    ";
                 cmd.CommandText += " 	A.DLG_ID,                               ";
                 cmd.CommandText += " 	A.DLG_NAME,                             ";
@@ -646,7 +646,7 @@ namespace cjlogisticsChatBot.DB
                 cmd.Parameters.AddWithValue("@luisIntent", luisIntent);
                 cmd.Parameters.AddWithValue("@conversationId", conversationId);
                 cmd.Parameters.AddWithValue("@contextEntities", contextEntities);
-                
+
                 dbResult = cmd.ExecuteNonQuery();
                 Debug.WriteLine("query : " + cmd.CommandText);
             }
@@ -1320,5 +1320,106 @@ namespace cjlogisticsChatBot.DB
                 return entityarr;
             }
         }
+
+        public List<DeliveryData> SelectDeliveryData(String deliveryParamList)
+        {
+            SqlDataReader rdr = null;
+            List<DeliveryData> result = new List<DeliveryData>();
+            /*
+             * Parameter 정리
+             * DATA 예)INVOICE_NUM2=1234,CUSTOMER_NAME=전윤아,ADDRESS_OLD=서울특별시 강서구 화곡3동
+             * 금액일 경우 크다 작다 이므로 다시 설정해야 한다
+             */
+            String[] temp_param_full = null;
+
+            temp_param_full = deliveryParamList.Split(new string[] { "," }, StringSplitOptions.None);
+
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ";
+                cmd.CommandText += " PHONE, BOX_TYPE, COMMISSION_PLACE, ETC, CUSTOMER_COMMENT, PAY_TYPE, FEES, QUANTITY, ";
+                cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME ";
+                cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
+                cmd.CommandText += "    WHERE 1=1";
+                for (int ii = 0; ii < temp_param_full.Length; ii++)
+                {
+                    String[] temp_param = null;
+                    temp_param = temp_param_full[ii].Split(new string[] { "," }, StringSplitOptions.None);//나중에 쓸까?
+
+                    cmd.CommandText += " AND " + temp_param_full[ii];
+                }
+
+                //cmd.Parameters.AddWithValue("@strTime", strTime);
+
+                Debug.WriteLine("* SelectDeliveryData() CommandText : " + cmd.CommandText);
+
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    DeliveryData deliveryData = new DeliveryData();
+                    deliveryData.invoice_num1 = rdr["INVOICE_NUM1"] as string;
+                    deliveryData.invoice_num2 = rdr["INVOICE_NUM2"] as string;
+                    deliveryData.delivery_type = rdr["DELIVERY_TYPE"] as string;
+                    deliveryData.part = rdr["PART"] as string;
+                    deliveryData.customer_name = rdr["CUSTOMER_NAME"] as string;
+                    deliveryData.address_old = rdr["ADDRESS_OLD"] as string;
+                    deliveryData.address_new = rdr["ADDRESS_NEW"] as string;
+                    deliveryData.phone = rdr["PHONE"] as string;
+                    deliveryData.box_type = rdr["BOX_TYPE"] as string;
+                    deliveryData.commission_place = rdr["COMMISSION_PLACE"] as string;
+                    deliveryData.etc = rdr["ETC"] as string;
+                    deliveryData.customer_comment = rdr["CUSTOMER_COMMENT"] as string;
+                    deliveryData.pay_type = rdr["PAY_TYPE"] as string;
+                    deliveryData.fees = rdr["FEES"] as string;
+                    deliveryData.quantity = rdr["QUANTITY"] as string;
+                    deliveryData.book_type = rdr["BOOK_TYPE"] as string;
+                    deliveryData.delivery_time = rdr["DELIVERY_TIME"] as string;
+                    deliveryData.delivery_status = rdr["DELIVERY_STATUS"] as string;
+                    deliveryData.store_num = rdr["STORE_NUM"] as string;
+                    deliveryData.store_name = rdr["STORE_NAME"] as string;
+                    deliveryData.sm_num = rdr["SM_NUM"] as string;
+                    deliveryData.sm_name = rdr["SM_NAME"] as string;
+
+                    result.Add(deliveryData);
+                }
+
+                return result;
+            }
+        }
+        /*
+         * 등록해줘 일때 update
+         * upateColumn : 컬럼이름(ETC, CUSTOMER_COMMENT)
+         * updateData : 업데이트 내용
+         * paramData : where 조건
+         */
+        public int UpdateDeliveryData(string updateColumn, string updateData, string paramData)
+        {
+            Debug.WriteLine("updateColumn ::: " + updateColumn);
+            Debug.WriteLine("updateData ::: " + updateData);
+            Debug.WriteLine("paramData ::: " + paramData);
+            int dbResult = 0;
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " UPDATE TBL_DELIVERY_DATA                     ";
+                cmd.CommandText += " SET "+ updateColumn + " = @updateData     ";
+                cmd.CommandText += " WHERE "+ paramData;
+
+                //cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@updateData", updateData);
+
+                dbResult = cmd.ExecuteNonQuery();
+                Debug.WriteLine("query : " + cmd.CommandText);
+            }
+            return dbResult;
+        }
     }
 }
+ 

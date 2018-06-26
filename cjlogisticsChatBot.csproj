@@ -157,7 +157,7 @@
     <Compile Include="Models\TextList.cs" />
     <Compile Include="Models\TrendList.cs" />
     <Compile Include="Models\UserHeroCard.cs" />
-    <Compile Include="Models\WeatherList.cs" />
+    <Compile Include="Models\DeliveryData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

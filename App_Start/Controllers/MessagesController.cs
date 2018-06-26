@@ -55,6 +55,7 @@ namespace cjlogisticsChatBot
         public static int pageRotationCnt = 0;
         public static string FB_BEFORE_MENT = "";
 
+        public static List<DeliveryData> deliveryData = new List<DeliveryData>();
         public static List<RelationList> relationList = new List<RelationList>();
         public static string luisId = "";
         public static string luisIntent = "";
@@ -560,6 +561,117 @@ namespace cjlogisticsChatBot
                                 }
                                 else
                                 {
+                                   /*
+                                    * 답변 하는 부분
+                                    * cj 대한통운
+                                    * 2018.06.26 JunHyoung Park
+                                    */
+                                    String param_intent = "물량정보";
+                                    String param_entities = "DELIVERY_STATUS='집화완료', PAY_TYPE='착불'";
+                                    deliveryData = db.SelectDeliveryData(param_entities);
+                                    String deliveryDataText = "";
+                                    string strComment = null;
+                                    int deliveryDataCount = 0;
+                                    /*
+                                     * parameter 정리
+                                     */
+                                    String invoice_num1 = null;
+                                    String invoice_num2 = null;
+                                    String delivery_type = null;
+                                    String part = null;
+                                    String customer_name = null;
+                                    String address_old = null;
+                                    String address_new = null;
+                                    String phone = null;
+                                    String box_type = null;
+                                    String commission_place = null;
+                                    String etc = null;
+                                    String customer_comment = null;
+                                    String pay_type = null;
+                                    String fees = null;
+                                    String quantity = null;
+                                    String book_type = null;
+                                    String delivery_time = null;
+                                    String delivery_status = null;
+                                    String store_num = null;
+                                    String store_name = null;
+                                    String sm_num = null;
+                                    String sm_name = null;
+                                    String separate_line = "\n\n";
+
+                                    if (deliveryData != null)
+                                    {
+                                        deliveryDataCount = deliveryData.Count;
+                                        if (deliveryData.Count == 1)
+                                        {
+                                            invoice_num1 = deliveryData[0].invoice_num1 + "\n";
+                                            invoice_num2 = deliveryData[0].invoice_num2 + "\n";
+                                            delivery_type = deliveryData[0].delivery_type + "\n";
+                                            part = deliveryData[0].part + "\n";
+                                            customer_name = deliveryData[0].customer_name + "\n";
+                                            address_old = deliveryData[0].address_old + "\n";
+                                            address_new = deliveryData[0].address_new + "\n";
+                                            phone = deliveryData[0].phone + "\n";
+                                            box_type = deliveryData[0].box_type + "\n";
+                                            commission_place = deliveryData[0].commission_place + "\n";
+                                            etc = deliveryData[0].etc + "\n";
+                                            customer_comment = deliveryData[0].customer_comment + "\n";
+                                            pay_type = deliveryData[0].pay_type + "\n";
+                                            fees = deliveryData[0].fees + "\n";
+                                            quantity = deliveryData[0].quantity + "\n";
+                                            book_type = deliveryData[0].book_type + "\n";
+                                            delivery_time = deliveryData[0].delivery_time + "\n";
+                                            delivery_status = deliveryData[0].delivery_status + "\n";
+                                            store_num = deliveryData[0].store_num + "\n";
+                                            store_name = deliveryData[0].store_name + "\n";
+                                            sm_num = deliveryData[0].sm_num + "\n";
+                                            sm_name = deliveryData[0].sm_name + "\n";
+
+                                            dlg.cardText = dlg.cardText.Replace("#invoice_num1", invoice_num1);
+                                            dlg.cardText = dlg.cardText.Replace("#invoice_num2", invoice_num2);
+                                            dlg.cardText = dlg.cardText.Replace("#delivery_type", delivery_type);
+                                            dlg.cardText = dlg.cardText.Replace("#part", part);
+                                            dlg.cardText = dlg.cardText.Replace("#customer_name", customer_name);
+                                            dlg.cardText = dlg.cardText.Replace("#address_old", address_old);
+                                            dlg.cardText = dlg.cardText.Replace("#address_new", address_new);
+                                            dlg.cardText = dlg.cardText.Replace("#phone", phone);
+                                            dlg.cardText = dlg.cardText.Replace("#box_type", box_type);
+                                            dlg.cardText = dlg.cardText.Replace("#commission_place", commission_place);
+                                            dlg.cardText = dlg.cardText.Replace("#etc", etc);
+                                            dlg.cardText = dlg.cardText.Replace("#customer_comment", customer_comment);
+                                            dlg.cardText = dlg.cardText.Replace("#pay_type", pay_type);
+                                            dlg.cardText = dlg.cardText.Replace("#fees", fees);
+                                            dlg.cardText = dlg.cardText.Replace("#quantity", quantity);
+                                            dlg.cardText = dlg.cardText.Replace("#book_type", book_type);
+                                            dlg.cardText = dlg.cardText.Replace("#delivery_time", delivery_time);
+                                            dlg.cardText = dlg.cardText.Replace("#delivery_status", delivery_status);
+                                            dlg.cardText = dlg.cardText.Replace("#store_num", store_num);
+                                            dlg.cardText = dlg.cardText.Replace("#store_name", store_name);
+                                            dlg.cardText = dlg.cardText.Replace("#sm_num", sm_num);
+                                            dlg.cardText = dlg.cardText.Replace("#sm_name", sm_name);
+                                        }
+                                        else
+                                        {
+                                            /*
+                                             * 한개 이상의 데이터가 나오므로 여기는 뭉텡이로
+                                             * 보여주어야 할 데이터를 만들어야 겠네요.
+                                             */
+                                            for (int i = 0; i < deliveryData.Count; i++)
+                                            {
+                                                strComment = "송장번호 : " + deliveryData[i].invoice_num1 + "\n";
+                                                strComment += "송장번호 : " + deliveryData[i].invoice_num2 + "\n";
+                                                strComment += "고객명 : " + deliveryData[i].customer_name + "\n";
+                                                strComment += separate_line;
+                                                deliveryDataText = deliveryDataText + strComment;
+                                            }
+                                            dlg.cardText = dlg.cardText.Replace("#deliveryData", deliveryDataText);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        deliveryDataCount = 0;
+                                    }
+
                                     DButil.HistoryLog("facebook dlg.dlgId : " + dlg.dlgId);
                                     tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                     commonReply.Attachments.Add(tempAttachment);
