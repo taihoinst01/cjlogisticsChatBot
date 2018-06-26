@@ -1328,6 +1328,7 @@ namespace cjlogisticsChatBot.DB
             /*
              * Parameter 정리
              * DATA 예)INVOICE_NUM2=1234,CUSTOMER_NAME=전윤아,ADDRESS_OLD=서울특별시 강서구 화곡3동
+             * 송장번호일 경우 두개 이므로 INVOICE_NUM2='1234' OR  INVOICE_NUM1 = '1234' 요런 식으로(현재는 INVOICE_NUM2='1234' 이거 하나만임)
              * 금액일 경우 크다 작다 이므로 다시 설정해야 한다
              */
             String[] temp_param_full = null;
@@ -1348,7 +1349,7 @@ namespace cjlogisticsChatBot.DB
                 for (int ii = 0; ii < temp_param_full.Length; ii++)
                 {
                     String[] temp_param = null;
-                    temp_param = temp_param_full[ii].Split(new string[] { "," }, StringSplitOptions.None);//나중에 쓸까?
+                    temp_param = temp_param_full[ii].Split(new string[] { "," }, StringSplitOptions.None);//사용되는 곳은 없음. 혹시 필요한건가 해서..
 
                     cmd.CommandText += " AND " + temp_param_full[ii];
                 }
