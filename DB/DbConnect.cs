@@ -807,7 +807,7 @@ namespace cjlogisticsChatBot.DB
             return result;
         }
 
-        public List<RelationList> DefineTypeChkSpare(string entity)
+        public List<RelationList> DefineTypeChkSpare(string intent, string entity)
         {
             SqlDataReader rdr = null;
             List<RelationList> result = new List<RelationList>();
@@ -818,10 +818,13 @@ namespace cjlogisticsChatBot.DB
                 cmd.Connection = conn;
                 cmd.CommandText += "SELECT  LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, ISNULL(DLG_ID,0) AS DLG_ID, DLG_API_DEFINE, API_ID ";
                 cmd.CommandText += "  FROM  TBL_DLG_RELATION_LUIS                                                    ";
-                cmd.CommandText += " WHERE  LUIS_ENTITIES = @entities                                                ";
+                //cmd.CommandText += " WHERE  LUIS_ENTITIES = @entities                                                ";
+                cmd.CommandText += " WHERE  LUIS_INTENT = @intent                                                ";
+                cmd.CommandText += " AND  LUIS_ENTITIES = @entities                                                ";
 
                 Debug.WriteLine("query : " + cmd.CommandText);
                 Debug.WriteLine("entity : " + entity);
+                cmd.Parameters.AddWithValue("@intent", intent);
                 cmd.Parameters.AddWithValue("@entities", entity);
 
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);

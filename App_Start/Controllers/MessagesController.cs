@@ -283,164 +283,42 @@ namespace cjlogisticsChatBot
                         JArray entities = new JArray();
 
                         //캐시에 없을 경우
+                        /*
                         if (cacheList.luisIntent == null || cacheList.luisEntities == null)
                         {
                             DButil.HistoryLog("cache none : " + orgMent);
                             //루이스 체크
                             cacheList.luisId = dbutil.GetMultiLUIS(orgMent);
 
-                            compositEntities = dbutil.GetCompositEnities(orgMent);  //compositEntities 가져오는 부분
+                            //compositEntities = dbutil.GetCompositEnities(orgMent);  //compositEntities 가져오는 부분
                             entities = dbutil.GetEnities(orgMent);  //entities 가져오는 부분
+
+                            Debug.WriteLine("*******************************full entities : " + entities);
+                            String temp_entityType = "";
+                            for (var j = 0; j < entities.Count(); j++)
+                            {
+                                temp_entityType = temp_entityType + entities[j]["type"].ToString() + ", ";
+                            }
+                            temp_entityType = temp_entityType.Substring(0, temp_entityType.Length - 2);
+                            Debug.WriteLine("*******************************temp_entityType : " + temp_entityType);
+                            cacheList.luisEntities = temp_entityType;
                         }
+                        */
+                        //루이스 체크
+                        cacheList.luisId = dbutil.GetMultiLUIS(orgMent);
 
-                        ////////////////////////////
+                        //compositEntities = dbutil.GetCompositEnities(orgMent);  //compositEntities 가져오는 부분
+                        entities = dbutil.GetEnities(orgMent);  //entities 가져오는 부분
 
-                        //Intent로 context모듈인지 select (T,F)
-                        var contextChk = db.ContextChk(cacheList.luisIntent);
-                        DButil.HistoryLog("contextChk : " + contextChk);
-
-                        if (contextChk.Equals("T"))
+                        Debug.WriteLine("*******************************full entities : " + entities);
+                        String temp_entityType = "";
+                        for (var j = 0; j < entities.Count(); j++)
                         {
-                            // 새로운 사용자인지 조회
-                            var contextYN = db.ContextYN(cacheList.luisIntent, activity.Conversation.Id);
-                            //intent로 contextType 가져오기
-                            var selectEntities = db.ContextEntitiesChk(cacheList.luisIntent);
-                            //var entitiesValue = cacheList.luisEntities.Split(',');  //user value
-                            var contextEntitiesValue = selectEntities.Split(',');   //default value
-                            var insertEntities = "";
-                            var updateEntities = "";
-
-                            //DButil.HistoryLog("contextYN : " + contextYN);
-                            //DButil.HistoryLog("cacheList.luisIntent : " + cacheList.luisIntent);
-                            //DButil.HistoryLog("selectEntities : " + selectEntities);
-
-                            //조회되지 않을경우 새로운 사용자로 판단되어 contextLog를 쌓는다.
-                            if (contextYN.Equals(""))   // 새로운 사용자
-                            {
-                                //DButil.HistoryLog("contextEntitiesValue.Length : " + contextEntitiesValue.Length);
-                                if (compositEntities.Count() > 0)
-                                {
-                                    //compositEntities 있을경우
-                                    for (var i = 0; i < contextEntitiesValue.Length; i++)
-                                    {
-                                        //DButil.HistoryLog("contextEntitiesValue : " + i + " : " + contextEntitiesValue[i]);
-                                        insertEntities = insertEntities + contextEntitiesValue[i] + ":";
-                                        for (int j = 0; j < compositEntities.Count(); j++)
-                                        {
-                                            //DButil.HistoryLog("contextEntitiesValue : " + j + " : " + compositEntities[j]);
-                                            if ((j % 2).Equals(1) && "숫자".Equals(compositEntities[j]["type"].ToString()))
-                                            {
-                                                if (contextEntitiesValue[i].Equals(compositEntities[j - 1]["type"].ToString()))
-                                                {
-                                                    insertEntities = insertEntities + compositEntities[j]["value"].ToString();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (j > 0 && contextEntitiesValue[i].Equals(compositEntities[j]["type"].ToString()))
-                                                {
-                                                    if ("숫자".Equals(compositEntities[j - 1]["type"].ToString()))
-                                                    {
-                                                        insertEntities = insertEntities + compositEntities[j - 1]["value"].ToString();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        insertEntities = insertEntities + ",";
-                                    }
-                                }
-                                else
-                                {
-                                    //compositEntities 없어서 Entites로만
-                                    DButil.HistoryLog("no!!! ");
-                                    for (var i = 0; i < contextEntitiesValue.Length; i++)
-                                    {
-                                        insertEntities = insertEntities + contextEntitiesValue[i] + ":";
-                                        for (var j = 0; j < entities.Count(); j++)
-                                        {
-                                            //DButil.HistoryLog("contextEntitiesValue[i] :::::::: " + contextEntitiesValue[i]);
-                                            //DButil.HistoryLog("entities :::::::: " + entities[j]["type"].ToString());
-                                            if (contextEntitiesValue[i].Equals(entities[j]["type"].ToString()))
-                                            {
-                                                insertEntities = insertEntities + entities[j]["entity"].ToString().Replace(" ", "");
-                                            }
-                                        }
-                                        insertEntities = insertEntities + ",";
-                                    }
-                                }
-
-                                insertEntities = insertEntities.Substring(0, insertEntities.Length - 1);
-                                DButil.HistoryLog("insertEntities : " + insertEntities);
-
-                                //새로운 사용자일 경우 insert
-                                db.InsertContextLog(cacheList.luisIntent, activity.Conversation.Id, insertEntities);
-                            }
-                            else
-                            {
-                                // 기존 사용자 업데이트
-                                if (compositEntities.Count() > 0)
-                                {
-                                    //compositEntities 있을경우
-                                    //DButil.HistoryLog("contextEntitiesValue.Length : " + contextEntitiesValue.Length);
-                                    for (var i = 0; i < contextEntitiesValue.Length; i++)
-                                    {
-                                        //DButil.HistoryLog("contextEntitiesValue : " + i + " : " + contextEntitiesValue[i]);
-                                        updateEntities = updateEntities + contextEntitiesValue[i] + ":";
-                                        for (int j = 0; j < compositEntities.Count(); j++)
-                                        {
-                                            //DButil.HistoryLog("contextEntitiesValue : " + j + " : " + compositEntities[j]);
-                                            if ((j % 2).Equals(1) && "숫자".Equals(compositEntities[j]["type"].ToString()))
-                                            {
-                                                if (contextEntitiesValue[i].Equals(compositEntities[j - 1]["type"].ToString()))
-                                                {
-                                                    updateEntities = updateEntities + compositEntities[j]["value"].ToString();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (j > 0 && contextEntitiesValue[i].Equals(compositEntities[j]["type"].ToString()))
-                                                {
-                                                    if ("숫자".Equals(compositEntities[j - 1]["type"].ToString()))
-                                                    {
-                                                        updateEntities = updateEntities + compositEntities[j - 1]["value"].ToString();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        updateEntities = updateEntities + ",";
-                                    }
-                                }
-                                else
-                                {
-                                    //compositEntities 없어서 Entites로만
-                                    for (var i = 0; i < contextEntitiesValue.Length; i++)
-                                    {
-                                        updateEntities = updateEntities + contextEntitiesValue[i] + ":";
-                                        for (var j = 0; j < entities.Count(); j++)
-                                        {
-                                            //DButil.HistoryLog("contextEntitiesValue[i] :::::::: " + contextEntitiesValue[i]);
-                                            //DButil.HistoryLog("entities :::::::: " + entities[j]["type"].ToString());
-                                            if (contextEntitiesValue[i].Equals(entities[j]["type"].ToString()))
-                                            {
-                                                updateEntities = updateEntities + entities[j]["entity"].ToString().Replace(" ", "");
-                                            }
-                                        }
-                                        updateEntities = updateEntities + ",";
-                                    }
-                                }
-
-                                
-
-                                updateEntities = updateEntities.Substring(0, updateEntities.Length - 1);
-                                DButil.HistoryLog("updateEntities : " + updateEntities);
-
-                                //기존의 사용자일 경우 update
-                                db.UpdateContextLog(cacheList.luisIntent, activity.Conversation.Id, updateEntities);
-                            }
+                            temp_entityType = temp_entityType + entities[j]["type"].ToString() + ", ";
                         }
-
-
-                        ////////////////////////////
+                        temp_entityType = temp_entityType.Substring(0, temp_entityType.Length - 2);
+                        Debug.WriteLine("*******************************temp_entityType : " + temp_entityType);
+                        cacheList.luisEntities = temp_entityType;
 
 
                         luisId = cacheList.luisId;
@@ -454,38 +332,13 @@ namespace cjlogisticsChatBot
 
                         String fullentity = db.SearchCommonEntities;
                         DButil.HistoryLog("fullentity : " + fullentity);
-                        if (!string.IsNullOrEmpty(fullentity) || !fullentity.Equals(""))
+                        if (apiFlag.Equals("COMMON"))
                         {
-                            if (!String.IsNullOrEmpty(luisEntities))
-                            {
-                                //entity 길이 비교
-                                if (fullentity.Length > luisEntities.Length || luisIntent == null || luisIntent.Equals(""))
-                                {
-                                    //DefineTypeChkSpare에서는 인텐트나 루이스아이디조건 없이 엔티티만 일치하면 다이얼로그 리턴
-                                    relationList = db.DefineTypeChkSpare(fullentity);
-                                }
-                                else
-                                {
-                                    relationList = db.DefineTypeChk(MessagesController.luisId, MessagesController.luisIntent, MessagesController.luisEntities);
-                                }
-                            }
-                            else
-                            {
-                                relationList = db.DefineTypeChkSpare(fullentity);
-                            }
+                            relationList = db.DefineTypeChkSpare(cacheList.luisIntent, cacheList.luisEntities);
                         }
                         else
                         {
-
-                            if (apiFlag.Equals("COMMON"))
-                            {
-                                relationList = db.DefineTypeChkSpare(cacheList.luisEntities);
-                            }
-                            else
-                            {
-                                relationList = null;
-                            }
-
+                            relationList = null;
                         }
                         if (relationList != null)
                         //if (relationList.Count > 0)
@@ -566,112 +419,163 @@ namespace cjlogisticsChatBot
                                     * cj 대한통운
                                     * 2018.06.26 JunHyoung Park
                                     */
-                                    String param_intent = "물량정보";
-                                    String param_entities = "DELIVERY_STATUS='집화완료', PAY_TYPE='착불'";
-                                    deliveryData = db.SelectDeliveryData(param_entities);
-                                    String deliveryDataText = "";
-                                    string strComment = null;
-                                    int deliveryDataCount = 0;
-                                    /*
+                                    //String param_intent = "물량정보";
+                                    //String param_entities = "DELIVERY_STATUS='집화완료', PAY_TYPE='착불'";
+
+
+                                    String param_intent = MessagesController.cacheList.luisIntent;
+                                    String temp_paramEntities = null;
+                                    String[] column_name = new String[] {"invoice_num1", "invoice_num2", "delivery_type", "part", "customer_name", "address_old", "address_new", "phone", "box_type", "commission_place", "etc", "customer_comment", "pay_type", "fees", "quantity", "book_type", "delivery_time", "delivery_status", "store_num", "store_name", "sm_num", "sm_name"};
+
+                                    if (param_intent.Equals("물량정보조회3")){
+                                        //강신욱 주임님 작업공간
+
+
+                                    }
+                                    else {
+                                        for (var j = 0; j < entities.Count(); j++)
+                                        {
+                                            for (int ii = 0; ii < column_name.Length; ii++)
+                                            {
+                                                if (entities[j]["type"].ToString().Equals(column_name[ii]))
+                                                {
+                                                    String entity_type = entities[j]["type"].ToString();
+                                                    String entity_data = entities[j]["entity"].ToString();
+                                                    entity_data = Regex.Replace(entity_data, " ", "");
+                                                    //temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "='" + entities[j]["entity"].ToString() + "',";
+                                                    if (entity_type.Equals("address_old") || entity_type.Equals("address_new"))
+                                                    {
+                                                        temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + " like '%" + entity_data + "%',";
+                                                    }
+                                                    else
+                                                    {
+                                                        temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "='" + entity_data + "',";
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                        temp_paramEntities = temp_paramEntities.Substring(0, temp_paramEntities.Length - 1);
+                                        String param_entities = temp_paramEntities;
+
+                                        deliveryData = db.SelectDeliveryData(param_entities);
+                                        String deliveryDataText = "";
+                                        string strComment = null;
+                                        int deliveryDataCount_ = 0;
+
+                                        /*
                                      * parameter 정리
                                      */
-                                    String invoice_num1 = null;
-                                    String invoice_num2 = null;
-                                    String delivery_type = null;
-                                    String part = null;
-                                    String customer_name = null;
-                                    String address_old = null;
-                                    String address_new = null;
-                                    String phone = null;
-                                    String box_type = null;
-                                    String commission_place = null;
-                                    String etc = null;
-                                    String customer_comment = null;
-                                    String pay_type = null;
-                                    String fees = null;
-                                    String quantity = null;
-                                    String book_type = null;
-                                    String delivery_time = null;
-                                    String delivery_status = null;
-                                    String store_num = null;
-                                    String store_name = null;
-                                    String sm_num = null;
-                                    String sm_name = null;
-                                    String separate_line = "\n\n";
+                                        String invoice_num1 = null;
+                                        String invoice_num2 = null;
+                                        String delivery_type = null;
+                                        String part = null;
+                                        String customer_name = null;
+                                        String address_old = null;
+                                        String address_new = null;
+                                        String phone = null;
+                                        String box_type = null;
+                                        String commission_place = null;
+                                        String etc = null;
+                                        String customer_comment = null;
+                                        String pay_type = null;
+                                        String fees = null;
+                                        String quantity = null;
+                                        String book_type = null;
+                                        String delivery_time = null;
+                                        String delivery_status = null;
+                                        String store_num = null;
+                                        String store_name = null;
+                                        String sm_num = null;
+                                        String sm_name = null;
+                                        String deliveryDataCount = null;
+                                        String separate_line = "\n\n";
 
-                                    if (deliveryData != null)
-                                    {
-                                        deliveryDataCount = deliveryData.Count;
-                                        if (deliveryData.Count == 1)
+                                        if (deliveryData != null)
                                         {
-                                            invoice_num1 = deliveryData[0].invoice_num1 + "\n";
-                                            invoice_num2 = deliveryData[0].invoice_num2 + "\n";
-                                            delivery_type = deliveryData[0].delivery_type + "\n";
-                                            part = deliveryData[0].part + "\n";
-                                            customer_name = deliveryData[0].customer_name + "\n";
-                                            address_old = deliveryData[0].address_old + "\n";
-                                            address_new = deliveryData[0].address_new + "\n";
-                                            phone = deliveryData[0].phone + "\n";
-                                            box_type = deliveryData[0].box_type + "\n";
-                                            commission_place = deliveryData[0].commission_place + "\n";
-                                            etc = deliveryData[0].etc + "\n";
-                                            customer_comment = deliveryData[0].customer_comment + "\n";
-                                            pay_type = deliveryData[0].pay_type + "\n";
-                                            fees = deliveryData[0].fees + "\n";
-                                            quantity = deliveryData[0].quantity + "\n";
-                                            book_type = deliveryData[0].book_type + "\n";
-                                            delivery_time = deliveryData[0].delivery_time + "\n";
-                                            delivery_status = deliveryData[0].delivery_status + "\n";
-                                            store_num = deliveryData[0].store_num + "\n";
-                                            store_name = deliveryData[0].store_name + "\n";
-                                            sm_num = deliveryData[0].sm_num + "\n";
-                                            sm_name = deliveryData[0].sm_name + "\n";
+                                            deliveryDataCount_ = deliveryData.Count;
+                                            deliveryDataCount = deliveryDataCount_.ToString();
+                                            if (deliveryData.Count == 1)
+                                            {
+                                                invoice_num1 = deliveryData[0].invoice_num1 + "\n";
+                                                invoice_num2 = deliveryData[0].invoice_num2 + "\n";
+                                                delivery_type = deliveryData[0].delivery_type + "\n";
+                                                part = deliveryData[0].part + "\n";
+                                                customer_name = deliveryData[0].customer_name + "\n";
+                                                address_old = deliveryData[0].address_old + "\n";
+                                                address_new = deliveryData[0].address_new + "\n";
+                                                phone = deliveryData[0].phone + "\n";
+                                                box_type = deliveryData[0].box_type + "\n";
+                                                commission_place = deliveryData[0].commission_place + "\n";
+                                                etc = deliveryData[0].etc + "\n";
+                                                customer_comment = deliveryData[0].customer_comment + "\n";
+                                                pay_type = deliveryData[0].pay_type + "\n";
+                                                fees = deliveryData[0].fees + "\n";
+                                                quantity = deliveryData[0].quantity + "\n";
+                                                book_type = deliveryData[0].book_type + "\n";
+                                                /*
+                                                 * 시간 형식으로 표시
+                                                 */
+                                                delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
+                                                delivery_time = delivery_time + ":00\n";
+                                                //delivery_time = deliveryData[0].delivery_time + "\n";
+                                                delivery_status = deliveryData[0].delivery_status + "\n";
+                                                store_num = deliveryData[0].store_num + "\n";
+                                                store_name = deliveryData[0].store_name + "\n";
+                                                sm_num = deliveryData[0].sm_num + "\n";
+                                                sm_name = deliveryData[0].sm_name + "\n";
 
-                                            dlg.cardText = dlg.cardText.Replace("#invoice_num1", invoice_num1);
-                                            dlg.cardText = dlg.cardText.Replace("#invoice_num2", invoice_num2);
-                                            dlg.cardText = dlg.cardText.Replace("#delivery_type", delivery_type);
-                                            dlg.cardText = dlg.cardText.Replace("#part", part);
-                                            dlg.cardText = dlg.cardText.Replace("#customer_name", customer_name);
-                                            dlg.cardText = dlg.cardText.Replace("#address_old", address_old);
-                                            dlg.cardText = dlg.cardText.Replace("#address_new", address_new);
-                                            dlg.cardText = dlg.cardText.Replace("#phone", phone);
-                                            dlg.cardText = dlg.cardText.Replace("#box_type", box_type);
-                                            dlg.cardText = dlg.cardText.Replace("#commission_place", commission_place);
-                                            dlg.cardText = dlg.cardText.Replace("#etc", etc);
-                                            dlg.cardText = dlg.cardText.Replace("#customer_comment", customer_comment);
-                                            dlg.cardText = dlg.cardText.Replace("#pay_type", pay_type);
-                                            dlg.cardText = dlg.cardText.Replace("#fees", fees);
-                                            dlg.cardText = dlg.cardText.Replace("#quantity", quantity);
-                                            dlg.cardText = dlg.cardText.Replace("#book_type", book_type);
-                                            dlg.cardText = dlg.cardText.Replace("#delivery_time", delivery_time);
-                                            dlg.cardText = dlg.cardText.Replace("#delivery_status", delivery_status);
-                                            dlg.cardText = dlg.cardText.Replace("#store_num", store_num);
-                                            dlg.cardText = dlg.cardText.Replace("#store_name", store_name);
-                                            dlg.cardText = dlg.cardText.Replace("#sm_num", sm_num);
-                                            dlg.cardText = dlg.cardText.Replace("#sm_name", sm_name);
+                                                dlg.cardText = dlg.cardText.Replace("@INVOICE_NUM1@", invoice_num1);
+                                                dlg.cardText = dlg.cardText.Replace("@INVOICE_NUM2@", invoice_num2);
+                                                dlg.cardText = dlg.cardText.Replace("@DELIVERY_TYPE@", delivery_type);
+                                                dlg.cardText = dlg.cardText.Replace("@PART@", part);
+                                                dlg.cardText = dlg.cardText.Replace("@CUSTOMER_NAME@", customer_name);
+                                                dlg.cardText = dlg.cardText.Replace("@ADDRESS_OLD@", address_old);
+                                                dlg.cardText = dlg.cardText.Replace("@ADDRESS_NEW@", address_new);
+                                                dlg.cardText = dlg.cardText.Replace("@PHONE@", phone);
+                                                dlg.cardText = dlg.cardText.Replace("@BOX_TYPE@", box_type);
+                                                dlg.cardText = dlg.cardText.Replace("@COMMISSION_PLACE@", commission_place);
+                                                dlg.cardText = dlg.cardText.Replace("@ETC@", etc);
+                                                dlg.cardText = dlg.cardText.Replace("@CUSTOMER_COMMENT@", customer_comment);
+                                                dlg.cardText = dlg.cardText.Replace("@PAY_TYPE@", pay_type);
+                                                dlg.cardText = dlg.cardText.Replace("@FEES@", fees);
+                                                dlg.cardText = dlg.cardText.Replace("@QUANTITY@", quantity);
+                                                dlg.cardText = dlg.cardText.Replace("@BOOK_TYPE@", book_type);
+                                                dlg.cardText = dlg.cardText.Replace("@DELIVERY_TIME@", delivery_time);
+                                                dlg.cardText = dlg.cardText.Replace("@DELIVERY_STATUS@", delivery_status);
+                                                dlg.cardText = dlg.cardText.Replace("@STORE_NUM@", store_num);
+                                                dlg.cardText = dlg.cardText.Replace("@STORE_NAME@", store_name);
+                                                dlg.cardText = dlg.cardText.Replace("@SM_NUM@", sm_num);
+                                                dlg.cardText = dlg.cardText.Replace("@SM_NAME@", sm_name);
+
+                                                dlg.cardText = dlg.cardText.Replace("@DELIVERY_COUNT@", deliveryDataCount);
+                                            }
+                                            else
+                                            {
+                                                /*
+                                                 * 한개 이상의 데이터가 나오므로 여기는 뭉텡이로
+                                                 * 보여주어야 할 데이터를 만들어야 겠네요.
+                                                 */
+                                                for (int i = 0; i < deliveryData.Count; i++)
+                                                {
+                                                    deliveryDataCount = deliveryData.Count.ToString();
+                                                    strComment = "송장번호 : " + deliveryData[i].invoice_num1 + "\n";
+                                                    strComment += "이름 : " + deliveryData[i].customer_name + "\n";
+                                                    strComment += "착불여부 : " + deliveryData[i].pay_type + "\n";
+                                                    strComment += "수수료 : " + deliveryData[i].fees + "\n";
+                                                    strComment += separate_line;
+                                                    deliveryDataText = deliveryDataText + strComment;
+                                                }
+                                                dlg.cardText = dlg.cardText.Replace("@deliveryData@", deliveryDataText);
+                                            }
                                         }
                                         else
                                         {
-                                            /*
-                                             * 한개 이상의 데이터가 나오므로 여기는 뭉텡이로
-                                             * 보여주어야 할 데이터를 만들어야 겠네요.
-                                             */
-                                            for (int i = 0; i < deliveryData.Count; i++)
-                                            {
-                                                strComment = "송장번호 : " + deliveryData[i].invoice_num1 + "\n";
-                                                strComment += "송장번호 : " + deliveryData[i].invoice_num2 + "\n";
-                                                strComment += "고객명 : " + deliveryData[i].customer_name + "\n";
-                                                strComment += separate_line;
-                                                deliveryDataText = deliveryDataText + strComment;
-                                            }
-                                            dlg.cardText = dlg.cardText.Replace("#deliveryData", deliveryDataText);
+                                            deliveryDataCount_ = 0;
                                         }
-                                    }
-                                    else
-                                    {
-                                        deliveryDataCount = 0;
-                                    }
 
+                                    }
+                                    
                                     DButil.HistoryLog("facebook dlg.dlgId : " + dlg.dlgId);
                                     tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                     commonReply.Attachments.Add(tempAttachment);
