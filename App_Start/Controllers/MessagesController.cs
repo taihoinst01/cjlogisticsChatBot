@@ -306,6 +306,16 @@ namespace cjlogisticsChatBot
                         DButil.HistoryLog("luisIntent : " + luisIntent);
                         DButil.HistoryLog("luisEntities : " + luisEntities);
 
+                        ///////////////////////////////////////////////////////////////////////
+                        //물량정보조회3의 entitites를 가격으로 임의 지정
+                        if (luisIntent.Equals("물량정보조회3"))
+                        {
+                            cacheList.luisEntities = "가격";
+                            DButil.HistoryLog("luisEntities : " + luisEntities);
+                        }
+                        ///////////////////////////////////////////////////////////////////////
+
+
 
                         String fullentity = db.SearchCommonEntities;
                         DButil.HistoryLog("fullentity : " + fullentity);
@@ -1006,10 +1016,12 @@ namespace cjlogisticsChatBot
                                             dlg.cardText = "해당 조건에 맞는 정보가 존재하지 않습니다.";
                                         }
 
-                                    }
-                                    
                                     tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                     commonReply.Attachments.Add(tempAttachment);
+
+                                }
+                                    
+                                    
 
                                 //}
 

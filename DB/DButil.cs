@@ -367,7 +367,7 @@ namespace cjlogisticsChatBot.DB
             //string url = string.Format("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/{0}?subscription-key={1}&timezoneOffset=0&verbose=true&q={2}", luis_app_id, luis_subscription, query);
             string url = string.Format("https://southeastasia.api.cognitive.microsoft.com/luis/v2.0/apps/{0}?subscription-key={1}&timezoneOffset=0&verbose=true&q={2}", luis_app_id, luis_subscription, query);
 
-            Debug.WriteLine("LUIS URL : " + url);
+            Debug.WriteLine("-----LUIS URL : " + url);
 
             using (HttpClient client = new HttpClient())
             {
