@@ -282,32 +282,9 @@ namespace cjlogisticsChatBot
                         JArray compositEntities = new JArray();
                         JArray entities = new JArray();
 
-                        //캐시에 없을 경우
-                        /*
-                        if (cacheList.luisIntent == null || cacheList.luisEntities == null)
-                        {
-                            DButil.HistoryLog("cache none : " + orgMent);
-                            //루이스 체크
-                            cacheList.luisId = dbutil.GetMultiLUIS(orgMent);
-
-                            //compositEntities = dbutil.GetCompositEnities(orgMent);  //compositEntities 가져오는 부분
-                            entities = dbutil.GetEnities(orgMent);  //entities 가져오는 부분
-
-                            Debug.WriteLine("*******************************full entities : " + entities);
-                            String temp_entityType = "";
-                            for (var j = 0; j < entities.Count(); j++)
-                            {
-                                temp_entityType = temp_entityType + entities[j]["type"].ToString() + ", ";
-                            }
-                            temp_entityType = temp_entityType.Substring(0, temp_entityType.Length - 2);
-                            Debug.WriteLine("*******************************temp_entityType : " + temp_entityType);
-                            cacheList.luisEntities = temp_entityType;
-                        }
-                        */
                         //루이스 체크
                         cacheList.luisId = dbutil.GetMultiLUIS(orgMent);
 
-                        //compositEntities = dbutil.GetCompositEnities(orgMent);  //compositEntities 가져오는 부분
                         entities = dbutil.GetEnities(orgMent);  //entities 가져오는 부분
 
                         Debug.WriteLine("*******************************full entities : " + entities);
@@ -392,6 +369,7 @@ namespace cjlogisticsChatBot
                                 Activity commonReply = activity.CreateReply();
                                 Attachment tempAttachment = new Attachment();
                                 DButil.HistoryLog("dlg.dlgType : " + dlg.dlgType);
+                                /*
                                 if (dlg.dlgType.Equals(CARDDLG))
                                 {
                                     foreach (CardList tempcard in dlg.dialogCard)
@@ -414,6 +392,7 @@ namespace cjlogisticsChatBot
                                 }
                                 else
                                 {
+                                */
                                    /*
                                     * 답변 하는 부분
                                     * cj 대한통운
@@ -428,8 +407,158 @@ namespace cjlogisticsChatBot
                                     String[] column_name = new String[] {"invoice_num1", "invoice_num2", "delivery_type", "part", "customer_name", "address_old", "address_new", "phone", "box_type", "commission_place", "etc", "customer_comment", "pay_type", "fees", "quantity", "book_type", "delivery_time", "delivery_status", "store_num", "store_name", "sm_num", "sm_name"};
 
                                     if (param_intent.Equals("물량정보조회3")){
-                                        //강신욱 주임님 작업공간
+                                    //강신욱 주임님 작업공간
+                                    Debug.WriteLine("param_intent :: " + param_intent);
+                                    DButil.HistoryLog("param_intent : " + param_intent);
 
+                                    JArray _columnTitle = new JArray();
+                                    JArray _columValue = new JArray();
+                                    JArray _resultAnswer = new JArray();
+
+                                    for (int i = 0; i < entities.Count(); i++)
+                                    {
+                                        var resultAnswerChk = entities[i]["type"].ToString().Substring(0, 2);
+                                        if (resultAnswerChk.Equals("r_"))
+                                        {   //검색하고자 하는 entity배열
+                                            var answerEntity = entities[i]["type"].ToString().Substring(2, entities[i]["type"].ToString().Length - 2);
+                                            _resultAnswer.Add(answerEntity);
+                                        }
+                                        else
+                                        {   //조건에 맞는 entity 배열
+                                            _columnTitle.Add(entities[i]["type"].ToString());
+                                            _columValue.Add(Regex.Replace(entities[i]["entity"].ToString(), " ", ""));
+                                        }
+                                    }
+
+                                    deliveryData = db.SelectDeliveryData(_columnTitle, _columValue);
+                                    if (deliveryData != null)
+                                    {
+                                        var oriTextData = dlg.cardText;
+                                        DButil.HistoryLog("deliveryData.Count ::::: " + deliveryData.Count);
+                                        for (int i = 0; i < deliveryData.Count(); i++)
+                                        {
+                                            //데이터 셋팅
+                                            if (i.Equals(0))
+                                            {
+                                                dlg.cardTitle = dlg.cardTitle + " (총 건수는 : " + deliveryData.Count() + "건 입니다.)";
+                                            }
+                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM1", deliveryData[i].invoice_num1 + "\n\n");
+                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM2", deliveryData[i].invoice_num2 + "\n\n");
+                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TYPE", deliveryData[i].delivery_type + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##PART", deliveryData[i].part + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_NAME", deliveryData[i].customer_name + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_OLD", deliveryData[i].address_old + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_NEW", deliveryData[i].address_new + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##PHONE", deliveryData[i].phone + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##BOX_TYPE", deliveryData[i].box_type + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##COMMISSION_PLACE", deliveryData[i].commission_place + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##ETC", deliveryData[i].etc + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_COMMENT", deliveryData[i].customer_comment + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##PAY_TYPE", deliveryData[i].pay_type + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##FEES", deliveryData[i].fees + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##QUANTITY", deliveryData[i].quantity + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##BOOK_TYPE", deliveryData[i].book_type + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TIME", deliveryData[i].delivery_time + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_STATUS", deliveryData[i].delivery_status + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##STORE_NUM", deliveryData[i].store_num + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##STORE_NAME", deliveryData[i].store_name + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##SM_NUM", deliveryData[i].sm_num + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##SM_NAME", deliveryData[i].sm_name);
+
+                                            //카드 출력
+                                            tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
+                                            commonReply.Attachments.Add(tempAttachment);
+
+                                            //데이터 초기화
+                                            if (i.Equals(0))
+                                            {
+                                                dlg.cardTitle = dlg.cardTitle.Replace(dlg.cardTitle, "정보");
+                                            }
+                                            dlg.cardText = dlg.cardText.Replace(dlg.cardText, oriTextData);
+                                        }
+
+                                        if (deliveryData.Count().Equals(0))
+                                        {
+                                            dlg.cardTitle = dlg.cardTitle + " (총 건수는 : 0 건 입니다.)";
+                                            dlg.cardText = dlg.cardText.Replace(dlg.cardText, "0 건의 정보는 조회되지 않습니다.");
+
+                                            //카드 출력
+                                            tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
+                                            commonReply.Attachments.Add(tempAttachment);
+                                        }
+                                    }
+
+                                }
+                                    else if (param_intent.Equals("등록신청"))
+                                    {
+                                        
+                                        String etc_data = "";
+                                        String comment_data = "";
+                                        int db_update_check = 0;
+                                        for (var i = 0; i < entities.Count(); i++)
+                                        {
+                                            if (entities[i]["type"].ToString().Equals("etc_msg"))
+                                            {
+                                                etc_data = entities[i]["entity"].ToString();
+                                            }
+
+                                            if (entities[i]["type"].ToString().Equals("sms_msg"))
+                                            {
+                                                comment_data = entities[i]["entity"].ToString();
+                                            }
+
+                                            for (int ii = 0; ii < column_name.Length; ii++)
+                                            {
+                                                if (entities[i]["type"].ToString().Equals(column_name[ii]))
+                                                {
+                                                    String entity_type = entities[i]["type"].ToString();
+                                                    String entity_data = entities[i]["entity"].ToString();
+                                                    entity_data = Regex.Replace(entity_data, " ", "");
+                                                    //temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "='" + entities[j]["entity"].ToString() + "',";
+                                                    if (entity_type.Equals("customer_comment") || entity_type.Equals("customer_comment"))
+                                                    {
+                                                        //nothing--remove parameter data    
+                                                    }
+                                                    else
+                                                    {
+                                                        temp_paramEntities = temp_paramEntities + entities[i]["type"].ToString() + "='" + entity_data + "',";
+                                                    }
+                                                    temp_paramEntities = temp_paramEntities.Substring(0, temp_paramEntities.Length - 1);
+
+                                                }
+                                            }
+                                        }
+
+                                        db_update_check = db.UpdateDeliveryData(etc_data, comment_data, temp_paramEntities);
+                                        deliveryData = new List<DeliveryData>();
+                                        deliveryData = db.SelectDeliveryData(temp_paramEntities);
+                                        
+                                        String invoice_num2 = null;
+                                        String delivery_type = null;
+                                        String customer_name = null;
+                                        String etc = null;
+                                        String customer_comment = null;
+                                        String pay_type = null;
+                                        String fees = null;
+                                       
+                                        invoice_num2 = deliveryData[0].invoice_num2 + "/";
+                                        delivery_type = deliveryData[0].delivery_type + "/";
+                                        customer_name = deliveryData[0].customer_name + "/";
+                                        etc = deliveryData[0].etc + "/";
+                                        customer_comment = deliveryData[0].customer_comment + "/";
+                                        pay_type = deliveryData[0].pay_type + "/";
+                                        fees = deliveryData[0].fees + "/";
+                                        String input_text = "";
+                                        input_text = "'"+etc + customer_comment + "' 내용으로 등록되었습니다.<hr>";
+
+                                        String strComment = "";
+                                        strComment = "송장번호 : " + deliveryData[0].invoice_num2 + "/";
+                                        strComment += "이름 : " + deliveryData[0].customer_name + "/";
+                                        strComment += "집배송구분 : " + deliveryData[0].delivery_type + "/";
+                                        strComment += "착불여부 : " + deliveryData[0].pay_type + "/";
+                                        strComment += "수수료 : " + deliveryData[0].fees + "/";
+
+                                        dlg.cardText = dlg.cardText.Replace("@deliveryData@", input_text + strComment);
 
                                     }
                                     else {
@@ -443,15 +572,22 @@ namespace cjlogisticsChatBot
                                                     String entity_data = entities[j]["entity"].ToString();
                                                     entity_data = Regex.Replace(entity_data, " ", "");
                                                     //temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "='" + entities[j]["entity"].ToString() + "',";
-                                                    if (entity_type.Equals("address_old") || entity_type.Equals("address_new"))
+                                                    if (entity_type.Equals("address_old") || entity_type.Equals("address_new"))//주소일때는 like 검색
                                                     {
                                                         temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + " like '%" + entity_data + "%',";
                                                     }
-                                                    else
+                                                    else if ((entity_type.Equals("above")))//이상
+                                                    {
+                                                        temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + ">='" + entity_data + "',";
+                                                    }
+                                                    else if ((entity_type.Equals("below")))//이하
+                                                    {
+                                                        temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "<='" + entity_data + "',";
+                                                    }
+                                                    else//나머지..
                                                     {
                                                         temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "='" + entity_data + "',";
                                                     }
-
                                                 }
                                             }
                                         }
@@ -460,7 +596,6 @@ namespace cjlogisticsChatBot
 
                                         deliveryData = db.SelectDeliveryData(param_entities);
                                         String deliveryDataText = "";
-                                        string strComment = null;
                                         int deliveryDataCount_ = 0;
 
                                         /*
@@ -489,41 +624,86 @@ namespace cjlogisticsChatBot
                                         String sm_num = null;
                                         String sm_name = null;
                                         String deliveryDataCount = null;
-                                        String separate_line = "\n\n";
+                                        String separate_line = "<hr>";
 
-                                        if (deliveryData != null)
+                                        String account_text = "";
+                                        String intent_text = "";
+                                        String smsMsg = "";
+
+                                    if (deliveryData != null)
                                         {
                                             deliveryDataCount_ = deliveryData.Count;
                                             deliveryDataCount = deliveryDataCount_.ToString();
-                                            if (deliveryData.Count == 1)
+                                            
+                                            deliveryDataCount = deliveryData.Count.ToString();
+                                            if (param_intent.Equals("문자안내전송"))
                                             {
-                                                invoice_num1 = deliveryData[0].invoice_num1 + "\n";
-                                                invoice_num2 = deliveryData[0].invoice_num2 + "\n";
-                                                delivery_type = deliveryData[0].delivery_type + "\n";
-                                                part = deliveryData[0].part + "\n";
-                                                customer_name = deliveryData[0].customer_name + "\n";
-                                                address_old = deliveryData[0].address_old + "\n";
-                                                address_new = deliveryData[0].address_new + "\n";
-                                                phone = deliveryData[0].phone + "\n";
-                                                box_type = deliveryData[0].box_type + "\n";
-                                                commission_place = deliveryData[0].commission_place + "\n";
-                                                etc = deliveryData[0].etc + "\n";
-                                                customer_comment = deliveryData[0].customer_comment + "\n";
-                                                pay_type = deliveryData[0].pay_type + "\n";
-                                                fees = deliveryData[0].fees + "\n";
-                                                quantity = deliveryData[0].quantity + "\n";
-                                                book_type = deliveryData[0].book_type + "\n";
+                                                
+                                                intent_text = "다음의 사항을 문자전송하였습니다.<hr>";
+                                                for (var z = 0; z < entities.Count(); z++)
+                                                {
+                                                    String temp_ent = entities[z]["type"].ToString();
+                                                    temp_ent = Regex.Replace(temp_ent, " ", "");
+                                                    if (temp_ent.Equals("sms_msg"))
+                                                    {
+                                                        smsMsg = Regex.Replace(entities[z]["entity"].ToString(), " ", "");
+                                                    }
+                                                }
+                                        }
+
+                                            for (var z = 0; z < entities.Count(); z++)
+                                            {
+                                                String temp_ent = entities[z]["entity"].ToString();
+                                                temp_ent = Regex.Replace(temp_ent, " ", "");
+                                                if (temp_ent.Equals("계좌정보"))
+                                                {
+                                                //account_temp = 1;
+                                                account_text = "계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)<hr>";
+                                                break;
+                                                }
+                                            }
+                                           
+                                            if (deliveryData.Count == 0)
+                                            {
+                                            //dlg.cardText = dlg.cardText.Replace("@deliveryData@", "해당 조건에 맞는 정보가 존재하지 않습니다.");
+                                            dlg.cardText = "해당 조건에 맞는 정보가 존재하지 않습니다.";
+                                            }
+                                            else if (deliveryData.Count == 1)
+                                            {
+                                                invoice_num1 = deliveryData[0].invoice_num1;
+                                                invoice_num2 = deliveryData[0].invoice_num2;
+                                                delivery_type = deliveryData[0].delivery_type;
+                                                part = deliveryData[0].part;
+                                                customer_name = deliveryData[0].customer_name;
+                                                address_old = deliveryData[0].address_old;
+                                                address_new = deliveryData[0].address_new;
+                                                phone = deliveryData[0].phone;
+                                                box_type = deliveryData[0].box_type;
+                                                commission_place = deliveryData[0].commission_place;
+                                                etc = deliveryData[0].etc;
+                                                customer_comment = deliveryData[0].customer_comment;
+                                                pay_type = deliveryData[0].pay_type;
+                                                fees = deliveryData[0].fees;
+                                                quantity = deliveryData[0].quantity;
+                                                book_type = deliveryData[0].book_type;
                                                 /*
                                                  * 시간 형식으로 표시
                                                  */
-                                                delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
-                                                delivery_time = delivery_time + ":00\n";
-                                                //delivery_time = deliveryData[0].delivery_time + "\n";
-                                                delivery_status = deliveryData[0].delivery_status + "\n";
-                                                store_num = deliveryData[0].store_num + "\n";
-                                                store_name = deliveryData[0].store_name + "\n";
-                                                sm_num = deliveryData[0].sm_num + "\n";
-                                                sm_name = deliveryData[0].sm_name + "\n";
+                                                if(deliveryData[0].delivery_time==null|| deliveryData[0].delivery_time.Equals("")){
+                                                delivery_time = "";
+                                                }
+                                                else
+                                                {
+                                                    delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
+                                                    delivery_time = delivery_time + ":00\n";
+                                                }
+                                                
+                                            //delivery_time = deliveryData[0].delivery_time + "/";
+                                                delivery_status = deliveryData[0].delivery_status;
+                                                store_num = deliveryData[0].store_num;
+                                                store_name = deliveryData[0].store_name;
+                                                sm_num = deliveryData[0].sm_num;
+                                                sm_name = deliveryData[0].sm_name;
 
                                                 dlg.cardText = dlg.cardText.Replace("@INVOICE_NUM1@", invoice_num1);
                                                 dlg.cardText = dlg.cardText.Replace("@INVOICE_NUM2@", invoice_num2);
@@ -549,38 +729,289 @@ namespace cjlogisticsChatBot
                                                 dlg.cardText = dlg.cardText.Replace("@SM_NAME@", sm_name);
 
                                                 dlg.cardText = dlg.cardText.Replace("@DELIVERY_COUNT@", deliveryDataCount);
+                                                dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", smsMsg);
+                                            
+
+
+                                                String sub_info = "";
+                                                String invoice_num2Test = "<hr>송장번호: "+invoice_num2;
+
+                                                for (var a = 0; a < entities.Count(); a++)
+                                                {
+                                               
+                                                if (entities[a]["type"].ToString().Equals("r_delivery_type"))
+                                                {
+                                                    sub_info += invoice_num2Test + " / 집배송구분 : " + delivery_type + "/";
+                                                }
+
+                                                if (entities[a]["type"].ToString().Equals("r_invoice_num2"))
+                                                {
+                                                    sub_info += invoice_num2Test+ "/";
+                                                }
+
+                                                if (entities[a]["type"].ToString().Equals("r_fees"))
+                                                {
+                                                    sub_info += invoice_num2Test + " / 수수료 : " + fees + "/";
+                                                }
+
+                                                if (entities[a]["type"].ToString().Equals("r_part"))
+                                                    {
+                                                        sub_info += invoice_num2Test +" / 구역 : " + part + "/";
+                                                    }
+
+                                                    //if (entities[a]["type"].ToString().Equals("r_address_old")|| entities[a]["type"].ToString().Equals("r_address_new"))
+                                                    if (entities[a]["type"].ToString().Equals("r_address_old"))
+                                                    {
+                                                    sub_info += invoice_num2Test + " / 지번주소 : " + address_old + "/ 도로명주소 : "+ address_new ;
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_phone"))
+                                                    {
+                                                    sub_info += invoice_num2Test + " / 전화번호 : " + phone + "/";
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_box_type"))
+                                                    {
+                                                    sub_info += invoice_num2Test + " / 박스구분 : " + box_type + "/";
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_commission_place"))
+                                                    {
+                                                    sub_info += invoice_num2Test + " / 위탁정보 : " + commission_place + "/";
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_etc"))
+                                                    {
+                                                        if (etc == null || etc.Equals(""))
+                                                        {
+                                                            sub_info += invoice_num2Test + " /비고내용 은 없습니다./";
+                                                            dlg.cardText = invoice_num2Test + "상품의 비고내용은 없습니다.";
+                                                        }
+                                                        else
+                                                        {
+                                                            sub_info += invoice_num2Test + " / 비고 : " + etc + "/";
+                                                        }
+                                                    
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_customer_comment"))
+                                                    {
+                                                        if(customer_comment==null||customer_comment.Equals(""))
+                                                        {
+                                                        sub_info += invoice_num2Test + " / 고객특성 은 없습니다./";
+                                                        dlg.cardText = invoice_num2Test + "상품의 고객특성은 없습니다.";
+                                                    }
+                                                        else
+                                                        {
+                                                        sub_info += invoice_num2Test + " / 고객특성 : " + customer_comment + "/";
+                                                        }
+                                                   
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_pay_type"))
+                                                    {
+                                                    sub_info += invoice_num2Test + " / 운임구분 : " + pay_type + "/";
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_book_type"))
+                                                    {
+                                                    sub_info += invoice_num2Test + " / 예약구분 : " + book_type + "/";
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_delivery_time"))
+                                                    {
+                                                        delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
+                                                        delivery_time = delivery_time + ":00\n";
+                                                        sub_info += invoice_num2Test + " / 배달예정시간 : " + delivery_time + "/";
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_delivery_status"))
+                                                    {
+                                                    sub_info += invoice_num2Test + " / 상태정보 : " + delivery_status + "/";
+                                                    }
+
+                                                    if (entities[a]["type"].ToString().Equals("r_quantity"))
+                                                    {
+                                                        sub_info += invoice_num2Test + " / 수량 : " + quantity + "/";
+                                                    }
+
+                                                if (entities[a]["type"].ToString().Equals("delivery_info"))
+                                                {
+                                                    sub_info = "<hr>송장번호 : " + invoice_num2 + "/";
+                                                    sub_info += "이름 : " + customer_name + "/";
+                                                    sub_info += "집배송구분 : " + delivery_type + "/";
+                                                    sub_info += "수수료 : " + fees + "/";
+                                                }
                                             }
+                                            dlg.cardText = dlg.cardText.Replace("@SUBINFO@", sub_info);
+                                        }
                                             else
                                             {
+                                            String sub_info = "";
                                                 /*
                                                  * 한개 이상의 데이터가 나오므로 여기는 뭉텡이로
                                                  * 보여주어야 할 데이터를 만들어야 겠네요.
                                                  */
-                                                for (int i = 0; i < deliveryData.Count; i++)
+                                                int count_temp = 0;
+                                                String count_text = "";
+                                                deliveryDataCount = deliveryData.Count.ToString();
+                                                for (var z = 0; z < entities.Count(); z++)
                                                 {
-                                                    deliveryDataCount = deliveryData.Count.ToString();
-                                                    strComment = "송장번호 : " + deliveryData[i].invoice_num1 + "\n";
-                                                    strComment += "이름 : " + deliveryData[i].customer_name + "\n";
-                                                    strComment += "착불여부 : " + deliveryData[i].pay_type + "\n";
-                                                    strComment += "수수료 : " + deliveryData[i].fees + "\n";
-                                                    strComment += separate_line;
-                                                    deliveryDataText = deliveryDataText + strComment;
+                                                    if (entities[z]["type"].ToString().Equals("delivery_count"))
+                                                    {
+                                                        count_temp = 1;
+                                                        break;
+                                                    }
                                                 }
-                                                dlg.cardText = dlg.cardText.Replace("@deliveryData@", deliveryDataText);
+                                                
+                                                if (count_temp > 0)
+                                                {
+                                                    count_text = "결과건수 : " + deliveryDataCount + "<hr>";
+                                                }
+
+                                                account_text = "";
+                                                
+                                            for (var z = 0; z < entities.Count(); z++)
+                                            {
+                                                String temp_ent = entities[z]["entity"].ToString();
+                                                temp_ent = Regex.Replace(temp_ent, " ", "");
+                                                if (temp_ent.Equals("계좌정보"))
+                                                {
+                                                    //account_temp = 1;
+                                                    account_text = "<hr>계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)<hr>";
+                                                    break;
+                                                }
+                                            }
+
+                                            dlg.cardText = dlg.cardText.Replace("@DELIVERY_COUNT@", deliveryDataCount);
+                                            dlg.cardText = dlg.cardText.Replace("@INVOICE_NUM1@", deliveryData[0].invoice_num1);
+                                            dlg.cardText = dlg.cardText.Replace("@INVOICE_NUM2@", deliveryData[0].invoice_num2);
+                                            dlg.cardText = dlg.cardText.Replace("@DELIVERY_TYPE@", deliveryData[0].delivery_type);
+                                            dlg.cardText = dlg.cardText.Replace("@PART@", deliveryData[0].part);
+                                            dlg.cardText = dlg.cardText.Replace("@CUSTOMER_NAME@", deliveryData[0].customer_name);
+                                            dlg.cardText = dlg.cardText.Replace("@ADDRESS_OLD@", deliveryData[0].address_old);
+                                            dlg.cardText = dlg.cardText.Replace("@ADDRESS_NEW@", deliveryData[0].address_new);
+                                            dlg.cardText = dlg.cardText.Replace("@PHONE@", deliveryData[0].phone);
+                                            dlg.cardText = dlg.cardText.Replace("@BOX_TYPE@", deliveryData[0].box_type);
+                                            dlg.cardText = dlg.cardText.Replace("@COMMISSION_PLACE@", deliveryData[0].commission_place);
+                                            dlg.cardText = dlg.cardText.Replace("@ETC@", deliveryData[0].etc);
+                                            dlg.cardText = dlg.cardText.Replace("@CUSTOMER_COMMENT@", deliveryData[0].customer_comment);
+                                            dlg.cardText = dlg.cardText.Replace("@PAY_TYPE@", deliveryData[0].pay_type);
+                                            dlg.cardText = dlg.cardText.Replace("@FEES@", deliveryData[0].fees);
+                                            dlg.cardText = dlg.cardText.Replace("@QUANTITY@", deliveryData[0].quantity);
+                                            dlg.cardText = dlg.cardText.Replace("@BOOK_TYPE@", deliveryData[0].book_type);
+                                            dlg.cardText = dlg.cardText.Replace("@DELIVERY_TIME@", deliveryData[0].delivery_time);
+                                            dlg.cardText = dlg.cardText.Replace("@DELIVERY_STATUS@", deliveryData[0].delivery_status);
+                                            dlg.cardText = dlg.cardText.Replace("@STORE_NUM@", deliveryData[0].store_num);
+                                            dlg.cardText = dlg.cardText.Replace("@STORE_NAME@", deliveryData[0].store_name);
+                                            dlg.cardText = dlg.cardText.Replace("@SM_NUM@", deliveryData[0].sm_num);
+                                            dlg.cardText = dlg.cardText.Replace("@SM_NAME@", deliveryData[0].sm_name);
+
+                                            dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", smsMsg);
+
+                                            for (int i = 0; i < deliveryData.Count; i++)
+                                                {
+                                                    sub_info = "<hr>송장번호 : " + deliveryData[i].invoice_num2 + "/";
+                                                    sub_info += "이름 : " + deliveryData[i].customer_name + "/";
+                                                    sub_info += "집배송구분 : " + deliveryData[i].delivery_type + "/";
+                                                    sub_info += "수수료 : " + deliveryData[i].fees + "/";
+
+
+                                                for (var a = 0; a < entities.Count(); a++)
+                                                {
+                                                    for (int aa = 0; aa < column_name.Length; aa++)
+                                                    {
+                                                        if (entities[a]["type"].ToString().Equals(column_name[aa]))
+                                                        {
+                                                            if (entities[a]["type"].ToString().Equals("r_part"))
+                                                            {
+                                                                sub_info += "구역 : " + deliveryData[i].part + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_quantity"))
+                                                            {
+                                                                sub_info += "수량 : " + deliveryData[i].quantity + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_address_old"))
+                                                            {
+                                                                sub_info += "지번주소 : " + deliveryData[i].address_old + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_address_new"))
+                                                            {
+                                                                sub_info += "도로명주소 : " + deliveryData[i].address_new + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_phone"))
+                                                            {
+                                                                sub_info += "전화번호 : " + deliveryData[i].phone + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_box_type"))
+                                                            {
+                                                                sub_info += "박스구분 : " + deliveryData[i].box_type + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_commission_place"))
+                                                            {
+                                                                sub_info += "위탁정보 : " + deliveryData[i].commission_place + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_etc"))
+                                                            {
+                                                                sub_info += "비고 : " + deliveryData[i].etc + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_customer_comment"))
+                                                            {
+                                                                sub_info += "고객특성 : " + deliveryData[i].customer_comment + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_pay_type"))
+                                                            {
+                                                                sub_info += "운임구분 : " + deliveryData[i].pay_type + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_book_type"))
+                                                            {
+                                                                sub_info += "예약구분 : " + deliveryData[i].book_type + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_delivery_time"))
+                                                            {
+                                                                delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
+                                                                delivery_time = delivery_time + ":00\n";
+                                                                sub_info += "배달예정시간 : " + deliveryData[i].delivery_time + "/";
+                                                            }
+
+                                                            if (entities[a]["type"].ToString().Equals("r_delivery_status"))
+                                                            {
+                                                                sub_info += "상태정보 : " + deliveryData[i].delivery_status + "/";
+                                                            }
+
+                                                        }
+                                                    }
+                                                }
+
+                                                //sub_info += separate_line;
+                                                    deliveryDataText = deliveryDataText + sub_info;
+                                                }
+                                                dlg.cardText = dlg.cardText.Replace("@SUBINFO@", account_text+deliveryDataText);
                                             }
                                         }
                                         else
                                         {
                                             deliveryDataCount_ = 0;
+                                            dlg.cardText = "해당 조건에 맞는 정보가 존재하지 않습니다.";
                                         }
 
                                     }
                                     
-                                    DButil.HistoryLog("facebook dlg.dlgId : " + dlg.dlgId);
                                     tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                     commonReply.Attachments.Add(tempAttachment);
 
-                                }
+                                //}
 
                                 if (commonReply.Attachments.Count > 0)
                                 {
@@ -686,11 +1117,11 @@ namespace cjlogisticsChatBot
                     List<TextList> text = new List<TextList>();
                     if (sorryMessageCheck == 0)
                     {
-                        text = db.SelectSorryDialogText("5");
+                        text = db.SelectSorryDialogText("8");
                     }
                     else
                     {
-                        text = db.SelectSorryDialogText("6");
+                        //text = db.SelectSorryDialogText("6");
                     }
 
                     for (int i = 0; i < text.Count; i++)
