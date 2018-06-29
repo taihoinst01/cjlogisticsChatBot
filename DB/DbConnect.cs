@@ -1399,7 +1399,7 @@ namespace cjlogisticsChatBot.DB
         }
 
         //KSO
-        public List<DeliveryData> SelectDeliveryData(JArray columnTitle, JArray columnValue)
+        public List<DeliveryData> SelectDeliveryData(JArray columnTitle, JArray columnValue, JArray _resultAnswer)
         {
             SqlDataReader rdr = null;
             List<DeliveryData> result = new List<DeliveryData>();
@@ -1409,7 +1409,19 @@ namespace cjlogisticsChatBot.DB
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText += " SELECT INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ";
+                cmd.CommandText += " SELECT ";
+                //for(int i=0; i< _resultAnswer.Count(); i++)
+                //{
+                //    if (_resultAnswer.Count().Equals(1))
+                //    {
+                //        cmd.CommandText += _resultAnswer[i].ToString().ToUpper();
+                //    }
+                //    else
+                //    {
+                //        cmd.CommandText += ", " + _resultAnswer[i].ToString().ToUpper();
+                //    }
+                //}
+                cmd.CommandText += " INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ";
                 cmd.CommandText += " PHONE, BOX_TYPE, COMMISSION_PLACE, ETC, CUSTOMER_COMMENT, PAY_TYPE, FEES, QUANTITY, ";
                 cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME ";
                 cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
