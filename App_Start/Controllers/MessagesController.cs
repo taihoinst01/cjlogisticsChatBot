@@ -468,7 +468,8 @@ namespace cjlogisticsChatBot
                                         }
                                     }
 
-                                    deliveryData = db.SelectDeliveryData(_columnTitle, _columValue);
+                                    deliveryData = db.SelectDeliveryData(_columnTitle, _columValue, _resultAnswer);
+                                    
                                     if (deliveryData != null)
                                     {
                                         var oriTextData = dlg.cardText;
@@ -476,32 +477,134 @@ namespace cjlogisticsChatBot
                                         for (int i = 0; i < deliveryData.Count(); i++)
                                         {
                                             //데이터 셋팅
+                                            var settingResult = "";
                                             if (i.Equals(0))
                                             {
                                                 dlg.cardTitle = dlg.cardTitle + " (총 건수는 : " + deliveryData.Count() + "건 입니다.)";
                                             }
-                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM1", deliveryData[i].invoice_num1 + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM2", deliveryData[i].invoice_num2 + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TYPE", deliveryData[i].delivery_type + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##PART", deliveryData[i].part + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_NAME", deliveryData[i].customer_name + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_OLD", deliveryData[i].address_old + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_NEW", deliveryData[i].address_new + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##PHONE", deliveryData[i].phone + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##BOX_TYPE", deliveryData[i].box_type + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##COMMISSION_PLACE", deliveryData[i].commission_place + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##ETC", deliveryData[i].etc + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_COMMENT", deliveryData[i].customer_comment + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##PAY_TYPE", deliveryData[i].pay_type + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##FEES", deliveryData[i].fees + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##QUANTITY", deliveryData[i].quantity + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##BOOK_TYPE", deliveryData[i].book_type + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TIME", deliveryData[i].delivery_time + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_STATUS", deliveryData[i].delivery_status + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##STORE_NUM", deliveryData[i].store_num + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##STORE_NAME", deliveryData[i].store_name + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##SM_NUM", deliveryData[i].sm_num + ",");
-                                            dlg.cardText = dlg.cardText.Replace("##SM_NAME", deliveryData[i].sm_name);
+                                            
+                                            for (int j=0; j< _resultAnswer.Count(); j++)
+                                            {
+                                                for(int k=0; k< column_name.Length; k++)
+                                                {
+                                                    if (column_name[k].Equals(_resultAnswer[j].ToString()))
+                                                    {
+                                                        if (_resultAnswer[j].ToString().Equals("invoice_num1"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].invoice_num1 + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("invoice_num2"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].invoice_num2 + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("delivery_type"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].delivery_type + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("part"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].part + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("customer_name"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].customer_name + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("address_old"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].address_old + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("address_new"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].address_new + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("phone"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].phone + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("box_type"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].box_type + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("commission_place") && !deliveryData[i].commission_place.Equals(""))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].commission_place + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("etc") && !deliveryData[i].etc.Equals(""))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].etc + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("customer_comment") && !deliveryData[i].customer_comment.Equals(""))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].customer_comment + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("pay_type"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].pay_type + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("fees"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].fees + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("quantity"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].quantity + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("book_type"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].book_type + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("delivery_time") && !deliveryData[i].delivery_time.Equals(""))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].delivery_time + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("delivery_status"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].delivery_status + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("store_num"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].store_num + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("store_name"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].store_name + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("sm_num"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].sm_num + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("sm_name"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].sm_name + ", ";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            settingResult = settingResult.Substring(0, settingResult.Length - 2);
+                                            dlg.cardText = dlg.cardText.Replace("##DATA", settingResult);
+
+                                            //dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM1", deliveryData[i].invoice_num1 + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM2", deliveryData[i].invoice_num2 + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##DELIVERY_TYPE", deliveryData[i].delivery_type + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##PART", deliveryData[i].part + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##CUSTOMER_NAME", deliveryData[i].customer_name + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##ADDRESS_OLD", deliveryData[i].address_old + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##ADDRESS_NEW", deliveryData[i].address_new + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##PHONE", deliveryData[i].phone + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##BOX_TYPE", deliveryData[i].box_type + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##COMMISSION_PLACE", deliveryData[i].commission_place + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##ETC", deliveryData[i].etc + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##CUSTOMER_COMMENT", deliveryData[i].customer_comment + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##PAY_TYPE", deliveryData[i].pay_type + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##FEES", deliveryData[i].fees + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##QUANTITY", deliveryData[i].quantity + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##BOOK_TYPE", deliveryData[i].book_type + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##DELIVERY_TIME", deliveryData[i].delivery_time + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##DELIVERY_STATUS", deliveryData[i].delivery_status + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##STORE_NUM", deliveryData[i].store_num + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##STORE_NAME", deliveryData[i].store_name + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##SM_NUM", deliveryData[i].sm_num + ",");
+                                            //dlg.cardText = dlg.cardText.Replace("##SM_NAME", deliveryData[i].sm_name);
 
                                             //카드 출력
                                             tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
