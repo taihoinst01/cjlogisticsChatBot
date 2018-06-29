@@ -480,27 +480,27 @@ namespace cjlogisticsChatBot
                                             {
                                                 dlg.cardTitle = dlg.cardTitle + " (총 건수는 : " + deliveryData.Count() + "건 입니다.)";
                                             }
-                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM1", deliveryData[i].invoice_num1 + "\n\n");
-                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM2", deliveryData[i].invoice_num2 + "\n\n");
-                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TYPE", deliveryData[i].delivery_type + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##PART", deliveryData[i].part + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_NAME", deliveryData[i].customer_name + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_OLD", deliveryData[i].address_old + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_NEW", deliveryData[i].address_new + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##PHONE", deliveryData[i].phone + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##BOX_TYPE", deliveryData[i].box_type + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##COMMISSION_PLACE", deliveryData[i].commission_place + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##ETC", deliveryData[i].etc + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_COMMENT", deliveryData[i].customer_comment + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##PAY_TYPE", deliveryData[i].pay_type + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##FEES", deliveryData[i].fees + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##QUANTITY", deliveryData[i].quantity + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##BOOK_TYPE", deliveryData[i].book_type + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TIME", deliveryData[i].delivery_time + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_STATUS", deliveryData[i].delivery_status + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##STORE_NUM", deliveryData[i].store_num + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##STORE_NAME", deliveryData[i].store_name + "\n");
-                                            dlg.cardText = dlg.cardText.Replace("##SM_NUM", deliveryData[i].sm_num + "\n");
+                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM1", deliveryData[i].invoice_num1 + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM2", deliveryData[i].invoice_num2 + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TYPE", deliveryData[i].delivery_type + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##PART", deliveryData[i].part + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_NAME", deliveryData[i].customer_name + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_OLD", deliveryData[i].address_old + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##ADDRESS_NEW", deliveryData[i].address_new + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##PHONE", deliveryData[i].phone + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##BOX_TYPE", deliveryData[i].box_type + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##COMMISSION_PLACE", deliveryData[i].commission_place + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##ETC", deliveryData[i].etc + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##CUSTOMER_COMMENT", deliveryData[i].customer_comment + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##PAY_TYPE", deliveryData[i].pay_type + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##FEES", deliveryData[i].fees + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##QUANTITY", deliveryData[i].quantity + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##BOOK_TYPE", deliveryData[i].book_type + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_TIME", deliveryData[i].delivery_time + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##DELIVERY_STATUS", deliveryData[i].delivery_status + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##STORE_NUM", deliveryData[i].store_num + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##STORE_NAME", deliveryData[i].store_name + ",");
+                                            dlg.cardText = dlg.cardText.Replace("##SM_NUM", deliveryData[i].sm_num + ",");
                                             dlg.cardText = dlg.cardText.Replace("##SM_NAME", deliveryData[i].sm_name);
 
                                             //카드 출력
