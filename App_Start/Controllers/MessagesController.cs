@@ -586,7 +586,7 @@ namespace cjlogisticsChatBot
                                     pay_type = deliveryData[0].pay_type + "/";
                                     fees = deliveryData[0].fees + "/";
                                     String input_text = "";
-                                    input_text = "'" + etc + customer_comment + "' 내용으로 등록되었습니다.<hr>";
+                                    input_text = "'" + etc + customer_comment + "' 내용으로 등록되었습니다.---";
 
                                     String strComment = "";
                                     strComment = "송장번호 : " + deliveryData[0].invoice_num2 + "/";
@@ -685,7 +685,7 @@ namespace cjlogisticsChatBot
                                     String sm_num = null;
                                     String sm_name = null;
                                     String deliveryDataCount = null;
-                                    String separate_line = "<hr>";
+                                    String separate_line = "---";
 
                                     String account_text = "";
                                     String intent_text = "";
@@ -700,7 +700,7 @@ namespace cjlogisticsChatBot
                                         if (param_intent.Equals("문자안내전송"))
                                         {
 
-                                            intent_text = "다음의 사항을 문자전송하였습니다.<hr>";
+                                            intent_text = "다음의 사항을 문자전송하였습니다.---";
                                             for (var z = 0; z < entities.Count(); z++)
                                             {
                                                 String temp_ent = entities[z]["type"].ToString();
@@ -719,7 +719,7 @@ namespace cjlogisticsChatBot
                                             if (temp_ent.Equals("계좌정보"))
                                             {
                                                 //account_temp = 1;
-                                                account_text = "계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)<hr>";
+                                                account_text = "계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)---";
                                                 break;
                                             }
                                         }
@@ -797,7 +797,8 @@ namespace cjlogisticsChatBot
 
 
                                             String sub_info = "";
-                                            String invoice_num2Test = "<hr>송장번호: " + invoice_num2;
+                                            String invoice_num2Test = "---송장번호: " + invoice_num2;
+                                            int show_subinfo = 0;
 
                                             for (var a = 0; a < entities.Count(); a++)
                                             {
@@ -900,11 +901,21 @@ namespace cjlogisticsChatBot
 
                                                 if (entities[a]["type"].ToString().Equals("delivery_info"))
                                                 {
-                                                    sub_info = "<hr>송장번호 : " + invoice_num2 + "/";
+                                                    sub_info = "---송장번호 : " + invoice_num2 + "/";
+                                                    sub_info += "이름 : " + customer_name + "/";
+                                                    sub_info += "집배송구분 : " + delivery_type + "/";
+                                                    sub_info += "수수료 : " + fees + "/";
+                                                    show_subinfo = 1;
+                                                }
+
+                                                if(show_subinfo == 0)
+                                                {
+                                                    sub_info = "---송장번호 : " + invoice_num2 + "/";
                                                     sub_info += "이름 : " + customer_name + "/";
                                                     sub_info += "집배송구분 : " + delivery_type + "/";
                                                     sub_info += "수수료 : " + fees + "/";
                                                 }
+                                               
                                             }
                                             dlg.cardText = dlg.cardText.Replace("@SUBINFO@", sub_info);
                                         }
@@ -929,7 +940,7 @@ namespace cjlogisticsChatBot
 
                                             if (count_temp > 0)
                                             {
-                                                count_text = "결과건수 : " + deliveryDataCount + "<hr>";
+                                                count_text = "결과건수 : " + deliveryDataCount + "---";
                                             }
 
                                             account_text = "";
@@ -941,7 +952,7 @@ namespace cjlogisticsChatBot
                                                 if (temp_ent.Equals("계좌정보"))
                                                 {
                                                     //account_temp = 1;
-                                                    account_text = "<hr>계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)<hr>";
+                                                    account_text = "---계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)---";
                                                     break;
                                                 }
                                             }
@@ -975,7 +986,7 @@ namespace cjlogisticsChatBot
 
                                             for (int i = 0; i < deliveryData.Count; i++)
                                             {
-                                                sub_info = "<hr>송장번호 : " + deliveryData[i].invoice_num2 + "/";
+                                                sub_info = "---송장번호 : " + deliveryData[i].invoice_num2 + "/";
                                                 sub_info += "이름 : " + deliveryData[i].customer_name + "/";
                                                 sub_info += "집배송구분 : " + deliveryData[i].delivery_type + "/";
                                                 sub_info += "수수료 : " + deliveryData[i].fees + "/";
