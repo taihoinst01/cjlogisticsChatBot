@@ -469,7 +469,7 @@ namespace cjlogisticsChatBot
                                     }
 
                                     deliveryData = db.SelectDeliveryData(_columnTitle, _columValue, _resultAnswer);
-                                    
+
                                     if (deliveryData != null)
                                     {
                                         var oriTextData = dlg.cardText;
@@ -482,10 +482,10 @@ namespace cjlogisticsChatBot
                                             {
                                                 dlg.cardTitle = dlg.cardTitle + " (총 건수는 : " + deliveryData.Count() + "건 입니다.)";
                                             }
-                                            
-                                            for (int j=0; j< _resultAnswer.Count(); j++)
+
+                                            for (int j = 0; j < _resultAnswer.Count(); j++)
                                             {
-                                                for(int k=0; k< column_name.Length; k++)
+                                                for (int k = 0; k < column_name.Length; k++)
                                                 {
                                                     if (column_name[k].Equals(_resultAnswer[j].ToString()))
                                                     {
@@ -900,125 +900,138 @@ namespace cjlogisticsChatBot
 
 
                                             String sub_info = "";
-                                            String invoice_num2Test = "---송장번호: " + invoice_num2;
+                                            //String invoice_num2Test = "---송장번호: " + invoice_num2;
+                                            String invoice_num2Test = "";
                                             int show_subinfo = 0;
 
                                             for (var a = 0; a < entities.Count(); a++)
                                             {
-
                                                 if (entities[a]["type"].ToString().Equals("r_delivery_type"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 집배송구분 : " + delivery_type + "/";
+                                                    sub_info += invoice_num2Test + " **집배송구분 : " + delivery_type + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_invoice_num2"))
                                                 {
-                                                    sub_info += invoice_num2Test + "/";
+                                                    sub_info += invoice_num2Test;
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_fees"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 수수료 : " + fees + "/";
+                                                    sub_info += invoice_num2Test + " **수수료 : " + fees + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_part"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 구역 : " + part + "/";
+                                                    sub_info += invoice_num2Test + " **구역 : " + part + "**";
+                                                    show_subinfo = 1;
                                                 }
 
-                                                //if (entities[a]["type"].ToString().Equals("r_address_old")|| entities[a]["type"].ToString().Equals("r_address_new"))
-                                                if (entities[a]["type"].ToString().Equals("r_address_old"))
+                                                if (entities[a]["type"].ToString().Equals("r_address_old")|| entities[a]["type"].ToString().Equals("r_address_new"))
+                                                //if (entities[a]["type"].ToString().Equals("r_address_old"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 지번주소 : " + address_old + "/ 도로명주소 : " + address_new;
+                                                    sub_info += invoice_num2Test + " **지번주소 : " + address_old + " ,도로명주소 : " + address_new + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_phone"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 전화번호 : " + phone + "/";
+                                                    sub_info += invoice_num2Test + " **전화번호 : " + phone + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_box_type"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 박스구분 : " + box_type + "/";
+                                                    sub_info += invoice_num2Test + " **박스구분 : " + box_type + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_commission_place"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 위탁정보 : " + commission_place + "/";
+                                                    sub_info += invoice_num2Test + " **위탁정보 : " + commission_place + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_etc"))
                                                 {
                                                     if (etc == null || etc.Equals(""))
                                                     {
-                                                        sub_info += invoice_num2Test + " /비고내용 은 없습니다./";
+                                                        sub_info += invoice_num2Test + "비고내용 은 없습니다.";
                                                         dlg.cardText = invoice_num2Test + "상품의 비고내용은 없습니다.";
                                                     }
                                                     else
                                                     {
-                                                        sub_info += invoice_num2Test + " / 비고 : " + etc + "/";
+                                                        sub_info += invoice_num2Test + " **비고 : " + etc + "**";
                                                     }
-
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_customer_comment"))
                                                 {
                                                     if (customer_comment == null || customer_comment.Equals(""))
                                                     {
-                                                        sub_info += invoice_num2Test + " / 고객특성 은 없습니다./";
+                                                        sub_info += invoice_num2Test + "고객특성 은 없습니다.";
                                                         dlg.cardText = invoice_num2Test + "상품의 고객특성은 없습니다.";
                                                     }
                                                     else
                                                     {
-                                                        sub_info += invoice_num2Test + " / 고객특성 : " + customer_comment + "/";
+                                                        sub_info += invoice_num2Test + " **고객특성 : " + customer_comment + "**";
                                                     }
-
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_pay_type"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 운임구분 : " + pay_type + "/";
+                                                    sub_info += invoice_num2Test + " **운임구분 : " + pay_type + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_book_type"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 예약구분 : " + book_type + "/";
+                                                    sub_info += invoice_num2Test + " **예약구분 : " + book_type + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_delivery_time"))
                                                 {
                                                     delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
                                                     delivery_time = delivery_time + ":00\n";
-                                                    sub_info += invoice_num2Test + " / 배달예정시간 : " + delivery_time + "/";
+                                                    sub_info += invoice_num2Test + " **배달예정시간 : " + delivery_time + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_delivery_status"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 상태정보 : " + delivery_status + "/";
+                                                    sub_info += invoice_num2Test + " **상태정보 : " + delivery_status + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("r_quantity"))
                                                 {
-                                                    sub_info += invoice_num2Test + " / 수량 : " + quantity + "/";
+                                                    sub_info += invoice_num2Test + " **수량 : " + quantity + "**";
+                                                    show_subinfo = 1;
                                                 }
 
                                                 if (entities[a]["type"].ToString().Equals("delivery_info"))
                                                 {
-                                                    sub_info = "---송장번호 : " + invoice_num2 + "/";
-                                                    sub_info += "이름 : " + customer_name + "/";
-                                                    sub_info += "집배송구분 : " + delivery_type + "/";
-                                                    sub_info += "수수료 : " + fees + "/";
+                                                    sub_info = " 송장번호 : " + invoice_num2; ;
+                                                    sub_info += " ,이름 : " + customer_name; ;
+                                                    sub_info += " ,집배송구분 : " + delivery_type; ;
+                                                    sub_info += " ,수수료 : " + fees; ;
                                                     show_subinfo = 1;
                                                 }
 
-                                                if(show_subinfo == 0)
+                                                if (show_subinfo == 0)
                                                 {
-                                                    sub_info = "---송장번호 : " + invoice_num2 + "/";
-                                                    sub_info += "이름 : " + customer_name + "/";
-                                                    sub_info += "집배송구분 : " + delivery_type + "/";
-                                                    sub_info += "수수료 : " + fees + "/";
+                                                    sub_info = " 송장번호 : " + invoice_num2;
+                                                    sub_info += " ,이름 : " + customer_name;
+                                                    sub_info += " ,집배송구분 : " + delivery_type;
+                                                    sub_info += " ,수수료 : " + fees;
                                                 }
-                                               
+
                                             }
                                             dlg.cardText = dlg.cardText.Replace("@SUBINFO@", sub_info);
                                         }
@@ -1043,7 +1056,7 @@ namespace cjlogisticsChatBot
 
                                             if (count_temp > 0)
                                             {
-                                                count_text = "결과건수 : " + deliveryDataCount + "---";
+                                                count_text = "결과건수 : " + deliveryDataCount + " ";
                                             }
 
                                             account_text = "";
@@ -1055,7 +1068,7 @@ namespace cjlogisticsChatBot
                                                 if (temp_ent.Equals("계좌정보"))
                                                 {
                                                     //account_temp = 1;
-                                                    account_text = "---계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)---";
+                                                    account_text = " 계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운) ";
                                                     break;
                                                 }
                                             }
@@ -1089,79 +1102,79 @@ namespace cjlogisticsChatBot
 
                                             for (int i = 0; i < deliveryData.Count; i++)
                                             {
-                                                sub_info = "---송장번호 : " + deliveryData[i].invoice_num2 + "/";
-                                                sub_info += "이름 : " + deliveryData[i].customer_name + "/";
-                                                sub_info += "집배송구분 : " + deliveryData[i].delivery_type + "/";
-                                                sub_info += "수수료 : " + deliveryData[i].fees + "/";
+                                                sub_info = " 송장번호 : " + deliveryData[i].invoice_num2;
+                                                sub_info += " ,이름 : " + deliveryData[i].customer_name;
+                                                sub_info += " ,집배송구분 : " + deliveryData[i].delivery_type;
+                                                sub_info += " ,수수료 : " + deliveryData[i].fees;
 
 
                                                 for (var a = 0; a < entities.Count(); a++)
                                                 {
                                                     if (entities[a]["type"].ToString().Equals("r_part"))
                                                     {
-                                                        sub_info += "구역 : " + deliveryData[i].part + "/";
+                                                        sub_info += "**구역 : " + deliveryData[i].part + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_quantity"))
                                                     {
-                                                        sub_info += "수량 : " + deliveryData[i].quantity + "/";
+                                                        sub_info += "**수량 : " + deliveryData[i].quantity + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_address_old"))
                                                     {
-                                                        sub_info += "지번주소 : " + deliveryData[i].address_old + "/";
+                                                        sub_info += "**지번주소 : " + deliveryData[i].address_old + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_address_new"))
                                                     {
-                                                        sub_info += "도로명주소 : " + deliveryData[i].address_new + "/";
+                                                        sub_info += "**도로명주소 : " + deliveryData[i].address_new + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_phone"))
                                                     {
-                                                        sub_info += "전화번호 : " + deliveryData[i].phone + "/";
+                                                        sub_info += "**전화번호 : " + deliveryData[i].phone + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_box_type"))
                                                     {
-                                                        sub_info += "박스구분 : " + deliveryData[i].box_type + "/";
+                                                        sub_info += "**박스구분 : " + deliveryData[i].box_type + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_commission_place"))
                                                     {
-                                                        sub_info += "위탁정보 : " + deliveryData[i].commission_place + "/";
+                                                        sub_info += "**위탁정보 : " + deliveryData[i].commission_place + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_etc"))
                                                     {
-                                                        sub_info += "비고 : " + deliveryData[i].etc + "/";
+                                                        sub_info += "**비고 : " + deliveryData[i].etc + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_customer_comment"))
                                                     {
-                                                        sub_info += "고객특성 : " + deliveryData[i].customer_comment + "/";
+                                                        sub_info += "**고객특성 : " + deliveryData[i].customer_comment + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_pay_type"))
                                                     {
-                                                        sub_info += "운임구분 : " + deliveryData[i].pay_type + "/";
+                                                        sub_info += "**운임구분 : " + deliveryData[i].pay_type + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_book_type"))
                                                     {
-                                                        sub_info += "예약구분 : " + deliveryData[i].book_type + "/";
+                                                        sub_info += "**예약구분 : " + deliveryData[i].book_type + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_delivery_time"))
                                                     {
                                                         delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
                                                         delivery_time = delivery_time + ":00\n";
-                                                        sub_info += "배달예정시간 : " + deliveryData[i].delivery_time + "/";
+                                                        sub_info += "**배달예정시간 : " + deliveryData[i].delivery_time + "**";
                                                     }
 
                                                     if (entities[a]["type"].ToString().Equals("r_delivery_status"))
                                                     {
-                                                        sub_info += "상태정보 : " + deliveryData[i].delivery_status + "/";
+                                                        sub_info += "**상태정보 : " + deliveryData[i].delivery_status + "**";
                                                     }
                                                 }
 
@@ -1174,9 +1187,10 @@ namespace cjlogisticsChatBot
                                     else
                                     {
                                         deliveryDataCount_ = 0;
+                                        dlg.cardTitle = dlg.cardTitle.Replace(dlg.cardTitle, "정보");
                                         dlg.cardText = "해당 조건에 맞는 정보가 존재하지 않습니다.";
                                     }
-
+                                    
                                     tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                     commonReply.Attachments.Add(tempAttachment);
 
