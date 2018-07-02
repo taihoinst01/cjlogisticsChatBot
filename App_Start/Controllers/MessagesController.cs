@@ -458,7 +458,7 @@ namespace cjlogisticsChatBot
                                                 {
                                                     if (!entities[i]["type"].ToString().Equals("delivery_time") //배송시간 제외
                                                         || !entities[i]["type"].ToString().Equals("quantity")   //수량 제외
-                                                        || !entities[i]["type"].ToString().Equals("fees"))      //수수료 제외
+                                                        || !entities[i]["type"].ToString().Equals("fees"))      //운임 제외
                                                     {
                                                         _columnTitle.Add(entities[i]["type"].ToString());
                                                         _columValue.Add(Regex.Replace(entities[i]["entity"].ToString(), " ", ""));
@@ -681,22 +681,22 @@ namespace cjlogisticsChatBot
                                     String pay_type = null;
                                     String fees = null;
 
-                                    invoice_num2 = deliveryData[0].invoice_num2 + "/";
-                                    delivery_type = deliveryData[0].delivery_type + "/";
-                                    customer_name = deliveryData[0].customer_name + "/";
-                                    etc = deliveryData[0].etc + "/";
-                                    customer_comment = deliveryData[0].customer_comment + "/";
-                                    pay_type = deliveryData[0].pay_type + "/";
-                                    fees = deliveryData[0].fees + "/";
+                                    invoice_num2 = deliveryData[0].invoice_num2;
+                                    delivery_type = deliveryData[0].delivery_type;
+                                    customer_name = deliveryData[0].customer_name;
+                                    etc = deliveryData[0].etc;
+                                    customer_comment = deliveryData[0].customer_comment;
+                                    pay_type = deliveryData[0].pay_type;
+                                    fees = deliveryData[0].fees;
                                     String input_text = "";
-                                    input_text = "'" + etc + customer_comment + "' 내용으로 등록되었습니다.---";
+                                    input_text = "'" + etc + customer_comment + "' 내용으로 등록되었습니다.";
 
                                     String strComment = "";
-                                    strComment = "송장번호 : " + deliveryData[0].invoice_num2 + "/";
-                                    strComment += "이름 : " + deliveryData[0].customer_name + "/";
-                                    strComment += "집배송구분 : " + deliveryData[0].delivery_type + "/";
-                                    strComment += "착불여부 : " + deliveryData[0].pay_type + "/";
-                                    strComment += "수수료 : " + deliveryData[0].fees + "/";
+                                    strComment = "송장번호 : " + deliveryData[0].invoice_num2 + " ,";
+                                    strComment += "이름 : " + deliveryData[0].customer_name + " ,";
+                                    strComment += "집배송구분 : " + deliveryData[0].delivery_type + " ,";
+                                    strComment += "착불여부 : " + deliveryData[0].pay_type + " ,";
+                                    strComment += "운임 : " + deliveryData[0].fees + " ,";
 
                                     dlg.cardText = dlg.cardText.Replace("@deliveryData@", input_text + strComment);
 
@@ -747,6 +747,14 @@ namespace cjlogisticsChatBot
                                                     {
                                                         temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "='" + entity_data + "'#";
                                                     }
+                                                }
+                                                else if ((entity_type.Equals("delivery_type")))//유의어 처리(배달,배송)
+                                                {
+                                                    if (entity_data.Equals("배송"))
+                                                    {
+                                                        entity_data = "배달";
+                                                    }
+                                                    temp_paramEntities = temp_paramEntities + entities[j]["type"].ToString() + "='" + entity_data + "'#";
                                                 }
                                                 else//나머지..
                                                 {
@@ -803,7 +811,7 @@ namespace cjlogisticsChatBot
                                         if (param_intent.Equals("문자안내전송"))
                                         {
 
-                                            intent_text = "다음의 사항을 문자전송하였습니다.---";
+                                            intent_text = "다음의 사항을 문자전송하였습니다.";
                                             for (var z = 0; z < entities.Count(); z++)
                                             {
                                                 String temp_ent = entities[z]["type"].ToString();
@@ -822,7 +830,7 @@ namespace cjlogisticsChatBot
                                             if (temp_ent.Equals("계좌정보"))
                                             {
                                                 //account_temp = 1;
-                                                account_text = "계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)---";
+                                                account_text = "계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)";
                                                 break;
                                             }
                                         }
@@ -920,7 +928,7 @@ namespace cjlogisticsChatBot
 
                                                 if (entities[a]["type"].ToString().Equals("r_fees"))
                                                 {
-                                                    sub_info += invoice_num2Test + " **수수료 : " + fees + "**";
+                                                    sub_info += invoice_num2Test + " **운임 : " + fees + "**";
                                                     show_subinfo = 1;
                                                 }
 
@@ -998,7 +1006,7 @@ namespace cjlogisticsChatBot
                                                 if (entities[a]["type"].ToString().Equals("r_delivery_time"))
                                                 {
                                                     delivery_time = deliveryData[0].delivery_time.Substring(0, deliveryData[0].delivery_time.Length - 2);
-                                                    delivery_time = delivery_time + ":00\n";
+                                                    delivery_time = delivery_time + ":00";
                                                     sub_info += invoice_num2Test + " **배달예정시간 : " + delivery_time + "**";
                                                     show_subinfo = 1;
                                                 }
@@ -1020,7 +1028,7 @@ namespace cjlogisticsChatBot
                                                     sub_info = " 송장번호 : " + invoice_num2; ;
                                                     sub_info += " ,이름 : " + customer_name; ;
                                                     sub_info += " ,집배송구분 : " + delivery_type; ;
-                                                    sub_info += " ,수수료 : " + fees; ;
+                                                    sub_info += " ,운임 : " + fees; ;
                                                     show_subinfo = 1;
                                                 }
 
@@ -1029,7 +1037,7 @@ namespace cjlogisticsChatBot
                                                     sub_info = " 송장번호 : " + invoice_num2;
                                                     sub_info += " ,이름 : " + customer_name;
                                                     sub_info += " ,집배송구분 : " + delivery_type;
-                                                    sub_info += " ,수수료 : " + fees;
+                                                    sub_info += " ,운임 : " + fees;
                                                 }
 
                                             }
@@ -1105,7 +1113,7 @@ namespace cjlogisticsChatBot
                                                 sub_info = " 송장번호 : " + deliveryData[i].invoice_num2;
                                                 sub_info += " ,이름 : " + deliveryData[i].customer_name;
                                                 sub_info += " ,집배송구분 : " + deliveryData[i].delivery_type;
-                                                sub_info += " ,수수료 : " + deliveryData[i].fees;
+                                                sub_info += " ,운임 : " + deliveryData[i].fees;
 
 
                                                 for (var a = 0; a < entities.Count(); a++)
