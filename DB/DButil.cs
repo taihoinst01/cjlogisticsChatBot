@@ -74,7 +74,7 @@ namespace cjlogisticsChatBot.DB
                 LuisName = returnLuisName[0];
                 Luis = Luis_before[0];
             }
-
+            Debug.WriteLine("LuisName ::: " + LuisName);
             if (!String.IsNullOrEmpty(LuisName))
             {
                 if (Luis != null || Luis.Count > 0)
@@ -168,7 +168,7 @@ namespace cjlogisticsChatBot.DB
                 LuisName = returnLuisName[0];
                 Luis = Luis_before[0];
             }
-
+            Debug.WriteLine("LuisName ::: " + LuisName);
             if (!String.IsNullOrEmpty(LuisName))
             {
                 if (Luis != null || Luis.Count > 0)
