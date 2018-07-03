@@ -309,17 +309,17 @@ namespace cjlogisticsChatBot
 
                         ///////////////////////////////////////////////////////////////////////
                         //물량정보조회3의 entitites를 가격으로 임의 지정
-                        if (luisIntent.Equals("물량정보조회3"))
+                        if (luisIntent.Equals("물량정보조회3") || luisIntent.Equals("물량정보조회4") || luisIntent.Equals("물량정보조회5"))
                         {
-                            cacheList.luisEntities = "가격";
-                            DButil.HistoryLog("luisEntities : " + luisEntities);
+                            cacheList.luisEntities = "가격";  //임시설정
                         }
 
                         if (luisIntent.Equals("등록신청"))
                         {
                             cacheList.luisEntities = "insertEtcComment";
-                            DButil.HistoryLog("luisEntities : " + luisEntities);
                         }
+
+                        DButil.HistoryLog("luisEntities : " + luisEntities);
                         ///////////////////////////////////////////////////////////////////////
 
 
@@ -423,7 +423,7 @@ namespace cjlogisticsChatBot
                                 String temp_paramEntities = null;
                                 String[] column_name = new String[] { "invoice_num1", "invoice_num2", "delivery_type", "part", "customer_name", "address_old", "address_new", "phone", "box_type", "commission_place", "etc", "customer_comment", "pay_type", "fees", "quantity", "book_type", "delivery_time", "delivery_status", "store_num", "store_name", "sm_num", "sm_name" };
 
-                                if (param_intent.Equals("물량정보조회3"))
+                                if (param_intent.Equals("물량정보조회3") || param_intent.Equals("물량정보조회4") || param_intent.Equals("물량정보조회5"))
                                 {
                                     Debug.WriteLine("param_intent :: " + param_intent);
                                     DButil.HistoryLog("param_intent : " + param_intent);
@@ -436,7 +436,7 @@ namespace cjlogisticsChatBot
                                     {
                                         var resultAnswerChk = entities[i]["type"].ToString().Substring(0, 2);
                                         if (resultAnswerChk.Equals("r_"))
-                                        {   //검색하고자 하는 entity배열 (select할 부분)<- 아직 사용안함
+                                        {   //검색하고자 하는 entity배열 (select할 부분)
                                             var answerEntity = entities[i]["type"].ToString().Substring(2, entities[i]["type"].ToString().Length - 2);
                                             _resultAnswer.Add(answerEntity);
                                         }
@@ -598,29 +598,6 @@ namespace cjlogisticsChatBot
                                                 settingResult = settingResult.Substring(0, settingResult.Length - 2);
                                                 dlg.cardText = dlg.cardText.Replace("##DATA", settingResult);
                                             }
-
-                                            //dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM1", deliveryData[i].invoice_num1 + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM2", deliveryData[i].invoice_num2 + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##DELIVERY_TYPE", deliveryData[i].delivery_type + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##PART", deliveryData[i].part + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##CUSTOMER_NAME", deliveryData[i].customer_name + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##ADDRESS_OLD", deliveryData[i].address_old + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##ADDRESS_NEW", deliveryData[i].address_new + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##PHONE", deliveryData[i].phone + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##BOX_TYPE", deliveryData[i].box_type + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##COMMISSION_PLACE", deliveryData[i].commission_place + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##ETC", deliveryData[i].etc + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##CUSTOMER_COMMENT", deliveryData[i].customer_comment + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##PAY_TYPE", deliveryData[i].pay_type + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##FEES", deliveryData[i].fees + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##QUANTITY", deliveryData[i].quantity + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##BOOK_TYPE", deliveryData[i].book_type + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##DELIVERY_TIME", deliveryData[i].delivery_time + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##DELIVERY_STATUS", deliveryData[i].delivery_status + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##STORE_NUM", deliveryData[i].store_num + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##STORE_NAME", deliveryData[i].store_name + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##SM_NUM", deliveryData[i].sm_num + ",");
-                                            //dlg.cardText = dlg.cardText.Replace("##SM_NAME", deliveryData[i].sm_name);
 
                                             //카드 출력
                                             tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
