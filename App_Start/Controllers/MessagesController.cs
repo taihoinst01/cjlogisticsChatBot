@@ -1125,6 +1125,8 @@ namespace cjlogisticsChatBot
                                             if (param_intent.Equals("물량정보조회"))
                                             {
                                                 String type_string = "";
+                                                String type1 = "";
+                                                String type2 = "";
                                                 deliveryTypeList = db.SelectDeliveryTypeList(temp_paramEntities);
 
                                                 if (deliveryTypeList == null)
@@ -1133,7 +1135,22 @@ namespace cjlogisticsChatBot
                                                 }
                                                 else
                                                 {
-                                                    type_string = "배달 :" + deliveryTypeList[0].type_count + "건, 집화 :" + deliveryTypeList[1].type_count + "건";
+                                                    if (deliveryTypeList.Count == 1)
+                                                    {
+                                                        if (deliveryTypeList[0].delivery_type.Equals("집화"))
+                                                        {
+                                                            type_string = "배달 :0건, 집화 :" + deliveryTypeList[0].type_count + "건";
+                                                        }
+                                                        else
+                                                        {
+                                                            type_string = "배달 :"+ deliveryTypeList[0].type_count + "건, 집화 :0건";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        type_string = "배달 :" + deliveryTypeList[0].type_count + "건, 집화 :" + deliveryTypeList[1].type_count + "건";
+                                                    }
+                                                    
                                                 }
                                                 dlg.cardText = dlg.cardText.Replace("@TYPESTRING@", type_string);
                                             }
