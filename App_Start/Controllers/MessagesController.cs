@@ -587,8 +587,17 @@ namespace cjlogisticsChatBot
                                                     }
                                                 }
                                             }
-                                            settingResult = settingResult.Substring(0, settingResult.Length - 2);
-                                            dlg.cardText = dlg.cardText.Replace("##DATA", settingResult);
+                                            //Debug.WriteLine("settingResult :: " + settingResult);
+                                            if (settingResult.Equals(""))
+                                            {
+                                                dlg.cardTitle = "정보 (총 건수는 : 0 건 입니다.)";
+                                                dlg.cardText = dlg.cardText.Replace(dlg.cardText, "0 건의 정보는 조회되지 않습니다.");
+                                            }
+                                            else
+                                            {
+                                                settingResult = settingResult.Substring(0, settingResult.Length - 2);
+                                                dlg.cardText = dlg.cardText.Replace("##DATA", settingResult);
+                                            }
 
                                             //dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM1", deliveryData[i].invoice_num1 + ",");
                                             //dlg.cardText = dlg.cardText.Replace("##INVOICE_NUM2", deliveryData[i].invoice_num2 + ",");
