@@ -1507,5 +1507,53 @@ namespace cjlogisticsChatBot.DB
             }
             return dbResult;
         }
+
+        /*
+         * 물량정보조회 시에 배달, 집화 건수 보이기
+         * */
+        public List<DeliveryTypeList> SelectDeliveryTypeList(String deliveryParamList)
+        {
+            SqlDataReader rdr = null;
+            List<DeliveryTypeList> result = new List<DeliveryTypeList>();
+            
+            String[] temp_param_full = null;
+
+            temp_param_full = deliveryParamList.Split(new string[] { "#" }, StringSplitOptions.None);
+
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT ISNULL(COUNT(DELIVERY_TYPE),0) AS TYPE_COUNT, DELIVERY_TYPE ";
+                cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
+                cmd.CommandText += "    WHERE 1=1";
+                for (int ii = 0; ii < temp_param_full.Length; ii++)
+                {
+                    cmd.CommandText += " AND " + temp_param_full[ii];
+                }
+                cmd.CommandText += "    GROUP BY DELIVERY_TYPE ";
+
+                //cmd.Parameters.AddWithValue("@strTime", strTime);
+
+                Debug.WriteLine("* SelectDeliveryTypeList() CommandText : " + cmd.CommandText);
+
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    DeliveryTypeList deliveryTypeList = new DeliveryTypeList();
+                    deliveryTypeList.type_count = Convert.ToInt32(rdr["TYPE_COUNT"]);
+                    deliveryTypeList.delivery_type = rdr["DELIVERY_TYPE"] as string;
+                    
+                    result.Add(deliveryTypeList);
+                }
+
+                return result;
+            }
+        }
     }
+
+
 }
