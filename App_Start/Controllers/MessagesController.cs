@@ -309,7 +309,7 @@ namespace cjlogisticsChatBot
 
                         ///////////////////////////////////////////////////////////////////////
                         //물량정보조회3의 entitites를 가격으로 임의 지정
-                        if (luisIntent.Equals("물량정보조회3") || luisIntent.Equals("물량정보조회4") || luisIntent.Equals("물량정보조회5"))
+                        if (luisIntent.Equals("물량정보조회2") || luisIntent.Equals("물량정보조회3") || luisIntent.Equals("물량정보조회4") || luisIntent.Equals("물량정보조회5"))
                         {
                             cacheList.luisEntities = "가격";  //임시설정
                         }
@@ -423,7 +423,7 @@ namespace cjlogisticsChatBot
                                 String temp_paramEntities = null;
                                 String[] column_name = new String[] { "invoice_num1", "invoice_num2", "delivery_type", "part", "customer_name", "address_old", "address_new", "phone", "box_type", "commission_place", "etc", "customer_comment", "pay_type", "fees", "quantity", "book_type", "delivery_time", "delivery_status", "store_num", "store_name", "sm_num", "sm_name" };
 
-                                if (param_intent.Equals("물량정보조회3") || param_intent.Equals("물량정보조회4") || param_intent.Equals("물량정보조회5"))
+                                if (param_intent.Equals("물량정보조회2") || param_intent.Equals("물량정보조회3") || param_intent.Equals("물량정보조회4") || param_intent.Equals("물량정보조회5"))
                                 {
                                     Debug.WriteLine("param_intent :: " + param_intent);
                                     DButil.HistoryLog("param_intent : " + param_intent);
