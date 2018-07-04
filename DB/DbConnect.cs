@@ -1580,6 +1580,36 @@ namespace cjlogisticsChatBot.DB
                 return result;
             }
         }
+
+        public string OldMentChk(string userId)
+        {
+            SqlDataReader rdr = null;
+            string oldMsg = "";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+
+                cmd.CommandText += "	SELECT TOP 3                                                                    ";
+                cmd.CommandText += "        USER_NUMBER, CUSTOMER_COMMENT_KR, CHATBOT_COMMENT_CODE, CHANNEL, REG_DATE   ";
+                cmd.CommandText += "        + FROM TBL_HISTORY_QUERY                                                    ";
+                cmd.CommandText += "        + WHERE 1 = 1                                                               ";
+                cmd.CommandText += "        + AND USER_NUMBER = @userNumber                                             ";
+                cmd.CommandText += "        + ORDER BY REG_DATE DESC                                                    ";
+
+                cmd.Parameters.AddWithValue("@userNumber", userId);
+
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    oldMsg = rdr["CUSTOMER_COMMENT_KR"] as string;
+                }
+            }
+            return oldMsg;
+        }
     }
 
 

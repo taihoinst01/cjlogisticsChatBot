@@ -480,6 +480,8 @@ namespace cjlogisticsChatBot
                                     if (deliveryData != null)
                                     {
                                         var oriTextData = dlg.cardText;
+                                        int _tempFee = 0;
+                                        var _sumFlag = 0;
                                         DButil.HistoryLog("deliveryData.Count ::::: " + deliveryData.Count);
                                         for (int i = 0; i < deliveryData.Count(); i++)
                                         {
@@ -550,7 +552,17 @@ namespace cjlogisticsChatBot
                                                         }
                                                         else if (_resultAnswer[j].ToString().Equals("fees"))
                                                         {
-                                                            settingResult = settingResult + deliveryData[i].fees + ", ";
+                                                            if (_resultAnswer.Count().Equals(1))
+                                                            {
+                                                                _sumFlag = 1;
+                                                                _tempFee = _tempFee + Convert.ToInt32(deliveryData[i].fees);
+                                                                Debug.WriteLine("_tempFee :: " + _tempFee);
+                                                            }
+                                                            else
+                                                            {
+                                                                settingResult = settingResult + deliveryData[i].fees + ", ";
+                                                            }
+
                                                         }
                                                         else if (_resultAnswer[j].ToString().Equals("quantity"))
                                                         {
@@ -590,8 +602,15 @@ namespace cjlogisticsChatBot
                                             //Debug.WriteLine("settingResult :: " + settingResult);
                                             if (settingResult.Equals(""))
                                             {
-                                                dlg.cardTitle = "정보 (총 건수는 : 0 건 입니다.)";
-                                                dlg.cardText = dlg.cardText.Replace(dlg.cardText, "0 건의 정보는 조회되지 않습니다.");
+                                                if (!_tempFee.Equals(0)) {  //수수료 멘트
+                                                    dlg.cardTitle = "정보 (총 건수는 : " + deliveryData.Count() + "건 입니다.)";
+                                                    dlg.cardText = dlg.cardText.Replace("##DATA", _tempFee.ToString());
+                                                }
+                                                else
+                                                {
+                                                    dlg.cardTitle = "정보 (총 건수는 : 0 건 입니다.)";
+                                                    dlg.cardText = dlg.cardText.Replace(dlg.cardText, "0 건의 정보는 조회되지 않습니다.");
+                                                }
                                             }
                                             else
                                             {
@@ -600,8 +619,16 @@ namespace cjlogisticsChatBot
                                             }
 
                                             //카드 출력
-                                            tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
-                                            commonReply.Attachments.Add(tempAttachment);
+                                            if (_sumFlag.Equals(1) && i.Equals(deliveryData.Count()-1)) // 1건만 출력하기 위한 조건
+                                            {
+                                                tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
+                                                commonReply.Attachments.Add(tempAttachment);
+                                            }
+                                            else if(_sumFlag.Equals(0))
+                                            {
+                                                tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
+                                                commonReply.Attachments.Add(tempAttachment);
+                                            }
 
                                             //데이터 초기화
                                             if (i.Equals(0))
@@ -620,6 +647,21 @@ namespace cjlogisticsChatBot
                                             tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                             commonReply.Attachments.Add(tempAttachment);
                                         }
+                                    }
+                                }
+                                else if (param_intent.Equals("변경"))
+                                {
+                                    //activity.Conversation.Id  <-- history에 저장되는 userid
+
+                                    String oldMent = db.OldMentChk(activity.Conversation.Id);
+
+                                    //db.UpdateDeliveryData(etc_data, comment_data, temp_paramEntities);
+
+
+
+                                    for (int i = 0; i < entities.Count(); i++)
+                                    {
+
                                     }
                                 }
                                 else if (param_intent.Equals("등록신청"))
