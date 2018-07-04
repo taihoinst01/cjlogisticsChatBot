@@ -872,7 +872,20 @@ namespace cjlogisticsChatBot
                                         deliveryDataCount = deliveryDataCount_.ToString();
 
                                         //deliveryDataCount = deliveryData.Count.ToString();
-                                        
+                                        if (param_intent.Equals("문자안내전송"))
+                                        {
+
+                                            for (var z = 0; z < entities.Count(); z++)
+                                            {
+                                                String temp_ent = entities[z]["type"].ToString();
+                                                temp_ent = Regex.Replace(temp_ent, " ", "");
+                                                if (temp_ent.Equals("sms_msg"))
+                                                {
+                                                    smsMsg = Regex.Replace(entities[z]["entity"].ToString(), " ", "");
+                                                }
+                                            }
+                                        }
+
                                         for (var z = 0; z < entities.Count(); z++)
                                         {
                                             String temp_ent = entities[z]["entity"].ToString();
@@ -953,7 +966,7 @@ namespace cjlogisticsChatBot
                                             dlg.cardText = dlg.cardText.Replace("@SM_NAME@", sm_name);
 
                                             dlg.cardText = dlg.cardText.Replace("@DELIVERY_COUNT@", deliveryDataCount);
-                                            dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", smsMsg);
+                                            dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", "\""+smsMsg+"\"");
 
 
 
@@ -1171,7 +1184,7 @@ namespace cjlogisticsChatBot
                                             dlg.cardText = dlg.cardText.Replace("@SM_NUM@", deliveryData[0].sm_num);
                                             dlg.cardText = dlg.cardText.Replace("@SM_NAME@", deliveryData[0].sm_name);
 
-                                            dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", smsMsg);
+                                            dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", "\"" + smsMsg + "\"");
 
                                             if (param_intent.Equals("물량정보조회"))
                                             {
