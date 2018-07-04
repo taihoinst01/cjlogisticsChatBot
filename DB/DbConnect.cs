@@ -1338,9 +1338,15 @@ namespace cjlogisticsChatBot.DB
              */
             String[] temp_param_full = null;
 
-            temp_param_full = deliveryParamList.Split(new string[] { "#" }, StringSplitOptions.None);
+            if(deliveryParamList==null|| deliveryParamList.Equals(""))
+            {
 
-
+            }
+            else
+            {
+                temp_param_full = deliveryParamList.Split(new string[] { "#" }, StringSplitOptions.None);
+            }
+            
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -1351,13 +1357,21 @@ namespace cjlogisticsChatBot.DB
                 cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME ";
                 cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
                 cmd.CommandText += "    WHERE 1=1";
-                for (int ii = 0; ii < temp_param_full.Length; ii++)
+                if (deliveryParamList == null || deliveryParamList.Equals(""))
                 {
-                    String[] temp_param = null;
-                    temp_param = temp_param_full[ii].Split(new string[] { "," }, StringSplitOptions.None);//사용되는 곳은 없음. 혹시 필요한건가 해서..
 
-                    cmd.CommandText += " AND " + temp_param_full[ii];
                 }
+                else
+                {
+                    for (int ii = 0; ii < temp_param_full.Length; ii++)
+                    {
+                        String[] temp_param = null;
+                        temp_param = temp_param_full[ii].Split(new string[] { "," }, StringSplitOptions.None);//사용되는 곳은 없음. 혹시 필요한건가 해서..
+
+                        cmd.CommandText += " AND " + temp_param_full[ii];
+                    }
+                }
+                
 
                 //cmd.Parameters.AddWithValue("@strTime", strTime);
 
@@ -1517,10 +1531,15 @@ namespace cjlogisticsChatBot.DB
             List<DeliveryTypeList> result = new List<DeliveryTypeList>();
             
             String[] temp_param_full = null;
+            if (deliveryParamList == null || deliveryParamList.Equals(""))
+            {
 
-            temp_param_full = deliveryParamList.Split(new string[] { "#" }, StringSplitOptions.None);
-
-
+            }
+            else
+            {
+                temp_param_full = deliveryParamList.Split(new string[] { "#" }, StringSplitOptions.None);
+            }
+            
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -1529,10 +1548,18 @@ namespace cjlogisticsChatBot.DB
                 cmd.CommandText += " SELECT ISNULL(COUNT(DELIVERY_TYPE),0) AS TYPE_COUNT, DELIVERY_TYPE ";
                 cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
                 cmd.CommandText += "    WHERE 1=1";
-                for (int ii = 0; ii < temp_param_full.Length; ii++)
+                if (deliveryParamList == null || deliveryParamList.Equals(""))
                 {
-                    cmd.CommandText += " AND " + temp_param_full[ii];
+
                 }
+                else
+                {
+                    for (int ii = 0; ii < temp_param_full.Length; ii++)
+                    {
+                        cmd.CommandText += " AND " + temp_param_full[ii];
+                    }
+                }
+                
                 cmd.CommandText += "    GROUP BY DELIVERY_TYPE ";
 
                 //cmd.Parameters.AddWithValue("@strTime", strTime);
