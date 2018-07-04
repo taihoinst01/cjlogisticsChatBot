@@ -663,12 +663,14 @@ namespace cjlogisticsChatBot
                                                 {
                                                     //nothing--remove parameter data    
                                                 }
-                                                else
-                                                {
-                                                    temp_paramEntities = temp_paramEntities + entities[i]["type"].ToString() + "='" + entity_data + "'#";
-                                                }
+                                               
 
                                                 if (comment_data.Equals("") || comment_data == null)
+                                                {
+                                                    //nothing--remove parameter data    
+                                                }
+
+                                                if (entity_type.Equals("customer_comment")|| entity_type.Equals("etc"))
                                                 {
                                                     //nothing--remove parameter data    
                                                 }
@@ -677,7 +679,8 @@ namespace cjlogisticsChatBot
                                                     temp_paramEntities = temp_paramEntities + entities[i]["type"].ToString() + "='" + entity_data + "'#";
                                                 }
 
-                                                if(temp_paramEntities==null|| temp_paramEntities == "")
+
+                                                if (temp_paramEntities==null|| temp_paramEntities == "")
                                                 {
 
                                                 }
@@ -699,6 +702,7 @@ namespace cjlogisticsChatBot
                                             comment_data = "";
                                         }
                                     }
+                                    
                                     db_update_check = db.UpdateDeliveryData(etc_data, comment_data, temp_paramEntities);
                                     deliveryData = new List<DeliveryData>();
                                     deliveryData = db.SelectDeliveryData(temp_paramEntities);
