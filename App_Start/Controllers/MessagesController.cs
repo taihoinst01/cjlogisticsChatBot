@@ -1042,6 +1042,34 @@ namespace cjlogisticsChatBot
 
                                             }
                                             dlg.cardText = dlg.cardText.Replace("@SUBINFO@", sub_info);
+
+                                            if (param_intent.Equals("물량정보조회"))
+                                            {
+                                                String type_string = "";
+                                                deliveryTypeList = db.SelectDeliveryTypeList(temp_paramEntities);
+
+                                                if (deliveryTypeList == null)
+                                                {
+                                                    type_string = "배달 :0건, 집화 :0건";
+                                                }
+                                                else
+                                                {
+                                                   
+                                                    if (deliveryTypeList[0].delivery_type.Equals("집화"))
+                                                    {
+                                                        type_string = "배달 :0건, 집화 :" + deliveryTypeList[0].type_count + "건";
+                                                    }
+                                                    else
+                                                    {
+                                                        type_string = "배달 :" + deliveryTypeList[0].type_count + "건, 집화 :0건";
+                                                    }
+                                                }
+                                                dlg.cardText = dlg.cardText.Replace("@TYPESTRING@", type_string);
+                                            }
+                                            else
+                                            {
+                                                dlg.cardText = dlg.cardText.Replace("@TYPESTRING@", "");
+                                            }
                                         }
                                         else
                                         {
