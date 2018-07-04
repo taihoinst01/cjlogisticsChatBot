@@ -1215,6 +1215,7 @@ namespace cjlogisticsChatBot
 
                             Debug.WriteLine("SERARCH MESSAGE : " + message);
                             //네이버 기사 검색
+                            sorryflag = true;
                             if (sorryflag)
                             {
                                 //Sorry Message 
