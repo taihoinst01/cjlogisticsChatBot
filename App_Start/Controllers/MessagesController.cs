@@ -1186,7 +1186,30 @@ namespace cjlogisticsChatBot
 
                                             dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", "\"" + smsMsg + "\"");
 
-                                            if (param_intent.Equals("물량정보조회"))
+                                            for (int i = 0; i < deliveryData.Count; i++)
+                                            {
+                                                for (var a = 0; a < entities.Count(); a++)
+                                                {
+                                                    if (entities[a]["type"].ToString().Equals("delivery_info"))
+                                                    {
+                                                        sub_info += "*` 송장번호 : " + deliveryData[i].invoice_num2;
+                                                        sub_info += " ,이름 : " + deliveryData[i].customer_name+"`";
+                                                    }
+
+                                                }
+                                            }
+                                                
+
+                                            if (sub_info.Equals("") || sub_info == null)
+                                            {
+                                                dlg.cardText = dlg.cardText.Replace("@SUBINFO@", "");
+                                            }
+                                            else
+                                            {
+                                                dlg.cardText = dlg.cardText.Replace("@SUBINFO@", sub_info);
+                                            }
+
+                                                if (param_intent.Equals("물량정보조회"))
                                             {
                                                 String type_string = "";
                                                 String type1 = "";
@@ -1254,15 +1277,14 @@ namespace cjlogisticsChatBot
                         }
                         else
                         {
+                            Debug.WriteLine("no dialogue-------------");
                             string newUserID = activity.Conversation.Id;
                             string beforeUserID = "";
                             string beforeMessgaeText = "";
                             //string messgaeText = "";
 
                             Activity intentNoneReply = activity.CreateReply();
-                            Boolean sorryflag = false;
-
-
+                            
                             if (beforeUserID != newUserID)
                             {
                                 beforeUserID = newUserID;
@@ -1273,49 +1295,30 @@ namespace cjlogisticsChatBot
                             beforeMessgaeText = message.ToString();
 
                             Debug.WriteLine("SERARCH MESSAGE : " + message);
-                            //네이버 기사 검색
-                            sorryflag = true;
-                            if (sorryflag)
+
+                            Activity sorryReply = activity.CreateReply();
+                            sorryReply.Recipient = activity.From;
+                            sorryReply.Type = "message";
+                            sorryReply.Attachments = new List<Attachment>();
+                            sorryReply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+
+                            List<TextList> text = new List<TextList>();
+                            text = db.SelectSorryDialogText("5");
+                            for (int i = 0; i < text.Count; i++)
                             {
-                                //Sorry Message 
-                                int sorryMessageCheck = db.SelectUserQueryErrorMessageCheck(activity.Conversation.Id, MessagesController.chatBotID);
-
-                                ++MessagesController.sorryMessageCnt;
-
-                                Activity sorryReply = activity.CreateReply();
-
-                                sorryReply.Recipient = activity.From;
-                                sorryReply.Type = "message";
-                                sorryReply.Attachments = new List<Attachment>();
-                                sorryReply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-
-                                List<TextList> text = new List<TextList>();
-                                if (sorryMessageCheck == 0)
+                                HeroCard plCard = new HeroCard()
                                 {
-                                    text = db.SelectSorryDialogText("5");
-                                }
-                                else
-                                {
-                                    text = db.SelectSorryDialogText("6");
-                                }
+                                    Title = text[i].cardTitle,
+                                    Text = text[i].cardText
+                                };
 
-                                for (int i = 0; i < text.Count; i++)
-                                {
-                                    HeroCard plCard = new HeroCard()
-                                    {
-                                        Title = text[i].cardTitle,
-                                        Text = text[i].cardText
-                                    };
-
-                                    Attachment plAttachment = plCard.ToAttachment();
-                                    sorryReply.Attachments.Add(plAttachment);
-                                }
-
-                                SetActivity(sorryReply);
-                                //await connector.Conversations.SendToConversationAsync(sorryReply);
-                                sorryflag = false;
-                                replyresult = "D";
+                                Attachment plAttachment = plCard.ToAttachment();
+                                sorryReply.Attachments.Add(plAttachment);
                             }
+
+                            SetActivity(sorryReply);
+                            replyresult = "D";
+                            
                         }
 
                         DateTime endTime = DateTime.Now;
@@ -1354,6 +1357,7 @@ namespace cjlogisticsChatBot
                     {
                         //text = db.SelectSorryDialogText("6");
                     }
+                    text = db.SelectSorryDialogText("5");
 
                     for (int i = 0; i < text.Count; i++)
                     {
