@@ -15,6 +15,7 @@ namespace cjlogisticsChatBot.Models
         public string customer_name;
         public string address_old;
         public string address_new;
+        public string address_detail;
         public string phone;
 
         public string box_type;

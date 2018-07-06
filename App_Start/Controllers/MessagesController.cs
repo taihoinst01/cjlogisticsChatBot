@@ -602,7 +602,8 @@ namespace cjlogisticsChatBot
                                             //Debug.WriteLine("settingResult :: " + settingResult);
                                             if (settingResult.Equals(""))
                                             {
-                                                if (!_tempFee.Equals(0)) {  //수수료 멘트
+                                                if (!_tempFee.Equals(0))
+                                                {  //수수료 멘트
                                                     dlg.cardTitle = "정보 (총 건수는 : " + deliveryData.Count() + "건 입니다.)";
                                                     dlg.cardText = dlg.cardText.Replace("##DATA", _tempFee.ToString());
                                                 }
@@ -619,12 +620,12 @@ namespace cjlogisticsChatBot
                                             }
 
                                             //카드 출력
-                                            if (_sumFlag.Equals(1) && i.Equals(deliveryData.Count()-1)) // 1건만 출력하기 위한 조건
+                                            if (_sumFlag.Equals(1) && i.Equals(deliveryData.Count() - 1)) // 1건만 출력하기 위한 조건
                                             {
                                                 tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                                 commonReply.Attachments.Add(tempAttachment);
                                             }
-                                            else if(_sumFlag.Equals(0))
+                                            else if (_sumFlag.Equals(0))
                                             {
                                                 tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                                 commonReply.Attachments.Add(tempAttachment);
@@ -664,6 +665,48 @@ namespace cjlogisticsChatBot
 
                                     }
                                 }
+                                else if (param_intent.Equals("물량그룹건수조회"))
+                                {
+                                    String groupByParam = "";
+                                    String groupColumn = "";
+                                    for (var j = 0; j < entities.Count(); j++)
+                                    {
+                                        for (int ii = 0; ii < column_name.Length; ii++)
+                                        {
+                                            if (entities[j]["type"].ToString().Equals(column_name[ii]))
+                                            {
+                                                String entity_data = entities[j]["entity"].ToString();
+                                                entity_data = Regex.Replace(entity_data, " ", "");
+                                                groupColumn = groupColumn + entities[j]["type"].ToString() + ",";
+                                                groupByParam = groupByParam + entities[j]["type"].ToString() + "='" + entity_data + "'#";
+                                            }
+                                        }
+
+                                        if (groupColumn==null|| groupColumn.Equals(""))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            groupColumn = groupColumn.Substring(0, groupColumn.Length - 1);
+                                        }
+
+                                        if (groupByParam == null || groupByParam.Equals(""))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            groupByParam = groupByParam.Substring(0, groupByParam.Length - 1);
+                                        }
+                                    }
+                                    //db select
+
+                                }
+                                else if (param_intent.Equals("문자수신시나리오"))
+                                {
+                                    
+                                }
                                 else if (param_intent.Equals("등록신청"))
                                 {
 
@@ -679,19 +722,19 @@ namespace cjlogisticsChatBot
                                     int db_update_check = 0;
                                     for (var i = 0; i < entities.Count(); i++)
                                     {
-                                        
+
                                         if (entities[i]["type"].ToString().Equals("etc_msg"))
                                         {
                                             etc_data = entities[i]["entity"].ToString();
                                             etc_data = Regex.Replace(etc_data, " ", "");
                                         }
-                                        
+
                                         if (entities[i]["type"].ToString().Equals("comment_msg"))
                                         {
                                             comment_data = entities[i]["entity"].ToString();
                                             comment_data = Regex.Replace(comment_data, " ", "");
                                         }
-                                        
+
 
                                         for (int ii = 0; ii < column_name.Length; ii++)
                                         {
@@ -700,19 +743,19 @@ namespace cjlogisticsChatBot
                                                 String entity_type = entities[i]["type"].ToString();
                                                 String entity_data = entities[i]["entity"].ToString();
                                                 entity_data = Regex.Replace(entity_data, " ", "");
-                                               
-                                                if (etc_data.Equals("") || etc_data==null)
+
+                                                if (etc_data.Equals("") || etc_data == null)
                                                 {
                                                     //nothing--remove parameter data    
                                                 }
-                                               
+
 
                                                 if (comment_data.Equals("") || comment_data == null)
                                                 {
                                                     //nothing--remove parameter data    
                                                 }
 
-                                                if (entity_type.Equals("customer_comment")|| entity_type.Equals("etc"))
+                                                if (entity_type.Equals("customer_comment") || entity_type.Equals("etc"))
                                                 {
                                                     //nothing--remove parameter data    
                                                 }
@@ -722,7 +765,7 @@ namespace cjlogisticsChatBot
                                                 }
 
 
-                                                if (temp_paramEntities==null|| temp_paramEntities == "")
+                                                if (temp_paramEntities == null || temp_paramEntities == "")
                                                 {
 
                                                 }
@@ -730,7 +773,7 @@ namespace cjlogisticsChatBot
                                                 {
                                                     temp_paramEntities = temp_paramEntities.Substring(0, temp_paramEntities.Length - 1);
                                                 }
-                                                
+
 
                                             }
                                         }
@@ -744,7 +787,7 @@ namespace cjlogisticsChatBot
                                             comment_data = "";
                                         }
                                     }
-                                    
+
                                     db_update_check = db.UpdateDeliveryData(etc_data, comment_data, temp_paramEntities);
                                     deliveryData = new List<DeliveryData>();
                                     deliveryData = db.SelectDeliveryData(temp_paramEntities);
@@ -820,8 +863,8 @@ namespace cjlogisticsChatBot
                                             }
                                         }
                                     }
-                                    
-                                    if(temp_paramEntities==null|| temp_paramEntities.Equals(""))
+
+                                    if (temp_paramEntities == null || temp_paramEntities.Equals(""))
                                     {
 
                                     }
@@ -829,7 +872,7 @@ namespace cjlogisticsChatBot
                                     {
                                         temp_paramEntities = temp_paramEntities.Substring(0, temp_paramEntities.Length - 1);
                                     }
-                                    
+
                                     String param_entities = temp_paramEntities;
 
                                     deliveryData = db.SelectDeliveryData(param_entities);
@@ -846,6 +889,7 @@ namespace cjlogisticsChatBot
                                     String customer_name = null;
                                     String address_old = null;
                                     String address_new = null;
+                                    String address_detail = null;
                                     String phone = null;
                                     String box_type = null;
                                     String commission_place = null;
@@ -863,7 +907,6 @@ namespace cjlogisticsChatBot
                                     String sm_name = null;
                                     String deliveryDataCount = "0";
 
-                                    String account_text = "";
                                     String smsMsg = "";
 
                                     if (deliveryData != null)
@@ -886,18 +929,6 @@ namespace cjlogisticsChatBot
                                             }
                                         }
 
-                                        for (var z = 0; z < entities.Count(); z++)
-                                        {
-                                            String temp_ent = entities[z]["entity"].ToString();
-                                            temp_ent = Regex.Replace(temp_ent, " ", "");
-                                            if (temp_ent.Equals("계좌정보"))
-                                            {
-                                                //account_temp = 1;
-                                                account_text = "계좌정보(우리은행:12345-45678-78 예금주:CJ대한통운)";
-                                                break;
-                                            }
-                                        }
-
                                         if (deliveryData.Count == 0)
                                         {
                                             //dlg.cardText = dlg.cardText.Replace("@deliveryData@", "해당 조건에 맞는 정보가 존재하지 않습니다.");
@@ -912,6 +943,7 @@ namespace cjlogisticsChatBot
                                             customer_name = deliveryData[0].customer_name;
                                             address_old = deliveryData[0].address_old;
                                             address_new = deliveryData[0].address_new;
+                                            address_detail = deliveryData[0].address_detail;
                                             phone = deliveryData[0].phone;
                                             box_type = deliveryData[0].box_type;
                                             commission_place = deliveryData[0].commission_place;
@@ -948,6 +980,7 @@ namespace cjlogisticsChatBot
                                             dlg.cardText = dlg.cardText.Replace("@CUSTOMER_NAME@", customer_name);
                                             dlg.cardText = dlg.cardText.Replace("@ADDRESS_OLD@", address_old);
                                             dlg.cardText = dlg.cardText.Replace("@ADDRESS_NEW@", address_new);
+                                            dlg.cardText = dlg.cardText.Replace("@ADDRESS_DETAIL@", address_detail);
                                             dlg.cardText = dlg.cardText.Replace("@PHONE@", phone);
                                             dlg.cardText = dlg.cardText.Replace("@BOX_TYPE@", box_type);
                                             dlg.cardText = dlg.cardText.Replace("@COMMISSION_PLACE@", commission_place);
@@ -966,7 +999,7 @@ namespace cjlogisticsChatBot
                                             dlg.cardText = dlg.cardText.Replace("@SM_NAME@", sm_name);
 
                                             dlg.cardText = dlg.cardText.Replace("@DELIVERY_COUNT@", deliveryDataCount);
-                                            dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", "\""+smsMsg+"\"");
+                                            dlg.cardText = dlg.cardText.Replace("@SMS_MSG@", "\"" + smsMsg + "\"");
 
 
 
@@ -1001,10 +1034,10 @@ namespace cjlogisticsChatBot
                                                     show_subinfo = 1;
                                                 }
 
-                                                if (entities[a]["type"].ToString().Equals("r_address_old")|| entities[a]["type"].ToString().Equals("r_address_new"))
+                                                if (entities[a]["type"].ToString().Equals("r_address_old") || entities[a]["type"].ToString().Equals("r_address_new"))
                                                 //if (entities[a]["type"].ToString().Equals("r_address_old"))
                                                 {
-                                                    sub_info += invoice_num2Test + " **지번주소 : " + address_old + " ,도로명주소 : " + address_new + "**";
+                                                    sub_info += invoice_num2Test + " **지번주소 : " + address_old + " ,도로명주소 : " + address_new + " ,상세주소 : " + address_detail + "**";
                                                     show_subinfo = 1;
                                                 }
 
@@ -1088,15 +1121,15 @@ namespace cjlogisticsChatBot
 
                                                 if (entities[a]["type"].ToString().Equals("delivery_info"))
                                                 {
-                                                    sub_info = " 송장번호 : " + invoice_num2; ;
-                                                    sub_info += " ,이름 : " + customer_name; ;
+                                                    sub_info = "*` 송장번호 : " + invoice_num2; ;
+                                                    sub_info += " ,이름 : " + customer_name + "`";
                                                     show_subinfo = 1;
                                                 }
 
                                                 if (show_subinfo == 0)
                                                 {
-                                                    sub_info = " 송장번호 : " + invoice_num2;
-                                                    sub_info += " ,이름 : " + customer_name;
+                                                    sub_info = "*` 송장번호 : " + invoice_num2;
+                                                    sub_info += " ,이름 : " + customer_name + "`";
                                                 }
 
                                             }
@@ -1109,18 +1142,18 @@ namespace cjlogisticsChatBot
 
                                                 if (deliveryTypeList == null)
                                                 {
-                                                    type_string = "배달 :0건, 집화 :0건";
+                                                    type_string = "`*배달 :0건, 집화 :0건`";
                                                 }
                                                 else
                                                 {
-                                                   
+
                                                     if (deliveryTypeList[0].delivery_type.Equals("집화"))
                                                     {
-                                                        type_string = "배달 :0건, 집화 :" + deliveryTypeList[0].type_count + "건";
+                                                        type_string = "`*배달 :0건, 집화 :" + deliveryTypeList[0].type_count + "건`";
                                                     }
                                                     else
                                                     {
-                                                        type_string = "배달 :" + deliveryTypeList[0].type_count + "건, 집화 :0건";
+                                                        type_string = "*`배달 :" + deliveryTypeList[0].type_count + "건, 집화 :0건`";
                                                     }
                                                 }
                                                 dlg.cardText = dlg.cardText.Replace("@TYPESTRING@", type_string);
@@ -1167,6 +1200,7 @@ namespace cjlogisticsChatBot
                                             dlg.cardText = dlg.cardText.Replace("@CUSTOMER_NAME@", deliveryData[0].customer_name);
                                             dlg.cardText = dlg.cardText.Replace("@ADDRESS_OLD@", deliveryData[0].address_old);
                                             dlg.cardText = dlg.cardText.Replace("@ADDRESS_NEW@", deliveryData[0].address_new);
+                                            dlg.cardText = dlg.cardText.Replace("@ADDRESS_DETAIL@", deliveryData[0].address_detail);
                                             dlg.cardText = dlg.cardText.Replace("@PHONE@", deliveryData[0].phone);
                                             dlg.cardText = dlg.cardText.Replace("@BOX_TYPE@", deliveryData[0].box_type);
                                             dlg.cardText = dlg.cardText.Replace("@COMMISSION_PLACE@", deliveryData[0].commission_place);
@@ -1193,32 +1227,24 @@ namespace cjlogisticsChatBot
                                                     if (entities[a]["type"].ToString().Equals("delivery_info"))
                                                     {
                                                         sub_info += "*` 송장번호 : " + deliveryData[i].invoice_num2;
-                                                        sub_info += " ,이름 : " + deliveryData[i].customer_name+"`";
+                                                        sub_info += " ,이름 : " + deliveryData[i].customer_name + "`";
                                                     }
 
                                                 }
                                             }
-                                                
 
-                                            if (sub_info.Equals("") || sub_info == null)
-                                            {
-                                                dlg.cardText = dlg.cardText.Replace("@SUBINFO@", "");
-                                            }
-                                            else
-                                            {
-                                                dlg.cardText = dlg.cardText.Replace("@SUBINFO@", sub_info);
-                                            }
 
-                                                if (param_intent.Equals("물량정보조회"))
+
+
+                                            if (param_intent.Equals("물량정보조회"))
                                             {
                                                 String type_string = "";
-                                                String type1 = "";
-                                                String type2 = "";
+
                                                 deliveryTypeList = db.SelectDeliveryTypeList(temp_paramEntities);
 
                                                 if (deliveryTypeList == null)
                                                 {
-                                                    type_string = "배달 :0건, 집화 :0건";
+                                                    type_string = "*`배달 :0건, 집화 :0건`";
                                                 }
                                                 else
                                                 {
@@ -1226,20 +1252,36 @@ namespace cjlogisticsChatBot
                                                     {
                                                         if (deliveryTypeList[0].delivery_type.Equals("집화"))
                                                         {
-                                                            type_string = "배달 :0건, 집화 :" + deliveryTypeList[0].type_count + "건";
+                                                            type_string = "*`배달 :0건, 집화 :" + deliveryTypeList[0].type_count + "건`";
                                                         }
                                                         else
                                                         {
-                                                            type_string = "배달 :"+ deliveryTypeList[0].type_count + "건, 집화 :0건";
+                                                            type_string = "*`배달 :" + deliveryTypeList[0].type_count + "건, 집화 :0건`";
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        type_string = "배달 :" + deliveryTypeList[0].type_count + "건, 집화 :" + deliveryTypeList[1].type_count + "건";
+                                                        type_string = "*`배달 :" + deliveryTypeList[0].type_count + "건, 집화 :" + deliveryTypeList[1].type_count + "건`";
                                                     }
-                                                    
+
                                                 }
                                                 dlg.cardText = dlg.cardText.Replace("@TYPESTRING@", type_string);
+
+                                                if (deliveryDataCount_ > 10)
+                                                {
+                                                    dlg.cardText = dlg.cardText.Replace("@SUBINFO@", "");
+                                                }
+                                                else
+                                                {
+                                                    if (sub_info.Equals("") || sub_info == null)
+                                                    {
+                                                        dlg.cardText = dlg.cardText.Replace("@SUBINFO@", "");
+                                                    }
+                                                    else
+                                                    {
+                                                        dlg.cardText = dlg.cardText.Replace("@SUBINFO@", sub_info);
+                                                    }
+                                                }
                                             }
                                             else
                                             {
@@ -1247,7 +1289,7 @@ namespace cjlogisticsChatBot
                                             }
 
 
-                                           
+
                                         }
                                     }
                                     else
@@ -1256,7 +1298,7 @@ namespace cjlogisticsChatBot
                                         dlg.cardTitle = dlg.cardTitle.Replace(dlg.cardTitle, "정보");
                                         dlg.cardText = "해당 조건에 맞는 정보가 존재하지 않습니다.";
                                     }
-                                    
+
                                     tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
                                     commonReply.Attachments.Add(tempAttachment);
 
@@ -1284,7 +1326,7 @@ namespace cjlogisticsChatBot
                             //string messgaeText = "";
 
                             Activity intentNoneReply = activity.CreateReply();
-                            
+
                             if (beforeUserID != newUserID)
                             {
                                 beforeUserID = newUserID;
@@ -1318,7 +1360,7 @@ namespace cjlogisticsChatBot
 
                             SetActivity(sorryReply);
                             replyresult = "D";
-                            
+
                         }
 
                         DateTime endTime = DateTime.Now;

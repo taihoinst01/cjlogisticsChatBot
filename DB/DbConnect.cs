@@ -1435,7 +1435,7 @@ namespace cjlogisticsChatBot.DB
                 //        cmd.CommandText += ", " + _resultAnswer[i].ToString().ToUpper();
                 //    }
                 //}
-                cmd.CommandText += " INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ";
+                cmd.CommandText += " INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ADDRESS_DETAIL, ";
                 cmd.CommandText += " PHONE, BOX_TYPE, COMMISSION_PLACE, ETC, CUSTOMER_COMMENT, PAY_TYPE, FEES, QUANTITY, ";
                 cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME ";
                 cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
@@ -1468,6 +1468,7 @@ namespace cjlogisticsChatBot.DB
                     deliveryData.customer_name = rdr["CUSTOMER_NAME"] as string;
                     deliveryData.address_old = rdr["ADDRESS_OLD"] as string;
                     deliveryData.address_new = rdr["ADDRESS_NEW"] as string;
+                    deliveryData.address_detail = rdr["ADDRESS_DETAIL"] as string;
                     deliveryData.phone = rdr["PHONE"] as string;
                     deliveryData.box_type = rdr["BOX_TYPE"] as string;
                     deliveryData.commission_place = rdr["COMMISSION_PLACE"] as string;
@@ -1610,6 +1611,8 @@ namespace cjlogisticsChatBot.DB
             }
             return oldMsg;
         }
+
+       
     }
 
 
