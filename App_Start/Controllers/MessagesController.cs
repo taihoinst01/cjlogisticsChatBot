@@ -424,7 +424,7 @@ namespace cjlogisticsChatBot
 
                                 String param_intent = MessagesController.cacheList.luisIntent;
                                 String temp_paramEntities = null;
-                                String[] column_name = new String[] { "invoice_num1", "invoice_num2", "delivery_type", "part", "customer_name", "address_old", "address_new", "phone", "box_type", "commission_place", "etc", "customer_comment", "pay_type", "fees", "quantity", "book_type", "delivery_time", "delivery_status", "store_num", "store_name", "sm_num", "sm_name" };
+                                String[] column_name = new String[] { "invoice_num1", "invoice_num2", "delivery_type", "part", "customer_name", "address_old", "address_new", "phone", "box_type", "commission_place", "etc", "customer_comment", "pay_type", "fees", "quantity", "book_type", "delivery_time", "delivery_status", "store_num", "store_name", "sm_num", "sm_name", "address_detail" };
 
                                 if (param_intent.Equals("물량정보조회2") || param_intent.Equals("물량정보조회3") || param_intent.Equals("물량정보조회4") || param_intent.Equals("물량정보조회5"))
                                 {
@@ -595,6 +595,10 @@ namespace cjlogisticsChatBot
                                                             settingResult = settingResult + deliveryData[i].sm_num + ", ";
                                                         }
                                                         else if (_resultAnswer[j].ToString().Equals("sm_name"))
+                                                        {
+                                                            settingResult = settingResult + deliveryData[i].sm_name + ", ";
+                                                        }
+                                                        else if (_resultAnswer[j].ToString().Equals("address_detail"))
                                                         {
                                                             settingResult = settingResult + deliveryData[i].sm_name + ", ";
                                                         }
