@@ -32,6 +32,5 @@ namespace cjlogisticsChatBot.Models
         public string store_name;
         public string sm_num;
         public string sm_name;
-        public string address_detail;
     }
 }
