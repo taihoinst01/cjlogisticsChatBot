@@ -141,6 +141,7 @@
     <Compile Include="Models\AnalysisList.cs" />
     <Compile Include="Models\ConversationHistory.cs" />
     <Compile Include="Models\DeliveryTypeList.cs" />
+    <Compile Include="Models\HistoryList.cs" />
     <Compile Include="Models\QueryIntentList.cs" />
     <Compile Include="Models\RelationList.cs" />
     <Compile Include="Models\CacheList.cs" />

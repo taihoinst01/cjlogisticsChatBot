@@ -1581,10 +1581,10 @@ namespace cjlogisticsChatBot.DB
             }
         }
 
-        public string OldMentChk(string userId)
+        public List<HistoryList> OldMentChk(string userId)
         {
             SqlDataReader rdr = null;
-            string oldMsg = "";
+            List<HistoryList> oldMsg = new List<HistoryList>();
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
@@ -1592,21 +1592,25 @@ namespace cjlogisticsChatBot.DB
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
 
-                cmd.CommandText += "	SELECT TOP 3                                                                    ";
-                cmd.CommandText += "        USER_NUMBER, CUSTOMER_COMMENT_KR, CHATBOT_COMMENT_CODE, CHANNEL, REG_DATE   ";
-                cmd.CommandText += "        + FROM TBL_HISTORY_QUERY                                                    ";
-                cmd.CommandText += "        + WHERE 1 = 1                                                               ";
-                cmd.CommandText += "        + AND USER_NUMBER = @userNumber                                             ";
-                cmd.CommandText += "        + ORDER BY REG_DATE DESC                                                    ";
+                cmd.CommandText += "	SELECT TOP 5                                                                        ";
+                cmd.CommandText += "           USER_NUMBER, CUSTOMER_COMMENT_KR, CHATBOT_COMMENT_CODE, CHANNEL, REG_DATE    ";
+                cmd.CommandText += "      FROM TBL_HISTORY_QUERY                                                            ";
+                cmd.CommandText += "     WHERE 1 = 1                                                                        ";
+                cmd.CommandText += "       AND USER_NUMBER = @userNumber                                                    ";
+                cmd.CommandText += "  ORDER BY REG_DATE DESC                                                                ";
 
                 cmd.Parameters.AddWithValue("@userNumber", userId);
-
+                Debug.WriteLine("* history CommandText : " + cmd.CommandText);
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (rdr.Read())
                 {
-                    oldMsg = rdr["CUSTOMER_COMMENT_KR"] as string;
+                    HistoryList historyList = new HistoryList();
+                    historyList.customer_comment_kr = rdr["CUSTOMER_COMMENT_KR"] as string;
+
+                    oldMsg.Add(historyList);
                 }
+
             }
             return oldMsg;
         }

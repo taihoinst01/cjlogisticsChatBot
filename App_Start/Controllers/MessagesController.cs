@@ -313,7 +313,10 @@ namespace cjlogisticsChatBot
                         {
                             cacheList.luisEntities = "가격";  //임시설정
                         }
-
+                        if (luisIntent.Equals("문자안내재전송"))
+                        {
+                            cacheList.luisEntities = "reSendMsg";
+                        }
                         if (luisIntent.Equals("등록신청"))
                         {
                             cacheList.luisEntities = "insertEtcComment";
@@ -556,7 +559,6 @@ namespace cjlogisticsChatBot
                                                             {
                                                                 _sumFlag = 1;
                                                                 _tempFee = _tempFee + Convert.ToInt32(deliveryData[i].fees);
-                                                                Debug.WriteLine("_tempFee :: " + _tempFee);
                                                             }
                                                             else
                                                             {
@@ -649,20 +651,71 @@ namespace cjlogisticsChatBot
                                         }
                                     }
                                 }
-                                else if (param_intent.Equals("변경"))
+                                else if (param_intent.Equals("문자안내재전송"))
                                 {
                                     //activity.Conversation.Id  <-- history에 저장되는 userid
+                                    //이전 메세지 찾기
+                                    List<HistoryList> oldMent = db.OldMentChk(activity.Conversation.Id);
+                                    var _temp1 = "";
+                                    var _temp2 = "";
+                                    var _temp3 = "";
+                                    for (int j = 0; j < oldMent.Count(); j++)
+                                    {
+                                        //Debug.WriteLine("oldMent :: " + oldMent[j].customer_comment_kr);
+                                        JArray oldMentEntity = new JArray();
 
-                                    String oldMent = db.OldMentChk(activity.Conversation.Id);
+                                        oldMentEntity = dbutil.GetEnities(oldMent[j].customer_comment_kr);  //entities 가져오는 부분
 
-                                    //db.UpdateDeliveryData(etc_data, comment_data, temp_paramEntities);
+                                        for (int k = 0; k < oldMentEntity.Count(); k++)
+                                        {
+                                            // 3개만 적용됨(추후 더 추가될 가능성있음)
+                                            if (oldMentEntity[k]["type"].ToString().Equals("invoice"))
+                                            {
+                                                _temp1 = Regex.Replace(oldMentEntity[k]["entity"].ToString(), " ", ""); //ex) 송장   
+                                            }
+                                            else if (oldMentEntity[k]["type"].ToString().Equals("invoice_num2"))
+                                            {
+                                                _temp2 = oldMentEntity[k]["entity"].ToString();                         //ex) 8115  
+                                            }
+                                            else if (oldMentEntity[k]["type"].ToString().Equals("sms_msg"))
+                                            {
+                                                _temp3 = Regex.Replace(oldMentEntity[k]["entity"].ToString(), " ", ""); //ex) 경비실위탁배송안내  
+                                            }
+                                        }
+                                        break;
+                                    }
 
-
+                                    //변경되어 보낼 메세지 조립
+                                    string oldMsg = "";
+                                    string changeMsg = "";
 
                                     for (int i = 0; i < entities.Count(); i++)
                                     {
-
+                                        if (entities[i]["type"].ToString().Equals("sms_msg"))
+                                        {
+                                            oldMsg = Regex.Replace(entities[i]["entity"].ToString(), " ", "");
+                                        }
+                                        else if (entities[i]["type"].ToString().Equals("sms_re_msg"))
+                                        {
+                                            changeMsg = Regex.Replace(entities[i]["entity"].ToString(), " ", "");
+                                        }
                                     }
+
+                                    if (_temp3.Equals(oldMsg))
+                                    {
+                                        dlg.cardTitle = "정보";
+                                        dlg.cardText = dlg.cardText.Replace(dlg.cardText, _temp1 + _temp2 + " 고객님에게 " + changeMsg + "이라고 안내 문자 발송 했습니다.");
+                                    }
+                                    else
+                                    {
+                                        dlg.cardTitle = "정보";
+                                        dlg.cardText = dlg.cardText.Replace(dlg.cardText, oldMsg + " 포함한 문자 보낸 내역이 없습니다.");
+                                    }
+
+                                    //카드 출력
+                                    tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
+                                    commonReply.Attachments.Add(tempAttachment);
+
                                 }
                                 else if (param_intent.Equals("등록신청"))
                                 {
