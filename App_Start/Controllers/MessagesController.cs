@@ -322,6 +322,14 @@ namespace cjlogisticsChatBot
                             cacheList.luisEntities = "insertEtcComment";
                         }
 
+                        //orgMent 변경(문자수신 시나리오)
+                        if (luisIntent.Equals("문자수신시나리오") || orgMent.Equals("예") || orgMent.Equals("아니오") 
+                            || orgMent.Equals("예스") || orgMent.Equals("노") || orgMent.Equals("yes") || orgMent.Equals("no"))
+                        {
+                            luisIntent = "문자수신시나리오";
+                            cacheList.luisEntities = "smsScenario";
+                        }
+
                         DButil.HistoryLog("luisEntities : " + luisEntities);
                         ///////////////////////////////////////////////////////////////////////
 
@@ -762,7 +770,92 @@ namespace cjlogisticsChatBot
                                 }
                                 else if (param_intent.Equals("문자수신시나리오"))
                                 {
-                                    
+                                    //KSO
+                                    string invoiceNum = "";
+                                    if (orgMent.Equals("예") || orgMent.Equals("yes"))
+                                    {
+                                        dlg.cardText = dlg.cardText.Replace(dlg.cardText, "배달장소를 문앞으로 변경해주세요 라고 문자 왔습니다.");
+                                    }
+                                    else if (orgMent.Equals("아니오") || orgMent.Equals("no"))
+                                    {
+                                        dlg.cardText = dlg.cardText.Replace(dlg.cardText, "해당문자가 미확인 문자로 저장되었습니다.");
+                                    }
+                                    else if (orgMent.Equals("미확인 문자 읽어줘"))
+                                    {
+                                        //이전 메세지 찾기
+                                        List<HistoryList> oldMent = db.OldMentChk(activity.Conversation.Id);
+                                        for (int j = 0; j < oldMent.Count(); j++)
+                                        {
+                                            //Debug.WriteLine("oldMent :: " + oldMent[j].customer_comment_kr);
+                                            JArray oldMentEntity = new JArray();
+
+                                            oldMentEntity = dbutil.GetEnities(oldMent[j].customer_comment_kr);  //entities 가져오는 부분
+                                            for (int k = 0; k < oldMentEntity.Count(); k++)
+                                            {
+                                                if (oldMentEntity[k]["type"].ToString().Equals("invoice_num2"))
+                                                {
+                                                    invoiceNum = oldMentEntity[k]["entity"].ToString();         //ex) 8115  
+                                                }
+                                            }
+
+                                            if (!invoiceNum.Equals(""))
+                                            {
+                                                break;
+                                            }
+                                        }
+
+                                        if (!invoiceNum.Equals(""))
+                                        {
+                                            deliveryData = db.InvoiceNumDeliveryData(invoiceNum);
+
+                                            if (deliveryData != null)
+                                            {
+                                                dlg.cardText = dlg.cardText.Replace(dlg.cardText, "송장 " + deliveryData[0].invoice_num2 + ", " +
+                                                    deliveryData[0].part + " 고객 " + deliveryData[0].customer_name + "에게 문자 왔습니다. 읽어드릴까요?");
+                                            }
+                                            else
+                                            {
+                                                dlg.cardText = dlg.cardText.Replace(dlg.cardText, "송장 " + invoiceNum + " 은(는) 없는 송장 번호 입니다.");
+                                            }
+                                        }
+                                        dlg.cardText = dlg.cardText.Replace(dlg.cardText, "미확인 문자 1건 있습니다. 송장" + deliveryData[0].invoice_num2 + ", "+ deliveryData[0].customer_name + " 고객님께서 배달장소를 문앞으로 변경해주세요 라고 문자 보냈습니다.");
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < entities.Count(); i++)
+                                        {
+                                            if (entities[i]["type"].ToString().Equals("invoice_num1"))
+                                            {
+                                                invoiceNum = Regex.Replace(entities[i]["entity"].ToString(), " ", "");
+                                            }
+                                            else if (entities[i]["type"].ToString().Equals("invoice_num2"))
+                                            {
+                                                invoiceNum = Regex.Replace(entities[i]["entity"].ToString(), " ", "");
+                                            }
+                                        }
+
+                                        if (!invoiceNum.Equals(""))
+                                        {
+                                            deliveryData = db.InvoiceNumDeliveryData(invoiceNum);
+
+                                            if (deliveryData != null)
+                                            {
+                                                dlg.cardText = dlg.cardText.Replace(dlg.cardText, "송장 " + deliveryData[0].invoice_num2 + ", " +
+                                                    deliveryData[0].part + " 고객 " + deliveryData[0].customer_name + "에게 문자 왔습니다. 읽어드릴까요?");
+                                            }
+                                            else
+                                            {
+                                                dlg.cardText = dlg.cardText.Replace(dlg.cardText, "송장 " + invoiceNum + " 은(는) 없는 송장 번호 입니다.");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            dlg.cardText = dlg.cardText.Replace(dlg.cardText, "문자 수신 시나리오에 맞지 않는 문장입니다.");
+                                        }
+                                    }
+                                    //카드 출력
+                                    tempAttachment = dbutil.getAttachmentFromDialog(dlg, activity);
+                                    commonReply.Attachments.Add(tempAttachment);
                                 }
                                 else if (param_intent.Equals("등록신청"))
                                 {
