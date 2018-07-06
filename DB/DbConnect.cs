@@ -1354,7 +1354,7 @@ namespace cjlogisticsChatBot.DB
                 cmd.Connection = conn;
                 cmd.CommandText += " SELECT INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ";
                 cmd.CommandText += " PHONE, BOX_TYPE, COMMISSION_PLACE, ETC, CUSTOMER_COMMENT, PAY_TYPE, FEES, QUANTITY, ";
-                cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME ";
+                cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME, ADDRESS_DETAIL ";
                 cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
                 cmd.CommandText += "    WHERE 1=1";
                 if (deliveryParamList == null || deliveryParamList.Equals(""))
@@ -1404,6 +1404,7 @@ namespace cjlogisticsChatBot.DB
                     deliveryData.store_name = rdr["STORE_NAME"] as string;
                     deliveryData.sm_num = rdr["SM_NUM"] as string;
                     deliveryData.sm_name = rdr["SM_NAME"] as string;
+                    deliveryData.address_detail = rdr["ADDRESS_DETAIL"] as string;
 
                     result.Add(deliveryData);
                 }
@@ -1424,20 +1425,9 @@ namespace cjlogisticsChatBot.DB
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText += " SELECT ";
-                //for(int i=0; i< _resultAnswer.Count(); i++)
-                //{
-                //    if (_resultAnswer.Count().Equals(1))
-                //    {
-                //        cmd.CommandText += _resultAnswer[i].ToString().ToUpper();
-                //    }
-                //    else
-                //    {
-                //        cmd.CommandText += ", " + _resultAnswer[i].ToString().ToUpper();
-                //    }
-                //}
-                cmd.CommandText += " INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ADDRESS_DETAIL, ";
+                cmd.CommandText += " INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ";
                 cmd.CommandText += " PHONE, BOX_TYPE, COMMISSION_PLACE, ETC, CUSTOMER_COMMENT, PAY_TYPE, FEES, QUANTITY, ";
-                cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME ";
+                cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME, ADDRESS_DETAIL ";
                 cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
                 cmd.CommandText += "    WHERE 1=1";
                 for (int i = 0; i < columnTitle.Count(); i++)
@@ -1468,7 +1458,6 @@ namespace cjlogisticsChatBot.DB
                     deliveryData.customer_name = rdr["CUSTOMER_NAME"] as string;
                     deliveryData.address_old = rdr["ADDRESS_OLD"] as string;
                     deliveryData.address_new = rdr["ADDRESS_NEW"] as string;
-                    deliveryData.address_detail = rdr["ADDRESS_DETAIL"] as string;
                     deliveryData.phone = rdr["PHONE"] as string;
                     deliveryData.box_type = rdr["BOX_TYPE"] as string;
                     deliveryData.commission_place = rdr["COMMISSION_PLACE"] as string;
@@ -1484,6 +1473,7 @@ namespace cjlogisticsChatBot.DB
                     deliveryData.store_name = rdr["STORE_NAME"] as string;
                     deliveryData.sm_num = rdr["SM_NUM"] as string;
                     deliveryData.sm_name = rdr["SM_NAME"] as string;
+                    deliveryData.address_detail = rdr["ADDRESS_DETAIL"] as string;
 
                     result.Add(deliveryData);
                 }
@@ -1582,10 +1572,10 @@ namespace cjlogisticsChatBot.DB
             }
         }
 
-        public string OldMentChk(string userId)
+        public List<HistoryList> OldMentChk(string userId)
         {
             SqlDataReader rdr = null;
-            string oldMsg = "";
+            List<HistoryList> oldMsg = new List<HistoryList>();
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
@@ -1593,26 +1583,28 @@ namespace cjlogisticsChatBot.DB
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
 
-                cmd.CommandText += "	SELECT TOP 3                                                                    ";
-                cmd.CommandText += "        USER_NUMBER, CUSTOMER_COMMENT_KR, CHATBOT_COMMENT_CODE, CHANNEL, REG_DATE   ";
-                cmd.CommandText += "        + FROM TBL_HISTORY_QUERY                                                    ";
-                cmd.CommandText += "        + WHERE 1 = 1                                                               ";
-                cmd.CommandText += "        + AND USER_NUMBER = @userNumber                                             ";
-                cmd.CommandText += "        + ORDER BY REG_DATE DESC                                                    ";
+                cmd.CommandText += "	SELECT TOP 5                                                                        ";
+                cmd.CommandText += "           USER_NUMBER, CUSTOMER_COMMENT_KR, CHATBOT_COMMENT_CODE, CHANNEL, REG_DATE    ";
+                cmd.CommandText += "      FROM TBL_HISTORY_QUERY                                                            ";
+                cmd.CommandText += "     WHERE 1 = 1                                                                        ";
+                cmd.CommandText += "       AND USER_NUMBER = @userNumber                                                    ";
+                cmd.CommandText += "  ORDER BY REG_DATE DESC                                                                ";
 
                 cmd.Parameters.AddWithValue("@userNumber", userId);
-
+                Debug.WriteLine("* history CommandText : " + cmd.CommandText);
                 rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (rdr.Read())
                 {
-                    oldMsg = rdr["CUSTOMER_COMMENT_KR"] as string;
+                    HistoryList historyList = new HistoryList();
+                    historyList.customer_comment_kr = rdr["CUSTOMER_COMMENT_KR"] as string;
+
+                    oldMsg.Add(historyList);
                 }
+
             }
             return oldMsg;
         }
-
-       
     }
 
 
