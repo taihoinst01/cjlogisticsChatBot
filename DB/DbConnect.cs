@@ -1605,7 +1605,52 @@ namespace cjlogisticsChatBot.DB
             }
             return oldMsg;
         }
+
+        /*
+       * 물량정보그룹건수 조회
+       * */
+        public List<DeliveryTypeList> SelectDeliveryGroupList(String groupByParam, String whereParam)
+        {
+            SqlDataReader rdr = null;
+            List<DeliveryTypeList> result = new List<DeliveryTypeList>();
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT ISNULL(COUNT(DELIVERY_TYPE),0) AS TYPE_COUNT, " + groupByParam + " AS DELIVERY_TYPE";
+                cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
+                cmd.CommandText += "    WHERE 1=1";
+                cmd.CommandText += "    AND " + whereParam;
+                cmd.CommandText += "    GROUP BY " + groupByParam;
+
+                //cmd.Parameters.AddWithValue("@strTime", strTime);
+
+                Debug.WriteLine("* SelectDeliveryTypeList() CommandText : " + cmd.CommandText);
+
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                String nullCheck = "";
+                while (rdr.Read())
+                {
+                    DeliveryTypeList deliveryTypeList = new DeliveryTypeList();
+                    nullCheck = rdr["DELIVERY_TYPE"] as string;
+                    if(nullCheck==null|| nullCheck.Equals("")){
+
+                    }
+                    else
+                    {
+                        deliveryTypeList.type_count = Convert.ToInt32(rdr["TYPE_COUNT"]);
+                        deliveryTypeList.delivery_type = rdr["DELIVERY_TYPE"] as string;
+                    }
+                    
+
+                    result.Add(deliveryTypeList);
+                }
+
+                return result;
+            }
+        }
     }
-
-
 }
