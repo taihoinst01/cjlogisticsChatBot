@@ -826,6 +826,7 @@ namespace cjlogisticsChatBot.DB
 
                 Debug.WriteLine("query : " + cmd.CommandText);
                 Debug.WriteLine("entity : " + entity);
+                Debug.WriteLine("intent : " + intent);
                 cmd.Parameters.AddWithValue("@intent", intent);
                 cmd.Parameters.AddWithValue("@entities", entity);
 
@@ -1338,7 +1339,7 @@ namespace cjlogisticsChatBot.DB
              */
             String[] temp_param_full = null;
 
-            if(deliveryParamList==null|| deliveryParamList.Equals(""))
+            if (deliveryParamList == null || deliveryParamList.Equals(""))
             {
 
             }
@@ -1346,7 +1347,7 @@ namespace cjlogisticsChatBot.DB
             {
                 temp_param_full = deliveryParamList.Split(new string[] { "#" }, StringSplitOptions.None);
             }
-            
+
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -1371,7 +1372,7 @@ namespace cjlogisticsChatBot.DB
                         cmd.CommandText += " AND " + temp_param_full[ii];
                     }
                 }
-                
+
 
                 //cmd.Parameters.AddWithValue("@strTime", strTime);
 
@@ -1520,7 +1521,7 @@ namespace cjlogisticsChatBot.DB
         {
             SqlDataReader rdr = null;
             List<DeliveryTypeList> result = new List<DeliveryTypeList>();
-            
+
             String[] temp_param_full = null;
             if (deliveryParamList == null || deliveryParamList.Equals(""))
             {
@@ -1530,7 +1531,7 @@ namespace cjlogisticsChatBot.DB
             {
                 temp_param_full = deliveryParamList.Split(new string[] { "#" }, StringSplitOptions.None);
             }
-            
+
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -1550,7 +1551,7 @@ namespace cjlogisticsChatBot.DB
                         cmd.CommandText += " AND " + temp_param_full[ii];
                     }
                 }
-                
+
                 cmd.CommandText += "    GROUP BY DELIVERY_TYPE ";
 
                 //cmd.Parameters.AddWithValue("@strTime", strTime);
@@ -1564,7 +1565,7 @@ namespace cjlogisticsChatBot.DB
                     DeliveryTypeList deliveryTypeList = new DeliveryTypeList();
                     deliveryTypeList.type_count = Convert.ToInt32(rdr["TYPE_COUNT"]);
                     deliveryTypeList.delivery_type = rdr["DELIVERY_TYPE"] as string;
-                    
+
                     result.Add(deliveryTypeList);
                 }
 
@@ -1572,6 +1573,7 @@ namespace cjlogisticsChatBot.DB
             }
         }
 
+        //KSO
         public List<HistoryList> OldMentChk(string userId)
         {
             SqlDataReader rdr = null;
@@ -1606,6 +1608,64 @@ namespace cjlogisticsChatBot.DB
             return oldMsg;
         }
 
+        //KSO
+        public List<DeliveryData> InvoiceNumDeliveryData(String invoiceNum)
+        {
+            SqlDataReader rdr = null;
+            List<DeliveryData> result = new List<DeliveryData>();
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += " SELECT ";
+                cmd.CommandText += " INVOICE_NUM1, INVOICE_NUM2, DELIVERY_TYPE, PART, CUSTOMER_NAME, ADDRESS_OLD, ADDRESS_NEW, ";
+                cmd.CommandText += " PHONE, BOX_TYPE, COMMISSION_PLACE, ETC, CUSTOMER_COMMENT, PAY_TYPE, FEES, QUANTITY, ";
+                cmd.CommandText += " BOOK_TYPE, DELIVERY_TIME, DELIVERY_STATUS, STORE_NUM, STORE_NAME, SM_NUM, SM_NAME, ADDRESS_DETAIL ";
+                cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
+                cmd.CommandText += "    WHERE 1=1";
+                cmd.CommandText += "    AND INVOICE_NUM2 = @invoiceNum   ";
+
+                cmd.Parameters.AddWithValue("@invoiceNum", invoiceNum);
+                Debug.WriteLine("* SelectDeliveryData() CommandText : " + cmd.CommandText);
+
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (rdr.Read())
+                {
+                    DeliveryData deliveryData = new DeliveryData();
+                    deliveryData.invoice_num1 = rdr["INVOICE_NUM1"] as string;
+                    deliveryData.invoice_num2 = rdr["INVOICE_NUM2"] as string;
+                    deliveryData.delivery_type = rdr["DELIVERY_TYPE"] as string;
+                    deliveryData.part = rdr["PART"] as string;
+                    deliveryData.customer_name = rdr["CUSTOMER_NAME"] as string;
+                    deliveryData.address_old = rdr["ADDRESS_OLD"] as string;
+                    deliveryData.address_new = rdr["ADDRESS_NEW"] as string;
+                    deliveryData.phone = rdr["PHONE"] as string;
+                    deliveryData.box_type = rdr["BOX_TYPE"] as string;
+                    deliveryData.commission_place = rdr["COMMISSION_PLACE"] as string;
+                    deliveryData.etc = rdr["ETC"] as string;
+                    deliveryData.customer_comment = rdr["CUSTOMER_COMMENT"] as string;
+                    deliveryData.pay_type = rdr["PAY_TYPE"] as string;
+                    deliveryData.fees = rdr["FEES"] as string;
+                    deliveryData.quantity = rdr["QUANTITY"] as string;
+                    deliveryData.book_type = rdr["BOOK_TYPE"] as string;
+                    deliveryData.delivery_time = rdr["DELIVERY_TIME"] as string;
+                    deliveryData.delivery_status = rdr["DELIVERY_STATUS"] as string;
+                    deliveryData.store_num = rdr["STORE_NUM"] as string;
+                    deliveryData.store_name = rdr["STORE_NAME"] as string;
+                    deliveryData.sm_num = rdr["SM_NUM"] as string;
+                    deliveryData.sm_name = rdr["SM_NAME"] as string;
+                    deliveryData.address_detail = rdr["ADDRESS_DETAIL"] as string;
+
+                    result.Add(deliveryData);
+                }
+
+                return result;
+            }
+        }
+
         /*
        * 물량정보그룹건수 조회
        * */
@@ -1622,7 +1682,14 @@ namespace cjlogisticsChatBot.DB
                 cmd.CommandText += " SELECT ISNULL(COUNT(DELIVERY_TYPE),0) AS TYPE_COUNT, " + groupByParam + " AS DELIVERY_TYPE";
                 cmd.CommandText += "    FROM TBL_DELIVERY_DATA";
                 cmd.CommandText += "    WHERE 1=1";
-                cmd.CommandText += "    AND " + whereParam;
+                if (whereParam == null || whereParam.Equals(""))
+                {
+                    //nothing
+                }
+                else
+                {
+                    cmd.CommandText += "    AND " + whereParam;
+                }
                 cmd.CommandText += "    GROUP BY " + groupByParam;
 
                 //cmd.Parameters.AddWithValue("@strTime", strTime);
@@ -1636,21 +1703,27 @@ namespace cjlogisticsChatBot.DB
                 {
                     DeliveryTypeList deliveryTypeList = new DeliveryTypeList();
                     nullCheck = rdr["DELIVERY_TYPE"] as string;
-                    if(nullCheck==null|| nullCheck.Equals("")){
+
+                    if (nullCheck == null || nullCheck.Equals(""))
+                    {
 
                     }
                     else
                     {
+
                         deliveryTypeList.type_count = Convert.ToInt32(rdr["TYPE_COUNT"]);
                         deliveryTypeList.delivery_type = rdr["DELIVERY_TYPE"] as string;
+                        result.Add(deliveryTypeList);
                     }
-                    
 
-                    result.Add(deliveryTypeList);
+
+
                 }
 
                 return result;
             }
         }
     }
+
+
 }
